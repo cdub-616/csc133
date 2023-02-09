@@ -1,4 +1,4 @@
-package Main;  //adding this to make sure my commit works
+package Main;
 
 import java.awt.Color;
 import logic.Control;
