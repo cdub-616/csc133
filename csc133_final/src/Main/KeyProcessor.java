@@ -19,7 +19,7 @@ public class KeyProcessor{
 		last = key;
 		sw.resetWatch();
 		
-		/* TODO: You can modify values below here! */
+		/* TODO: You can modify values below here!    */
 		switch(key){
 		case '%':								// ESC key
 			System.exit(0);
