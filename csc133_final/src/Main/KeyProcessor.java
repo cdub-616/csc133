@@ -26,15 +26,15 @@ public class KeyProcessor{
 			break;
 			
 		case 't':
-			Main.trigger = "t is triggered";
+			//Main.trigger = "t is triggered"; //for module 0
 			break;
 			
 		case 'u':
-			Main.trigger = "u is triggered";
+			//Main.trigger = "u is triggered"; //for module 0
 			break;
 			
 		case '$':
-			Main.trigger = "space bar is triggered";
+			//Main.trigger = "space bar is triggered"; //for module 0
 			break;
 			
 		case 'm':

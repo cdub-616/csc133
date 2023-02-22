@@ -45,7 +45,7 @@ public class Control{
 		kb = new Keyb();						// Initialize the keyboard handler
 		gl = new gameLoop(graphic, gs, frontbuffer, overlaybuffer);		// Sets up our render loop
 		graphic.setKeyListener(kb);										// Sets our graphics handler up to listen for keyboard input (Asynchronous!)
-		Main.start();
+		Main.start(this);
 	}
 	
 	// Methods
@@ -77,6 +77,15 @@ public class Control{
 		s.moveXAbsolute(x);
 		s.moveYAbsolute(y);
 		frontbuffer.addSprite(s);
+	}
+	
+	//overloaded method
+	public void addSpriteToFrontBuffer(Sprite spr) {
+		frontbuffer.addSprite(spr);
+	}
+	
+	public Sprite getSpriteFromBackBuffer(String tag) {
+		return backbuffer.getSpriteByTag(tag);
 	}
 	
 	// WARNING! DO NOT MODIFY THE CODE HERE! THIS IS HERE TO GET THE GAME LIBRARY TO WORK!
