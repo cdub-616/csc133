@@ -35,7 +35,6 @@ public class KeyProcessor{
 			
 		case '$':
 			//Main.trigger = "space bar is triggered";
-			Main.trigger = "t is triggered";
 			break;
 			
 		case 'm':
