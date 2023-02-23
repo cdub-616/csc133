@@ -45,7 +45,7 @@ public class Control{
 		kb = new Keyb();						// Initialize the keyboard handler
 		gl = new gameLoop(graphic, gs, frontbuffer, overlaybuffer);		// Sets up our render loop
 		graphic.setKeyListener(kb);										// Sets our graphics handler up to listen for keyboard input (Asynchronous!)
-		Main.start(this);
+		Main.start();
 	}
 	
 	// Methods
@@ -79,10 +79,13 @@ public class Control{
 		frontbuffer.addSprite(s);
 	}
 	
+<<<<<<< HEAD
 	public Sprite getSpriteFromBackBuffer(String tag) {
 		return backbuffer.getSpriteByTag(tag);
 	}
 	
+=======
+>>>>>>> parent of 612db84 (updated for subImages)
 	// WARNING! DO NOT MODIFY THE CODE HERE! THIS IS HERE TO GET THE GAME LIBRARY TO WORK!
 	private void loadArtIntoBackBuffer(){
 		EZFileRead ezr = new EZFileRead("Art.txt");

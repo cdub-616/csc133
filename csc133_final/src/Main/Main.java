@@ -1,11 +1,14 @@
 package Main;
 
 import java.awt.Color;
+<<<<<<< HEAD
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import Data.Sprite;
+=======
+>>>>>>> parent of 612db84 (updated for subImages)
 import logic.Control;
 import timer.stopWatchX;
 

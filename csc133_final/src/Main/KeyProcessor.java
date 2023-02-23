@@ -26,6 +26,7 @@ public class KeyProcessor{
 			break;
 			
 		case 't':
+<<<<<<< HEAD
 			//Main.trigger = "t is triggered";
 			break;
 			
@@ -35,6 +36,17 @@ public class KeyProcessor{
 			
 		case '$':
 			//Main.trigger = "space bar is triggered";
+=======
+			Main.trigger = "t is triggered";
+			break;
+			
+		case 'u':
+			Main.trigger = "u is triggered";
+			break;
+			
+		case '$':
+			Main.trigger = "space bar is triggered";
+>>>>>>> parent of 612db84 (updated for subImages)
 			break;
 			
 		case 'm':
