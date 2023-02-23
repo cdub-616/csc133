@@ -12,7 +12,7 @@ import timer.stopWatchX;
 public class Main{
 	// Fields (Static) below...
 	public static String clr = "";
-	//public static Sprite tree_s;
+	public static Sprite tree_s;
 	public static Sprite s; //for module 4
 	//public static Color c = new Color(255, 0, 0);         //for module 0
 	//public static boolean isImageDrawn = false;           //for module 0
