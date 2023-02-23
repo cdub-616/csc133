@@ -13,18 +13,15 @@ public class Main{
 	// Fields (Static) below...
 	public static String clr = "";
 	public static Sprite tree_s;
-
-	//public static Sprite s;
-
+	//public static Sprite s; //module 4
 	//public static Color c = new Color(255, 0, 0);         //for module 0
 	//public static boolean isImageDrawn = false;           //for module 0
 	//public static stopWatchX timer = new stopWatchX(250); //for module 0
 	//public static String trigger = "";                    //for module 0
-	public static Color c = new Color(255, 0, 0);
-	public static boolean isImageDrawn = false;
-	public static stopWatchX timer = new stopWatchX(250);
-	
-	public static String trigger = "";
+	//public static Color c = new Color(255, 0, 0);         //for module 0
+	//public static boolean isImageDrawn = false;           //for module 0
+	//public static stopWatchX timer = new stopWatchX(250);	//for module 0
+	//public static String trigger = "";                    //for module 0
 	// End Static fields...
 	
 	public static void main(String[] args) {
@@ -35,10 +32,9 @@ public class Main{
 	/* This is your access to things BEFORE the game loop starts */
 	public static void start(Control ctrl){
 		//TODO:  Code your starting conditions here...NOT DRAW CALLS HERE! (no addSprite or drawString)
-
 		BufferedImage treeImage = ctrl.getSpriteFromBackBuffer("naked_tree").getSprite();
 		BufferedImage buf2 = new BufferedImage(1280, 720, BufferedImage.TYPE_INT_RGB);
-		for (int i = 0; i < 10; i++) { //for top and bottom lines
+		for (int i = 0; i < 10; i++) { //for horizontal lines
 			int x = i << 7; //*128
 			int y = 0;
 			int y2 = 592;
@@ -46,7 +42,7 @@ public class Main{
 			g.drawImage(treeImage, x, y, null);
 			g.drawImage(treeImage, x, y2, null);
 		}
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < 3; i++) { //for vertical lines
 			int x = 0;
 			int x2 = 9 << 7;
 			int y = 168 + (i << 7);
@@ -73,25 +69,22 @@ public class Main{
 		//int b = c & 0xff;
 		//clr = a + ", " + r + ", " + g + ", " + b;
 	}
-	public static void start(){}
 	
 	/* This is your access to the "game loop" (It is a "callback" method from the Control class (do NOT modify that class!))*/
 	public static void update(Control ctrl) {
 		// TODO: This is where you can code! (Starting code below is just to show you how it works)
 		//if (isImageDrawn) //for module 0
-		ctrl.addSpriteToFrontBuffer(0, 0, "naked_tree");						 				// Add a tester sprite to render list by tag (Remove later! Test only!)
-		ctrl.drawString(20, 150, clr, Color.WHITE);					// Test drawing text on screen where you want (Remove later! Test only!)
-
+		ctrl.addSpriteToFrontBuffer(0, 0, "naked_tree"); // Add a tester sprite to render list by tag (Remove later! Test only!)
+		ctrl.drawString(20, 150, clr, Color.WHITE);		 // Test drawing text on screen where you want (Remove later! Test only!)
 		ctrl.addSpriteToFrontBuffer(tree_s);
 
-		if (isImageDrawn)
-			ctrl.addSpriteToFrontBuffer(0, 0, "star");						 				// Add a tester sprite to render list by tag (Remove later! Test only!)
-		ctrl.drawString(20, 150, trigger, c);					// Test drawing text on screen where you want (Remove later! Test only!)
-		
+		/*if (isImageDrawn)
+			ctrl.addSpriteToFrontBuffer(0, 0, "star");	 // Add a tester sprite to render list by tag (Remove later! Test only!)
+		ctrl.drawString(20, 150, trigger, c);			 // Test drawing text on screen where you want (Remove later! Test only!)		
 		if (timer.isTimeUp()) {
 			isImageDrawn = !isImageDrawn;
 			timer.resetWatch();
-		}
+		}*/
 	}
 	
 	// Additional Static methods below...(if needed)
