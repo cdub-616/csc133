@@ -13,7 +13,9 @@ public class Main{
 	// Fields (Static) below...
 	public static String clr = "";
 	public static Sprite tree_s;
-	public static Sprite s; //for module 4
+
+	//public static Sprite s;
+
 	//public static Color c = new Color(255, 0, 0);         //for module 0
 	//public static boolean isImageDrawn = false;           //for module 0
 	//public static stopWatchX timer = new stopWatchX(250); //for module 0
@@ -22,7 +24,6 @@ public class Main{
 	public static boolean isImageDrawn = false;
 	public static stopWatchX timer = new stopWatchX(250);
 	
-	public static String trigger = "";
 	// End Static fields...
 	
 	public static void main(String[] args) {
@@ -33,42 +34,38 @@ public class Main{
 	/* This is your access to things BEFORE the game loop starts */
 	public static void start(Control ctrl){
 		//TODO:  Code your starting conditions here...NOT DRAW CALLS HERE! (no addSprite or drawString)
-		//BufferedImage treeImage = ctrl.getSpriteFromBackBuffer("naked_tree").getSprite();
-		//BufferedImage tree_buf = treeImage.getSubimage(0, 0, 128, 128);
-		//Graphics g = tree_buf.getGraphics();
-		//tree_s = new Sprite(0, 0, treeImage, "naked_tree");
-		//BufferedImage pImage = ctrl.getSpriteFromBackBuffer("f0").getSprite(); //for module 4
-		//BufferedImage bi2 = new BufferedImage(1280, 720, BufferedImage.TYPE_INT_ARGB); //blank canvas
-		//Graphics g = bi2.getGraphics();
-		//Font temp = ctrl.getFont(); //.deriveFont(Font.BOLD); //makes print BOLD
-		//g.setFont(temp);
-		//g.setColor(Color.red);
-		//g.drawString("Tester string direct", 500, 300);
-		//g.dispose();
-		//s = new Sprite(0, 0, bi2, "bi2");
-		//BufferedImage bi2 = pImage.getSubimage(0, 0, 64, 64);
-		//s = new Sprite(200, 50, bi2, "psub");
-		/*for (int i = 0; i < 10; i++) { //draw copies
-			int x = i << 7; // *128                                     
-			int y = 128;                                                
-			BufferedImage pCopy = pImage.getSubimage(0, 0, 128, 128);   
-			Graphics g = bi2.getGraphics();                             
-			g.drawImage(pCopy, x, y, null);                            
-		}*/
-		//s = new Sprite(0, 0, bi2, "bi2");
-		//Graphics g = bi2.getGraphics(); //go back to clean canvas                     
-		//g.setColor(Color.black);
-		//g.fillRect(0, 0, bi2.getWidth(), bi2.getHeight());
-		//s = new Sprite(0, 0, bi2, "bi2");
-		//Graphics g = bi2.getGraphics();      //draw duplicate image
-		//g.drawImage(pImage, 128, 128, null); //draw duplicate image
-		//bi2.setRGB(0, 0, 0xffffffff);  // Writes a pure white pixel at 0,0 of the canvas
-		//BufferedImage bi2 = pImage.getSubimage(0, 0, 64, 64); //for subImage demo
+
+		BufferedImage treeImage = ctrl.getSpriteFromBackBuffer("naked_tree").getSprite();
+		BufferedImage buf2 = new BufferedImage(1280, 720, BufferedImage.TYPE_INT_RGB);
+		for (int i = 0; i < 10; i++) { //for top and bottom lines
+			int x = i << 7; //*128
+			int y = 0;
+			int y2 = 592;
+			Graphics g = buf2.getGraphics();
+			g.drawImage(treeImage, x, y, null);
+			g.drawImage(treeImage, x, y2, null);
+		}
+		for (int i = 0; i < 3; i++) {
+			int x = 0;
+			int x2 = 9 << 7;
+			int y = 168 + (i << 7);
+			Graphics g = buf2.getGraphics();
+			g.drawImage(treeImage, x, y, null);
+			g.drawImage(treeImage, x2, y, null);
+		}
+		Graphics g = buf2.getGraphics();
+		Font temp = ctrl.getFont().deriveFont(Font.BOLD);
+		g.setFont(temp);
+		g.setColor(Color.GREEN);
+		g.drawString("My tile-based tree level", 535, 360);
+		g.dispose();
+		tree_s = new Sprite (0, 0, buf2, "buf2");
+
 		//Color c = new Color(pImage.getRGB(100,50)); //original eye-dropper tool
 		//clr += c.getRed() + ", ";
 		//clr += c.getGreen() + ", ";
 		//clr += c.getBlue() + ", ";
-		//int c = pImage.getRGB(100, 50);  //using bit-masking for eye-dropper
+		//int c = pImage.getRGB(100, 50);             //using bit-masking for eye-dropper
 		//int a = (c >> 24) & 0xff;
 		//int r = (c >> 16) & 0xff;
 		//int g = (c >> 8) & 0xff;
@@ -81,13 +78,11 @@ public class Main{
 	public static void update(Control ctrl) {
 		// TODO: This is where you can code! (Starting code below is just to show you how it works)
 		//if (isImageDrawn) //for module 0
-		ctrl.addSpriteToFrontBuffer(0, 0, "f0");						 				// Add a tester sprite to render list by tag (Remove later! Test only!)
+		ctrl.addSpriteToFrontBuffer(0, 0, "naked_tree");						 				// Add a tester sprite to render list by tag (Remove later! Test only!)
 		ctrl.drawString(20, 150, clr, Color.WHITE);					// Test drawing text on screen where you want (Remove later! Test only!)
-		//ctrl.addSpriteToFrontBuffer(0, 0, "naked_tree");
-		//ctrl.addSpriteToFrontBuffer(s); //for module 4
-		if (isImageDrawn)
-			ctrl.addSpriteToFrontBuffer(0, 0, "star");						 				// Add a tester sprite to render list by tag (Remove later! Test only!)
-		ctrl.drawString(20, 150, trigger, c);					// Test drawing text on screen where you want (Remove later! Test only!)
+
+		ctrl.addSpriteToFrontBuffer(tree_s);
+
 		
 		if (timer.isTimeUp()) {
 			isImageDrawn = !isImageDrawn;

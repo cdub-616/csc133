@@ -107,7 +107,9 @@ public class Control{
 	       }catch (Exception e) {e.printStackTrace();}
 	}
 	
-	public Font getFont(){
+
+	public Font getFont() {
+
 		return font;
 	}
 	
