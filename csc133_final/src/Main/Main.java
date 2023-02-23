@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
 
 import Data.Sprite;
 import logic.Control;
-//import timer.stopWatchX;  //for module 0
+import timer.stopWatchX;
 
 public class Main{
 	// Fields (Static) below...
@@ -18,6 +18,11 @@ public class Main{
 	//public static boolean isImageDrawn = false;           //for module 0
 	//public static stopWatchX timer = new stopWatchX(250); //for module 0
 	//public static String trigger = "";                    //for module 0
+	public static Color c = new Color(255, 0, 0);
+	public static boolean isImageDrawn = false;
+	public static stopWatchX timer = new stopWatchX(250);
+	
+	public static String trigger = "";
 	// End Static fields...
 	
 	public static void main(String[] args) {
@@ -32,7 +37,7 @@ public class Main{
 		//BufferedImage tree_buf = treeImage.getSubimage(0, 0, 128, 128);
 		//Graphics g = tree_buf.getGraphics();
 		//tree_s = new Sprite(0, 0, treeImage, "naked_tree");
-		BufferedImage pImage = ctrl.getSpriteFromBackBuffer("f0").getSprite(); //for module 4
+		//BufferedImage pImage = ctrl.getSpriteFromBackBuffer("f0").getSprite(); //for module 4
 		//BufferedImage bi2 = new BufferedImage(1280, 720, BufferedImage.TYPE_INT_ARGB); //blank canvas
 		//Graphics g = bi2.getGraphics();
 		//Font temp = ctrl.getFont(); //.deriveFont(Font.BOLD); //makes print BOLD
@@ -41,8 +46,8 @@ public class Main{
 		//g.drawString("Tester string direct", 500, 300);
 		//g.dispose();
 		//s = new Sprite(0, 0, bi2, "bi2");
-		BufferedImage bi2 = pImage.getSubimage(0, 0, 64, 64);
-		s = new Sprite(200, 50, bi2, "psub");
+		//BufferedImage bi2 = pImage.getSubimage(0, 0, 64, 64);
+		//s = new Sprite(200, 50, bi2, "psub");
 		/*for (int i = 0; i < 10; i++) { //draw copies
 			int x = i << 7; // *128                                     
 			int y = 128;                                                
@@ -70,6 +75,7 @@ public class Main{
 		//int b = c & 0xff;
 		//clr = a + ", " + r + ", " + g + ", " + b;
 	}
+	public static void start(){}
 	
 	/* This is your access to the "game loop" (It is a "callback" method from the Control class (do NOT modify that class!))*/
 	public static void update(Control ctrl) {
@@ -79,11 +85,14 @@ public class Main{
 		ctrl.drawString(20, 150, clr, Color.WHITE);					// Test drawing text on screen where you want (Remove later! Test only!)
 		//ctrl.addSpriteToFrontBuffer(0, 0, "naked_tree");
 		//ctrl.addSpriteToFrontBuffer(s); //for module 4
+		if (isImageDrawn)
+			ctrl.addSpriteToFrontBuffer(0, 0, "star");						 				// Add a tester sprite to render list by tag (Remove later! Test only!)
+		ctrl.drawString(20, 150, trigger, c);					// Test drawing text on screen where you want (Remove later! Test only!)
 		
-		/*if (timer.isTimeUp()) { //for module 0
+		if (timer.isTimeUp()) {
 			isImageDrawn = !isImageDrawn;
 			timer.resetWatch();
-		}*/ 
+		}
 	}
 	
 	// Additional Static methods below...(if needed)
