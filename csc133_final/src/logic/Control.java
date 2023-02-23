@@ -112,6 +112,10 @@ public class Control{
 	       }catch (Exception e) {e.printStackTrace();}
 	}
 	
+	public Font getFont(){
+		return font;
+	}
+	
 	// WARNING! DO NOT MODIFY THE CODE HERE! THIS IS HERE TO GET THE GAME LIBRARY TO WORK!
 	private static String getMouseCoords(){
 		Point p = MouseInfo.getPointerInfo().getLocation();
