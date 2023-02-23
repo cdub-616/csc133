@@ -45,7 +45,7 @@ public class Control{
 		kb = new Keyb();						// Initialize the keyboard handler
 		gl = new gameLoop(graphic, gs, frontbuffer, overlaybuffer);		// Sets up our render loop
 		graphic.setKeyListener(kb);										// Sets our graphics handler up to listen for keyboard input (Asynchronous!)
-		Main.start(this);
+		Main.start();
 	}
 	
 	// Methods
@@ -79,11 +79,6 @@ public class Control{
 		frontbuffer.addSprite(s);
 	}
 	
-	//overloaded method
-	public void addSpriteToFrontBuffer(Sprite spr) {
-		frontbuffer.addSprite(spr);
-	}
-	
 	public Sprite getSpriteFromBackBuffer(String tag) {
 		return backbuffer.getSpriteByTag(tag);
 	}
@@ -112,7 +107,9 @@ public class Control{
 	       }catch (Exception e) {e.printStackTrace();}
 	}
 	
+
 	public Font getFont() {
+
 		return font;
 	}
 	
