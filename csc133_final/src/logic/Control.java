@@ -79,13 +79,10 @@ public class Control{
 		frontbuffer.addSprite(s);
 	}
 	
-<<<<<<< HEAD
 	public Sprite getSpriteFromBackBuffer(String tag) {
 		return backbuffer.getSpriteByTag(tag);
 	}
 	
-=======
->>>>>>> parent of 612db84 (updated for subImages)
 	// WARNING! DO NOT MODIFY THE CODE HERE! THIS IS HERE TO GET THE GAME LIBRARY TO WORK!
 	private void loadArtIntoBackBuffer(){
 		EZFileRead ezr = new EZFileRead("Art.txt");
