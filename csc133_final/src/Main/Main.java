@@ -24,6 +24,7 @@ public class Main{
 	public static boolean isImageDrawn = false;
 	public static stopWatchX timer = new stopWatchX(250);
 	
+	public static String trigger = "";
 	// End Static fields...
 	
 	public static void main(String[] args) {
@@ -83,6 +84,9 @@ public class Main{
 
 		ctrl.addSpriteToFrontBuffer(tree_s);
 
+		if (isImageDrawn)
+			ctrl.addSpriteToFrontBuffer(0, 0, "star");						 				// Add a tester sprite to render list by tag (Remove later! Test only!)
+		ctrl.drawString(20, 150, trigger, c);					// Test drawing text on screen where you want (Remove later! Test only!)
 		
 		if (timer.isTimeUp()) {
 			isImageDrawn = !isImageDrawn;

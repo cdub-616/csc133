@@ -79,6 +79,10 @@ public class Control{
 		frontbuffer.addSprite(s);
 	}
 	
+	public void addSpriteToFrontBuffer(Sprite spr) {
+		frontbuffer.addSprite(spr);
+	}
+	
 	
 	public Sprite getSpriteFromBackBuffer(String tag) {
 		return backbuffer.getSpriteByTag(tag);
