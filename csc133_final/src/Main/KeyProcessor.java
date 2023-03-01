@@ -25,18 +25,6 @@ public class KeyProcessor{
 			System.exit(0);
 			break;
 			
-		case 't':
-			//Main.trigger = "t is triggered";
-			break;
-			
-		case 'u':
-			//Main.trigger = "u is triggered";
-			break;
-			
-		case '$':
-			//Main.trigger = "space bar is triggered";
-			break;
-			
 		case 'm':
 			// For mouse coordinates
 			Control.isMouseCoordsDisplayed = !Control.isMouseCoordsDisplayed;
