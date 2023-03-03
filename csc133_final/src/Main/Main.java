@@ -11,7 +11,7 @@ import timer.stopWatchX;
 
 public class Main{
 	// Fields (Static) below...
-	
+	public static String s = "";
 	// End Static fields...
 	
 	public static void main(String[] args) {
@@ -29,7 +29,10 @@ public class Main{
 	public static void update(Control ctrl) {
 		// TODO: This is where you can code! (Starting code below is just to show you how it works)
 		ctrl.addSpriteToFrontBuffer(0, 0, "f0");
-		
+		if (Control.getMouseInput() != null) {
+			s = Control.getMouseInput().toString();
+		}
+		ctrl.drawString(20, 150, s, Color.WHITE);
 	}
 	
 	// Additional Static methods below...(if needed)
