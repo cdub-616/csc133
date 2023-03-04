@@ -1,3 +1,4 @@
 Art/f.png*f0
 Art/star.png*star
 Art/naked_tree_transparent.png*naked_tree
+Art/hero.png*hero

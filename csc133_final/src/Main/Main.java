@@ -29,7 +29,6 @@ public class Main{
 		rs[0] = new RECT(46, 3, 107, 123, "Persephone");         //Persephone
 		rs[1] = new RECT(0, 0, 1279, 359, "Top space");          //Space on top half of screen
 		rs[2] = new RECT(0, 360, 1279, 719, "Bottom space");      //Space on bottom half of screen
-		//BufferedImage pImage = ctrl.getSpriteFromBackBuffer("f0").getSprite();
 	}
 	
 	/* This is your access to the "game loop" (It is a "callback" method from the Control class (do NOT modify that class!))*/
