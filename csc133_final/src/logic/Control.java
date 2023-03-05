@@ -11,12 +11,14 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
+import Data.Click;
 import Data.Sprite;
 import Data.gameString;
 import FileIO.EZFileRead;
 import Graphics.Graphic;
 import Graphics.Sprites;
 import Input.Keyb;
+import Input.Mouse;
 import Main.KeyProcessor;
 import Main.Main;
 import gameloop.gameLoop;
@@ -29,9 +31,11 @@ public class Control{
 	private Sprites overlaybuffer;
 	private ArrayList<gameString> gs;
 	private Keyb kb;
+	private Mouse mouse;
 	private gameLoop gl;
 	private Font font;
 	public static boolean isMouseCoordsDisplayed;
+	private static Click mouseInput;           //Make this a singleton!
 	
 	// Constructor
 	public Control(){
@@ -43,13 +47,18 @@ public class Control{
 		setupFont();							// Set up our program to use a font custom (stored in "Font" subfolder)
 		loadArtIntoBackBuffer();				// Lods the art referenced in "Art.txt" into the backbuffer of sprites
 		kb = new Keyb();						// Initialize the keyboard handler
+		mouse = new Mouse();                    //Set up new mouse handler
 		gl = new gameLoop(graphic, gs, frontbuffer, overlaybuffer);		// Sets up our render loop
 		graphic.setKeyListener(kb);										// Sets our graphics handler up to listen for keyboard input (Asynchronous!)
+		graphic.setMouseListener(mouse);
 		Main.start(this);
 	}
 	
 	// Methods
 	// WARNING! DO NOT MODIFY THE CODE IN HERE! THIS IS HERE TO GET THE GAME LIBRARY TO WORK!
+	public static Click getMouseInput() {
+		return mouseInput;
+	}
 	public void gameLoop(){
 		char key = kb.getInputCodeX();
 		/* "Infinite" loop here...*/
@@ -63,6 +72,7 @@ public class Control{
 			overlaybuffer.clearSprites(); 										// Clears the overlay buffer for the next frame
 			gs.clear(); 														// Clears all of the gameStrings for that frame
 			key = kb.getInputCodeX(); 											// Get keyboard input for next pass
+			mouseInput = mouse.pollClick();
 		}
 	}
 	
