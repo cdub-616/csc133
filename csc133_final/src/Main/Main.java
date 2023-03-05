@@ -27,8 +27,8 @@ public class Main{
 		//TODO:  Code your starting conditions here...NOT DRAW CALLS HERE! (no addSprite or drawString)
 		rs = new RECT[3];
 		rs[0] = new RECT(275, 300, 334, 416, "Persephone"); //Persephone
-		rs[1] = new RECT(571, 292, 702, 422, "tree");       //tree
-		rs[2] = new RECT(949, 294, 1033, 434, "hero");      //hero
+		rs[1] = new RECT(571, 292, 702, 422, "Tree");       //tree
+		rs[2] = new RECT(949, 294, 1033, 434, "Hero");      //hero
 	}
 	
 	/* This is your access to the "game loop" (It is a "callback" method from the Control class (do NOT modify that class!))*/
@@ -40,14 +40,14 @@ public class Main{
 		if (Control.getMouseInput() != null) {
 			for (RECT r: rs) {
 				if (r.isClicked(Control.getMouseInput(), Click.LEFT_BUTTON)) {
-					s = r.getTag() + " was Clicked!";
+					s = r.getTag() + " has been clicked.";
 					break;
 				}
 				else
 					s = "";
 			}
 		}
-		ctrl.drawString(550, 150, s, Color.WHITE);
+		ctrl.drawString(530, 150, s, Color.GREEN);
 	}
 	
 	// Additional Static methods below...(if needed)
