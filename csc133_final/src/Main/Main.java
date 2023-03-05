@@ -34,7 +34,7 @@ public class Main{
 	/* This is your access to the "game loop" (It is a "callback" method from the Control class (do NOT modify that class!))*/
 	public static void update(Control ctrl) {
 		// TODO: This is where you can code! (Starting code below is just to show you how it works)		
-		ctrl.addSpriteToFrontBuffer(0, 0, "f0");
+		ctrl.addSpriteToFrontBuffer(384, 296, "f0");
 		if (Control.getMouseInput() != null) {
 			for (RECT r: rs) {
 				if (r.isClicked(Control.getMouseInput(), Click.LEFT_BUTTON)) {
