@@ -45,7 +45,7 @@ public class Main{
 		for (int i = 0; i < 3; i++) { //for vertical lines
 			int x = 0;
 			int x2 = 9 << 7;
-			int y = 168 + (i << 7);
+			int y = 168 + (i << 7) - 20 + 20*i;
 			Graphics g = buf2.getGraphics();
 			g.drawImage(treeImage, x, y, null);
 			g.drawImage(treeImage, x2, y, null);
