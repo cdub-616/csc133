@@ -1,5 +1,7 @@
 package Input;
 
+import java.awt.MouseInfo;
+import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -57,5 +59,9 @@ public class Mouse implements MouseListener {
 	
 	public boolean isReady() {
 		return isReady;
+	}
+	
+	public static Point getMouseCoords() {
+		return MouseInfo.getPointerInfo().getLocation();
 	}
 }
