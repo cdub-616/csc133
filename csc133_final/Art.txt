@@ -1,2 +1,6 @@
 Art/f.png*f0
 Art/f1.png*f1
+Art/c_idle.png*c0
+Art/c_leftfoot.png*c1
+Art/c_idle.png*c2
+Art/c_rightfoot.png*c3

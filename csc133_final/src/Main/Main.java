@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.awt.Point;
 
+import Data.Animation;
 import Data.Click;
 import Data.RECT;
 import Data.Sprite;
@@ -17,7 +18,7 @@ import timer.stopWatchX;
 public class Main{
 	// Fields (Static) below...
 	public static String s = "";
-	public static RECT r;
+	public static Animation anim;
 	// End Static fields...
 	
 	public static void main(String[] args) {
@@ -28,19 +29,17 @@ public class Main{
 	/* This is your access to things BEFORE the game loop starts */
 	public static void start(Control ctrl){
 		//TODO:  Code your starting conditions here...NOT DRAW CALLS HERE! (no addSprite or drawString)
-		r = new RECT(46, 3, 107, 123, "Persephone", new Frame(0, 0, "f1"));
+		anim = new Animation(120, true);
+		for (int i = 0; i < 4; i++) 
+			anim.addFrame(new Frame(0, 0, "c" + i));
 	}
+	
 	/* This is your access to the "game loop" (It is a "callback" method from the Control class (do NOT modify that class!))*/
 	public static void update(Control ctrl) {
 		// TODO: This is where you can code! (Starting code below is just to show you how it works)		
-		ctrl.addSpriteToFrontBuffer(0, 0, "f0");  //add a tester sprite to render list by tag
-		Point p = Mouse.getMouseCoords();
-		int x = (int)p.getX();
-		int y = (int)p.getY();
-		if (r.isCollision(x, y))
-			ctrl.addSpriteToFrontBuffer(r.getGraphicalHover().getX(), r.getGraphicalHover().getY(), r.getGraphicalHover().getSpriteTag());
-		else
-			s="";
+		Frame curFrame = anim.getCurrentFrame();
+		if (curFrame != null)
+			ctrl.addSpriteToFrontBuffer(curFrame.getX(), curFrame.getY(), curFrame.getSpriteTag());
 	}
 	
 	// Additional Static methods below...(if needed)
