@@ -4,16 +4,18 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.awt.Point;
 
 import Data.Click;
 import Data.RECT;
 import Data.Sprite;
+import Input.Mouse;
 import logic.Control;
 import timer.stopWatchX;
 
 public class Main{
 	// Fields (Static) below...
-	
+	public static String s = "";
 	// End Static fields...
 	
 	public static void main(String[] args) {
@@ -28,7 +30,10 @@ public class Main{
 	/* This is your access to the "game loop" (It is a "callback" method from the Control class (do NOT modify that class!))*/
 	public static void update(Control ctrl) {
 		// TODO: This is where you can code! (Starting code below is just to show you how it works)		
-		ctrl.addSpriteToFrontBuffer(224, 296, "f0");
+		ctrl.addSpriteToFrontBuffer(0, 0, "f0");  //add a tester sprite to render list by tag
+		Point p = Mouse.getMouseCoords();
+		s = p.toString();
+		ctrl.drawString(20, 150, s, Color.WHITE);
 	}
 	
 	// Additional Static methods below...(if needed)
