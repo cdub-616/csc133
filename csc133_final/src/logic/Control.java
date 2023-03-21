@@ -114,7 +114,7 @@ public class Control{
 	// WARNING! DO NOT MODIFY THE CODE HERE! THIS IS HERE TO GET THE GAME LIBRARY TO WORK!
 	private void setupFont(){
 		String fontFile = "Font/Jipatha-Regular.ttf";
-		float fontSize = 32f;
+		float fontSize = 36f;
 		font = null;
 		try {
 	           font = Font.createFont(Font.TRUETYPE_FONT, new File(fontFile)).deriveFont(fontSize);

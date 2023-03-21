@@ -7,6 +7,7 @@ public class RECT {
 	private int x2;
 	private int y2;
 	private String tag;
+	private String hoverLabel;
 	
 	//Constructor
 	public RECT(int x1, int y1, int x2, int y2, String tag) {
@@ -15,11 +16,25 @@ public class RECT {
 		this.x2 = x2;
 		this.y2 = y2;
 		this.tag = tag;
+		hoverLabel = "";
+	}
+	
+	public RECT(int x1, int y1, int x2, int y2, String tag, String hoverLabel) {
+		this.x1 = x1;
+		this.y1 = y1;
+		this.x2 = x2;
+		this.y2 = y2;
+		this.tag = tag;
+		this.hoverLabel = hoverLabel;
 	}
 	
 	//Methods
 	public String getTag() {
 		return tag;
+	}
+	
+	public String getHoverLabel() {
+		return hoverLabel;
 	}
 	
 	public boolean isCollision(int x, int y) {
