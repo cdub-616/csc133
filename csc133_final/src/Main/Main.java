@@ -23,8 +23,8 @@ import timer.stopWatchX;
 
 public class Main{
 	// Fields (Static) below...
-	public static String coord = "";  //coordinate tool
-	private static int[] buffer;  //some hypothetical game variables
+	//public static String coord = "";  //coordinate tool
+	private static int[] buffer;        //some hypothetical game variables
 	
 	// End Static fields...
 	
@@ -42,9 +42,9 @@ public class Main{
 	/* This is your access to the "game loop" (It is a "callback" method from the Control class (do NOT modify that class!))*/
 	public static void update(Control ctrl) {
 		// TODO: This is where you can code! (Starting code below is just to show you how it works)	
-		Point p = Mouse.getMouseCoords();
-		coord = p.toString();  //coordinate tool
-		ctrl.drawString(500, 360, coord, Color.WHITE);  //coordinate tool
+		/*Point p = Mouse.getMouseCoords();
+		coord = p.toString();                           //coordinate tool
+		ctrl.drawString(500, 360, coord, Color.WHITE);  //coordinate tool*/
 		
 	}
 	// Additional Static methods below...(if needed)
