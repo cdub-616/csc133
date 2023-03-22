@@ -30,18 +30,18 @@ public class KeyProcessor{
 			Control.isMouseCoordsDisplayed = !Control.isMouseCoordsDisplayed;
 			break;
 			
-		case 'f':
+		/*case 'f':
 			//for sound effects
 			Main.sfx.playWAV();
-			break;
+			break;*/
 			
-		case 'p':
+		/*case 'p':
 			//pause and unpause music
 			if (Main.song.isPlaying())
 				Main.song.pauseWAV();
 			else
 				Main.song.setLoop();
-			break;
+			break;*/
 		}
 	}
 }
