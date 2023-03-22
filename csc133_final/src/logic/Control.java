@@ -115,6 +115,18 @@ public class Control{
 		hudtext.add(new gameString(c, x, y, text, font, 1.0f));
 	}
 	
+	public void addSpriteToOverlayBuffer(int x, int y, String spriteTag) {
+		Sprite s = backbuffer.getSpriteByTag(spriteTag);
+		s.moveXAbsolute(x);
+		s.moveYAbsolute(y);
+		overlaybuffer.addSprite(s);
+	}
+	
+	//for the "custom mouse cursor" unit
+	public void hideDefaultCursor() {
+		graphic.hideCursor();
+	}
+	
 	// WARNING! DO NOT MODIFY THE CODE HERE! THIS IS HERE TO GET THE GAME LIBRARY TO WORK!
 	private void loadArtIntoBackBuffer(){
 		EZFileRead ezr = new EZFileRead("Art.txt");

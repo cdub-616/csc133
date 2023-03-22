@@ -40,6 +40,7 @@ public class Main{
 	public static void start(Control ctrl){
 		//TODO:  Code your starting conditions here...NOT DRAW CALLS HERE! (no addSprite or drawString)
 		rain = new Rain(-50, 0, 1200, 90, 25, 60, 150);
+		ctrl.hideDefaultCursor();
 	}
 	
 	/* This is your access to the "game loop" (It is a "callback" method from the Control class (do NOT modify that class!))*/
@@ -60,6 +61,9 @@ public class Main{
 		ctrl.drawString(150, 300, "Text underneath", Color.red);
 		ctrl.addSpriteToHudBuffer(200, 200, "my_hud");
 		ctrl.drawHudString(220, 270, "HUD data here...", Color.white);
+		//add our mouse cursor
+		Point p = Mouse.getMouseCoords();
+		ctrl.addSpriteToOverlayBuffer(p.x, p.y, "cursor");
 	}
 	
 	// Additional Static methods below...(if needed)
