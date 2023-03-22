@@ -13,12 +13,14 @@ import Data.Sprite;
 import Data.Frame;
 import Input.Mouse;
 import logic.Control;
+import sound.Sound;
 import timer.stopWatchX;
 
 public class Main{
 	// Fields (Static) below...
 	//public static String coord = "";  //coordinate tool
-	
+	public static Sound song = new Sound("Sound/persephone_farewell.wav");
+	public static Sound sfx = new Sound("Sound/funny_death.wav");
 	// End Static fields...
 	
 	public static void main(String[] args) {
@@ -29,7 +31,7 @@ public class Main{
 	/* This is your access to things BEFORE the game loop starts */
 	public static void start(Control ctrl){
 		//TODO:  Code your starting conditions here...NOT DRAW CALLS HERE! (no addSprite or drawString)
-		
+		song.setLoop();
 	}
 	
 	/* This is your access to the "game loop" (It is a "callback" method from the Control class (do NOT modify that class!))*/

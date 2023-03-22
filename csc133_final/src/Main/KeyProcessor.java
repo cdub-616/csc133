@@ -29,6 +29,19 @@ public class KeyProcessor{
 			// For mouse coordinates
 			Control.isMouseCoordsDisplayed = !Control.isMouseCoordsDisplayed;
 			break;
+			
+		case 'f':
+			//for sound effects
+			Main.sfx.playWAV();
+			break;
+			
+		case 'p':
+			//pause and unpause music
+			if (Main.song.isPlaying())
+				Main.song.pauseWAV();
+			else
+				Main.song.setLoop();
+			break;
 		}
 	}
 }
