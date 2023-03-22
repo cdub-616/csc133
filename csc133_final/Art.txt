@@ -1,2 +1,7 @@
 Art/f.png*f0
-Art/saveicon.png*save
+Art/forest_1280.jpg*forest
+Art/particles/raindrop1.png*raindrop1
+Art/particles/raindrop2.png*raindrop2
+Art/particles/raindrop3.png*raindrop3
+Art/particles/raindrop4.png*raindrop4
+Art/particles/raindrop5.png*raindrop5
