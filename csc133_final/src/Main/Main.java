@@ -28,7 +28,7 @@ public class Main{
 	// Fields (Static) below...
 	//public static String coord = "";  //coordinate tool
 	private static int[] buffer;        //some hypothetical game variables
-	public static Rain rain;
+	
 	// End Static fields...
 	
 	public static void main(String[] args) {
@@ -39,8 +39,7 @@ public class Main{
 	/* This is your access to things BEFORE the game loop starts */
 	public static void start(Control ctrl){
 		//TODO:  Code your starting conditions here...NOT DRAW CALLS HERE! (no addSprite or drawString)
-		//set up a rain particle system
-		rain = new Rain(-50, 0, 1200, 90, 25, 60, 150);
+		
 	}
 	
 	/* This is your access to the "game loop" (It is a "callback" method from the Control class (do NOT modify that class!))*/
@@ -49,15 +48,7 @@ public class Main{
 		/*Point p = Mouse.getMouseCoords();
 		coord = p.toString();                           //coordinate tool
 		ctrl.drawString(500, 360, coord, Color.WHITE);  //coordinate tool*/
-		//display the BG first
-		ctrl.addSpriteToFrontBuffer(0, 0, "forest");
-		//add rain particle stuff here...
-		ParticleSystem pm2 = rain.getParticleSystem();
-		Iterator<Frame> it2 = pm2.getParticles();
-		while (it2.hasNext()) {
-			Frame par2 = it2.next();
-			ctrl.addSpriteToFrontBuffer(par2.getX(), par2.getY(), par2.getSpriteTag());
-		}
+		
 	}
 	// Additional Static methods below...(if needed)
 	//create a routine to save the game data
