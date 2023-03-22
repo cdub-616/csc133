@@ -5,6 +5,8 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.awt.Point;
+import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 import Data.Animation;
 import Data.Click;
@@ -12,6 +14,7 @@ import Data.RECT;
 import Data.Sprite;
 import Data.Frame;
 import FileIO.EZFileWrite;
+import FileIO.EZFileRead;
 import Input.Mouse;
 import logic.Control;
 import script.Command;
@@ -23,9 +26,10 @@ public class Main{
 	//public static String coord = "";  //coordinate tool
 	public static String s = "";
 	public static String s2 = "";
+	public static ArrayList<Command> commands;
 	private static int[] buffer;  //some hypothetical game variables
-	private static RECT disk;
-	private static int dropShadow = 2;
+	/*private static RECT disk;
+	private static int dropShadow = 2;*/
 	/*public static Command c;
 	public static Command c2;*/
 	// End Static fields...
@@ -42,12 +46,23 @@ public class Main{
 		String raw2 = "text: Howdy partner!";
 		c = new Command(raw);
 		c2 = new Command(raw2);*/
-		disk = new RECT(101, 52, 162, 112, "savetag", "Save Game");
+		/*disk = new RECT(101, 52, 162, 112, "savetag", "Save Game");
 		buffer = new int[40];  //initialize game vars
 		//assign random values to the buffer for testing
 		for (int i = 0; i < buffer.length; i++) {
 			int value = (int)(Math.random() * 100);
 			buffer[i] = value;
+		}*/
+		EZFileRead ezr = new EZFileRead("script.txt");
+		commands = new ArrayList<>();
+		for (int i = 0; i < ezr.getNumLines(); i++) {
+			String raw = ezr.getLine(i);
+			raw = raw.trim();
+			if (!raw.equals("")) {
+				boolean b = raw.charAt(0) == '#';
+				if (!b)
+					commands.add(new Command(raw));
+			}
 		}
 	}
 	
@@ -67,7 +82,7 @@ public class Main{
 		//Point p = Mouse.getMouseCoords();
 		//coord = p.toString();  //coordinate tool
 		//ctrl.drawString(500, 360, coord, Color.WHITE);  //coordinate tool
-		ctrl.addSpriteToFrontBuffer(100, 50, "save");  //display the save icon
+		/*ctrl.addSpriteToFrontBuffer(100, 50, "save");  //display the save icon
 		//for hover...
 		Point p = Mouse.getMouseCoords();
 		int x = (int)p.getX();
@@ -85,7 +100,20 @@ public class Main{
 				s2 = "Game Saved";
 			}
 		}	
-		ctrl.drawString(0, 200, s2, Color.WHITE);  //display saved game message when applicable
+		ctrl.drawString(0, 200, s2, Color.WHITE);  //display saved game message when applicable*/
+		for (Command c: commands) {
+			if (c.isCommand("show_sprite") && c.getNumParms() == 3) {
+				int x = Integer.parseInt(c.getParmByIndex(0));
+				int y = Integer.parseInt(c.getParmByIndex(1));
+				String tag = c.getParmByIndex(2);
+				ctrl.addSpriteToFrontBuffer(x, y, tag);
+			}
+			else if (c.isCommand("text") && c.getNumParms() == 1) {
+				String display = c.getParmByIndex(0);
+				ctrl.drawString(0, 250, display, Color.WHITE);
+			}
+				
+		}
 	}
 	// Additional Static methods below...(if needed)
 	//create a routine to save the game data
@@ -99,5 +127,21 @@ public class Main{
 		EZFileWrite ezw = new EZFileWrite("save.txt");
 		ezw.writeLine(out);
 		ezw.saveFile();
+	}
+	
+	//create a routine to restore the game data
+	public static void loadData() {
+		//retrieve data from the file
+		EZFileRead ezr = new EZFileRead("save.txt");
+		String raw = ezr.getLine(0);  //read our one and only line (index #0)
+		//break this down into tokens
+		StringTokenizer st = new StringTokenizer(raw, "*");
+		if (st.countTokens() != buffer.length)
+			return;  //these must match!!!
+		for (int i = 0; i < buffer.length; i++) {
+			String value = st.nextToken();
+			int val = Integer.parseInt(value);
+			buffer[i] = val;
+		}
 	}
 }
