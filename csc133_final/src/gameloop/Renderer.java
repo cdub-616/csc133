@@ -18,7 +18,7 @@ import Data.gameString;
 
 public class Renderer{
 	
-	public static void render(Graphics g, List<gameString> gs, Sprites sps, Sprites overlays, float alpha, boolean isFade){
+	public static void render(Graphics g, List<gameString> gs, Sprites sps, List<gameString> hudtext, Sprites hud, Sprites overlays, float alpha, boolean isFade){
 		/* This is a generic function that can start fresh for any new gaming project.
 		 * All one has to do is wipe the contents and start new and it should work fine
 		 * with the rest of the game engine. */
@@ -32,6 +32,21 @@ public class Renderer{
 		
 		// ... then text
 		for(gameString a: gs){
+			Font temp = a.getFont().deriveFont(Font.BOLD);
+			g.setFont(temp);
+			g.setColor(a.getColor());
+			g.drawString(a.toString(), a.getX(), a.getY());
+		}
+		
+		//HUD sprites...
+		Iterator<Sprite> it2 = hud.getIterator();
+		while (it2.hasNext()) {
+			Sprite tmp = it2.next();
+			g.drawImage(tmp.getSprite(), tmp.getX(), tmp.getY(), null);
+		}
+		
+		//HUD text...
+		for (gameString a: hudtext) {
 			Font temp = a.getFont().deriveFont(Font.BOLD);
 			g.setFont(temp);
 			g.setColor(a.getColor());
