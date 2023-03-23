@@ -1,5 +1,6 @@
 Art/f.png*f0
 Art/forest_1280.jpg*forest
+Art/gui_bg.jpg*gui_bg
 Art/particles/raindrop1.png*raindrop1
 Art/particles/raindrop2.png*raindrop2
 Art/particles/raindrop3.png*raindrop3

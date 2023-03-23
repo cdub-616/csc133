@@ -42,6 +42,10 @@ public class KeyProcessor{
 			else
 				Main.song.setLoop();
 			break;*/
+		case 't':
+			//for resetting the text animation
+			Main.atext.resetAnimation();
+			break;
 		}
 	}
 }

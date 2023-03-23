@@ -10,6 +10,7 @@ import java.util.Iterator;
 import java.util.StringTokenizer;
 
 import Data.Animation;
+import Data.Atext;
 import Data.Click;
 import Data.RECT;
 import Data.Sprite;
@@ -28,7 +29,8 @@ public class Main{
 	// Fields (Static) below...
 	//public static String coord = "";  //coordinate tool
 	private static int[] buffer;        //some hypothetical game variables
-	public static Rain rain;
+	public static Atext atext = new Atext("This is a test of text in the console box...", 20);
+	//public static Rain rain;
 	// End Static fields...
 	
 	public static void main(String[] args) {
@@ -39,7 +41,7 @@ public class Main{
 	/* This is your access to things BEFORE the game loop starts */
 	public static void start(Control ctrl){
 		//TODO:  Code your starting conditions here...NOT DRAW CALLS HERE! (no addSprite or drawString)
-		rain = new Rain(-50, 0, 1200, 90, 25, 60, 150);
+		//rain = new Rain(-50, 0, 1200, 90, 25, 60, 150);
 		ctrl.hideDefaultCursor();
 	}
 	
@@ -50,8 +52,12 @@ public class Main{
 		coord = p.toString();                           //coordinate tool
 		ctrl.drawString(500, 360, coord, Color.WHITE);  //coordinate tool*/
 		//display the bg first
-		ctrl.addSpriteToFrontBuffer(0, 0, "forest");
-		//add rain particle stuff here
+		//ctrl.addSpriteToFrontBuffer(0, 0, "forest");
+		ctrl.addSpriteToFrontBuffer(0, 0, "gui_bg");
+		//tester console string...
+		String s = atext.getCurrentStr();
+		ctrl.drawString(20, 480, s, Color.black);
+		/*//add rain particle stuff here
 		ParticleSystem pm2 = rain.getParticleSystem();
 		Iterator<Frame> it2 = pm2.getParticles();
 		while (it2.hasNext()) {
@@ -60,7 +66,7 @@ public class Main{
 		}
 		ctrl.drawString(150, 300, "Text underneath", Color.red);
 		ctrl.addSpriteToHudBuffer(200, 200, "my_hud");
-		ctrl.drawHudString(220, 270, "HUD data here...", Color.white);
+		ctrl.drawHudString(220, 270, "HUD data here...", Color.white);*/
 		//add our mouse cursor
 		Point p = Mouse.getMouseCoords();
 		ctrl.addSpriteToOverlayBuffer(p.x, p.y, "cursor");
