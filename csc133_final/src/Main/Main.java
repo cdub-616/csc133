@@ -16,6 +16,7 @@ import Data.RECT;
 import Data.Sprite;
 import Data.Frame;
 import FileIO.EZFileWrite;
+import Graphics.Graphic;
 import FileIO.EZFileRead;
 import Input.Mouse;
 import logic.Control;
@@ -29,8 +30,12 @@ public class Main{
 	// Fields (Static) below...
 	//public static String coord = "";  //coordinate tool
 	private static int[] buffer;        //some hypothetical game variables
-	public static Atext atext = new Atext("This is a test of text in the console box...", 20);
-	//public static Rain rain;
+	public static Sprite rotatedImage, scaledImage;
+	public static stopWatchX timer1 = new stopWatchX(10);
+	public static stopWatchX timer2 = new stopWatchX(100);
+	public static double rotate = 0.0;
+	public static double scale = 1.0;
+	public static boolean isScaleUp = true;
 	// End Static fields...
 	
 	public static void main(String[] args) {
@@ -41,8 +46,9 @@ public class Main{
 	/* This is your access to things BEFORE the game loop starts */
 	public static void start(Control ctrl){
 		//TODO:  Code your starting conditions here...NOT DRAW CALLS HERE! (no addSprite or drawString)
-		//rain = new Rain(-50, 0, 1200, 90, 25, 60, 150);
-		ctrl.hideDefaultCursor();
+		BufferedImage wheel = ctrl.getSpriteFromBackBuffer("wheel").getSprite();
+		rotatedImage = new Sprite(100, 100, wheel, "rwheel");
+		scaledImage = new Sprite(500, 100, wheel, "swheel");
 	}
 	
 	/* This is your access to the "game loop" (It is a "callback" method from the Control class (do NOT modify that class!))*/
@@ -51,25 +57,37 @@ public class Main{
 		/*Point p = Mouse.getMouseCoords();
 		coord = p.toString();                           //coordinate tool
 		ctrl.drawString(500, 360, coord, Color.WHITE);  //coordinate tool*/
-		//display the bg first
-		//ctrl.addSpriteToFrontBuffer(0, 0, "forest");
-		ctrl.addSpriteToFrontBuffer(0, 0, "gui_bg");
-		//tester console string...
-		String s = atext.getCurrentStr();
-		ctrl.drawString(20, 480, s, Color.black);
-		/*//add rain particle stuff here
-		ParticleSystem pm2 = rain.getParticleSystem();
-		Iterator<Frame> it2 = pm2.getParticles();
-		while (it2.hasNext()) {
-			Frame par2 = it2.next();
-			ctrl.addSpriteToFrontBuffer(par2.getX(), par2.getY(), par2.getSpriteTag());
+		if (timer1.isTimeUp()) {
+			rotate += 1.0;
+			if (rotate > 360.0)
+				rotate = 0.0;
+			BufferedImage newRotate = Graphic.rotateImageByDegrees(ctrl.getSpriteFromBackBuffer("wheel").getSprite(), rotate);
+			rotatedImage = new Sprite(100, 100, newRotate, "rwheel");
+			timer1.resetWatch();
 		}
-		ctrl.drawString(150, 300, "Text underneath", Color.red);
-		ctrl.addSpriteToHudBuffer(200, 200, "my_hud");
-		ctrl.drawHudString(220, 270, "HUD data here...", Color.white);*/
-		//add our mouse cursor
-		Point p = Mouse.getMouseCoords();
-		ctrl.addSpriteToOverlayBuffer(p.x, p.y, "cursor");
+		if (timer2.isTimeUp()) {
+			if (isScaleUp) {
+				scale += 0.05;
+				if (scale > 1.25) {
+					scale = 1.25;
+					isScaleUp = !isScaleUp;
+				}			
+			} else {
+				scale -= 0.05;
+				if (scale < 0.75) {
+					scale = 0.75;
+					isScaleUp = !isScaleUp;
+				}
+			}
+			BufferedImage newScale = Graphic.scale(ctrl.getSpriteFromBackBuffer("wheel").getSprite(), scale);
+			scaledImage = new Sprite(500, 100, newScale, "swheel");
+			timer2.resetWatch();
+		}
+		ctrl.addSpriteToFrontBuffer(rotatedImage);
+		ctrl.addSpriteToFrontBuffer(scaledImage);
+		ctrl.drawString(260, 25, "Affine transforms", Color.white);
+		ctrl.drawString(125, 235, "Rotate", Color.white);
+		ctrl.drawString(525, 235, "Scale", Color.white);
 	}
 	
 	// Additional Static methods below...(if needed)

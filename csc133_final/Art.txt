@@ -8,3 +8,4 @@ Art/particles/raindrop4.png*raindrop4
 Art/particles/raindrop5.png*raindrop5
 Art/my_hud.png*my_hud
 Art/cursor.png*cursor
+Art/wheel.png*wheel
