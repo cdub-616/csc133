@@ -28,9 +28,10 @@ import timer.stopWatchX;
 
 public class Main{
 	// Fields (Static) below...
-	public static String coord = "";  //coordinate tool
-	private static int[] buffer;        //some hypothetical game variables
-	private static ArrayList<Command> commands;
+	public static String coord = "";             //coordinate tool
+	private static int[] buffer;                 //some hypothetical game variables
+	private static ArrayList<Command> commands;  //scripting
+	private static Sprite map1_tile;       
 	// End Static fields...
 	
 	public static void main(String[] args) {
@@ -41,6 +42,8 @@ public class Main{
 	/* This is your access to things BEFORE the game loop starts */
 	public static void start(Control ctrl){
 		//TODO:  Code your starting conditions here...NOT DRAW CALLS HERE! (no addSprite or drawString)
+		
+		//scripting
 		EZFileRead ezr = new EZFileRead("script.txt");
 		int totalLines = ezr.getNumLines();
 		commands = new ArrayList<>();
@@ -53,14 +56,21 @@ public class Main{
 					commands.add(new Command(raw));
 			}
 		}
+		
+		//map1
+		
 	}
 	
 	/* This is your access to the "game loop" (It is a "callback" method from the Control class (do NOT modify that class!))*/
 	public static void update(Control ctrl) {
 		// TODO: This is where you can code! (Starting code below is just to show you how it works)	
+		
+		//coordinate tool
 		Point p = Mouse.getMouseCoords();
 		coord = p.toString();                           //coordinate tool
 		ctrl.drawString(500, 360, coord, Color.WHITE);  //coordinate tool
+		
+		//scripting
 		for (Command c: commands) {
 			if (c.isCommand("show_sprite") && c.getNumParms() == 3) {
 				int x = Integer.parseInt(c.getParmByIndex(0));
@@ -75,10 +85,12 @@ public class Main{
 				int green = Integer.parseInt(c.getParmByIndex(4));
 				int blue = Integer.parseInt(c.getParmByIndex(5));
 				Color col = new Color(red, green, blue);
-				ctrl.drawString(x, y, display, col);
-				
+				ctrl.drawString(x, y, display, col);		
 			}
 		}
+		
+		//map1
+		
 	}
 	
 	// Additional Static methods below...(if needed)
