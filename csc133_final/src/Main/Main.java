@@ -58,7 +58,7 @@ public class Main{
 		}
 		
 		//map1
-		
+		BufferedImage gImage = ctrl.getSpriteFromBackBuffer("grass").getSprite();
 	}
 	
 	/* This is your access to the "game loop" (It is a "callback" method from the Control class (do NOT modify that class!))*/
