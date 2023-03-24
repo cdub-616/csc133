@@ -31,7 +31,7 @@ public class Main{
 	public static String coord = "";             //coordinate tool
 	private static int[] buffer;                 //some hypothetical game variables
 	private static ArrayList<Command> commands;  //scripting
-	private static Sprite map1_tile;       
+	private static Sprite sprMap1;       
 	// End Static fields...
 	
 	public static void main(String[] args) {
@@ -58,7 +58,16 @@ public class Main{
 		}
 		
 		//map1
-		BufferedImage gImage = ctrl.getSpriteFromBackBuffer("grass").getSprite();
+		BufferedImage grassTile = ctrl.getSpriteFromBackBuffer("grass").getSprite();
+		BufferedImage map1 = new BufferedImage(1280, 720, BufferedImage.TYPE_INT_RGB);
+		for (int i = 0; i < 10; i++) 
+			for (int j = 0; j < 6; j++) {
+				int x = i << 7;
+				int y = (j << 7) - 40;
+				Graphics g = map1.getGraphics();
+				g.drawImage(grassTile, x, y, null);
+			}
+		sprMap1 = new Sprite(0, 0, map1, "map1");
 	}
 	
 	/* This is your access to the "game loop" (It is a "callback" method from the Control class (do NOT modify that class!))*/
@@ -90,7 +99,7 @@ public class Main{
 		}
 		
 		//map1
-		
+		ctrl.addSpriteToFrontBuffer(sprMap1);
 	}
 	
 	// Additional Static methods below...(if needed)
