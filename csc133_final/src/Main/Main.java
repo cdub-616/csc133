@@ -28,9 +28,9 @@ import timer.stopWatchX;
 
 public class Main{
 	// Fields (Static) below...
-	//public static String coord = "";  //coordinate tool
+	public static String coord = "";  //coordinate tool
 	private static int[] buffer;        //some hypothetical game variables
-	
+	private static ArrayList<Command> commands;
 	// End Static fields...
 	
 	public static void main(String[] args) {
@@ -41,16 +41,44 @@ public class Main{
 	/* This is your access to things BEFORE the game loop starts */
 	public static void start(Control ctrl){
 		//TODO:  Code your starting conditions here...NOT DRAW CALLS HERE! (no addSprite or drawString)
-		
+		EZFileRead ezr = new EZFileRead("script.txt");
+		int totalLines = ezr.getNumLines();
+		commands = new ArrayList<>();
+		for (int i = 0; i < totalLines; i++) {
+			String raw = ezr.getLine(i);
+			raw = raw.trim();
+			if (!raw.equals("")) {
+				boolean b = raw.charAt(0) == '#';
+				if (!b)
+					commands.add(new Command(raw));
+			}
+		}
 	}
 	
 	/* This is your access to the "game loop" (It is a "callback" method from the Control class (do NOT modify that class!))*/
 	public static void update(Control ctrl) {
 		// TODO: This is where you can code! (Starting code below is just to show you how it works)	
-		/*Point p = Mouse.getMouseCoords();
+		Point p = Mouse.getMouseCoords();
 		coord = p.toString();                           //coordinate tool
-		ctrl.drawString(500, 360, coord, Color.WHITE);  //coordinate tool*/
-		
+		ctrl.drawString(500, 360, coord, Color.WHITE);  //coordinate tool
+		for (Command c: commands) {
+			if (c.isCommand("show_sprite") && c.getNumParms() == 3) {
+				int x = Integer.parseInt(c.getParmByIndex(0));
+				int y = Integer.parseInt(c.getParmByIndex(1));
+				String tag = c.getParmByIndex(2);
+				ctrl.addSpriteToFrontBuffer(x, y, tag);
+			} else if (c.isCommand("text") && c.getNumParms() == 6) {
+				String display = c.getParmByIndex(0);
+				int x = Integer.parseInt(c.getParmByIndex(1));
+				int y = Integer.parseInt(c.getParmByIndex(2));
+				int red = Integer.parseInt(c.getParmByIndex(3));
+				int green = Integer.parseInt(c.getParmByIndex(4));
+				int blue = Integer.parseInt(c.getParmByIndex(5));
+				Color col = new Color(red, green, blue);
+				ctrl.drawString(x, y, display, col);
+				
+			}
+		}
 	}
 	
 	// Additional Static methods below...(if needed)
