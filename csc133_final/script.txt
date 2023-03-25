@@ -1,2 +1,3 @@
 #level 1
-show_spirte: 0, 0, robLeft
+#show_sprite: 0, 0, robDown
+#text: Hello World!, 0, 200, 255, 255, 255

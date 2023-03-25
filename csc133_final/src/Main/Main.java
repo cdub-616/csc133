@@ -31,7 +31,14 @@ public class Main{
 	public static String coord = "";             //coordinate tool
 	private static int[] buffer;                 //some hypothetical game variables
 	private static ArrayList<Command> commands;  //scripting
-	private static Sprite sprMap1;      
+	private static Sprite sprMap1;    
+	private static Animation robotDown;
+	private static Animation robotUp;
+	private static Animation robotRight;
+	private static Animation robotLeft;
+	private static final int screenHeight = 720;
+	private static final int screenWidth = 1280;
+	private static final int robotStep = 4;
 	// End Static fields...
 	
 	public static void main(String[] args) {
@@ -68,6 +75,43 @@ public class Main{
 				g.drawImage(grassTile, x, y, null);
 			}
 		sprMap1 = new Sprite(0, 0, map1, "map1");
+		
+		//robot animations
+		robotDown = new Animation(300, false);
+		int frameCounter = 0;
+		for (int y = -32; y < screenHeight + 32; y += robotStep) {
+			robotDown.addFrame(new Frame(300, y, "robDown" + frameCounter));
+			frameCounter++;
+			if (frameCounter > 3)
+				frameCounter = 0;
+		}
+		
+		robotUp = new Animation(300, false);
+		int frameCounter1 = 0;
+		for (int y = 752; y > -32; y -= robotStep) {
+			robotUp.addFrame(new Frame(350, y, "robUp" + frameCounter1));
+			frameCounter1++;
+			if (frameCounter1 > 3)
+				frameCounter1 = 0;
+		}
+		
+		robotRight = new Animation(300, false);
+		int frameCounter2 = 0;
+		for (int x = -32; x < screenWidth + 32; x += robotStep) {
+			robotRight.addFrame(new Frame(x, 200, "robRight" + frameCounter2));
+			frameCounter2++;
+			if (frameCounter2 > 1)
+				frameCounter2 = 0;
+		}
+		
+		robotLeft = new Animation(300, false);
+		int frameCounter3 = 0;
+		for (int x = 1280 + 32; x > -32; x -= robotStep) {
+			robotLeft.addFrame(new Frame(x, 300, "robLeft" + frameCounter3));
+			frameCounter3++;
+			if (frameCounter3 > 1)
+				frameCounter3 = 0;
+		}
 	}
 	
 	/* This is your access to the "game loop" (It is a "callback" method from the Control class (do NOT modify that class!))*/
@@ -79,6 +123,9 @@ public class Main{
 		coord = p.toString();                           //coordinate tool
 		ctrl.drawString(500, 360, coord, Color.WHITE);  //coordinate tool
 		
+		//map1
+		ctrl.addSpriteToFrontBuffer(sprMap1);
+				
 		//scripting
 		for (Command c: commands) {
 			if (c.isCommand("show_sprite") && c.getNumParms() == 3) {
@@ -98,9 +145,19 @@ public class Main{
 			}
 		}
 		
-		//map1
-		//ctrl.addSpriteToFrontBuffer(sprMap1);
-		
+		//robot animations
+		Frame rdFrame = robotDown.getCurrentFrame();
+		if (rdFrame != null)
+			ctrl.addSpriteToFrontBuffer(rdFrame.getX(), rdFrame.getY(), rdFrame.getSpriteTag());
+		Frame ruFrame = robotUp.getCurrentFrame();
+		if (ruFrame != null)
+			ctrl.addSpriteToFrontBuffer(ruFrame.getX(), ruFrame.getY(), ruFrame.getSpriteTag());
+		Frame rrFrame = robotRight.getCurrentFrame();
+		if (rrFrame != null)
+			ctrl.addSpriteToFrontBuffer(rrFrame.getX(), rrFrame.getY(), rrFrame.getSpriteTag());
+		Frame rlFrame = robotLeft.getCurrentFrame();
+		if (rlFrame != null)
+			ctrl.addSpriteToFrontBuffer(rlFrame.getX(), rlFrame.getY(), rlFrame.getSpriteTag());
 	}
 	
 	// Additional Static methods below...(if needed)
