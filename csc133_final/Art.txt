@@ -1,2 +1,12 @@
 Art/f.png*f0
 Art/grass_tile.png*grass
+Art/robot/robot_down.png*robDown
+Art/robot/robot_down_left.png*robDownLeft
+Art/robot/robot_down_right.png*robDownRight
+Art/robot/robot_up.png*robUp
+Art/robot/robot_up_left.png*robUpLeft
+Art/robot/robot_up_right.png*robUpRight
+Art/robot/robot_right.png*robRight
+Art/robot/robot_right_forward.png*robRightFor
+Art/robot/robot_left.png*robLeft
+Art/robot/robot_left_forward.png*robLeftFor

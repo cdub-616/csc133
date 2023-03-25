@@ -1,2 +1,2 @@
 #level 1
-show_sprite: 0, 0, grass
+show_spirte: 0, 0, robLeft

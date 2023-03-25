@@ -31,7 +31,7 @@ public class Main{
 	public static String coord = "";             //coordinate tool
 	private static int[] buffer;                 //some hypothetical game variables
 	private static ArrayList<Command> commands;  //scripting
-	private static Sprite sprMap1;       
+	private static Sprite sprMap1;      
 	// End Static fields...
 	
 	public static void main(String[] args) {
@@ -99,7 +99,8 @@ public class Main{
 		}
 		
 		//map1
-		ctrl.addSpriteToFrontBuffer(sprMap1);
+		//ctrl.addSpriteToFrontBuffer(sprMap1);
+		
 	}
 	
 	// Additional Static methods below...(if needed)
