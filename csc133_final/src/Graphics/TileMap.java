@@ -8,7 +8,6 @@ import Data.Sprite;
 public class TileMap {
 	//fields
 	private Sprite spr;
-	private BufferedImage map;
 	
 	//constructor
 	public TileMap(BufferedImage buf) {

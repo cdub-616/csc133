@@ -8,8 +8,6 @@ import script.Command;
 
 public class ScriptReader {
 	//fields
-	private EZFileRead ezr;
-	private ArrayList<Command> commands;
 	private ArrayList<ScriptSprite> sprites;
 	private ArrayList<ScriptText> texts;
 	
@@ -17,7 +15,7 @@ public class ScriptReader {
 	public ScriptReader(String filename) {
 		EZFileRead ezr = new EZFileRead(filename);
 		int totalLines = ezr.getNumLines();
-		commands = new ArrayList<>();
+		ArrayList<Command> commands = new ArrayList<>();
 		for (int i = 0; i < totalLines; i++) {
 			String raw = ezr.getLine(i);
 			raw = raw.trim();
