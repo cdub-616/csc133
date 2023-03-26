@@ -13,6 +13,9 @@ import Data.Animation;
 import Data.Atext;
 import Data.Click;
 import Data.RECT;
+import Data.ScriptReader;
+import Data.ScriptSprite;
+import Data.ScriptText;
 import Data.Sprite;
 import Data.Frame;
 import FileIO.EZFileWrite;
@@ -30,7 +33,9 @@ public class Main{
 	// Fields (Static) below...
 	public static String coord = "";             //coordinate tool
 	private static int[] buffer;                 //some hypothetical game variables
-	private static ArrayList<Command> commands;  //scripting
+	private static ScriptReader scriptReader;              
+	private static ArrayList<ScriptSprite> scriptSprites;  
+	private static ArrayList<ScriptText> scriptTexts;
 	private static Sprite sprMap1;    
 	private static Animation robotDown;
 	private static Animation robotUp;
@@ -51,18 +56,9 @@ public class Main{
 		//TODO:  Code your starting conditions here...NOT DRAW CALLS HERE! (no addSprite or drawString)
 		
 		//scripting
-		EZFileRead ezr = new EZFileRead("script.txt");
-		int totalLines = ezr.getNumLines();
-		commands = new ArrayList<>();
-		for (int i = 0; i < totalLines; i++) {
-			String raw = ezr.getLine(i);
-			raw = raw.trim();
-			if (!raw.equals("")) {
-				boolean b = raw.charAt(0) == '#';
-				if (!b)
-					commands.add(new Command(raw));
-			}
-		}
+		scriptReader = new ScriptReader("script.txt");
+		scriptSprites = new ArrayList<ScriptSprite>(scriptReader.getScriptSprites());
+		scriptTexts = new ArrayList<ScriptText>(scriptReader.getScriptTexts());
 		
 		//map1
 		BufferedImage grassTile = ctrl.getSpriteFromBackBuffer("grass").getSprite();
@@ -77,7 +73,7 @@ public class Main{
 		sprMap1 = new Sprite(0, 0, map1, "map1");
 		
 		//robot animations
-		robotDown = new Animation(300, false);
+		robotDown = new Animation(100, false);
 		int frameCounter = 0;
 		for (int y = -32; y < screenHeight + 32; y += robotStep) {
 			robotDown.addFrame(new Frame(300, y, "robDown" + frameCounter));
@@ -86,7 +82,7 @@ public class Main{
 				frameCounter = 0;
 		}
 		
-		robotUp = new Animation(300, false);
+		robotUp = new Animation(100, false);
 		int frameCounter1 = 0;
 		for (int y = 752; y > -32; y -= robotStep) {
 			robotUp.addFrame(new Frame(350, y, "robUp" + frameCounter1));
@@ -95,7 +91,7 @@ public class Main{
 				frameCounter1 = 0;
 		}
 		
-		robotRight = new Animation(300, false);
+		robotRight = new Animation(100, false);
 		int frameCounter2 = 0;
 		for (int x = -32; x < screenWidth + 32; x += robotStep) {
 			robotRight.addFrame(new Frame(x, 200, "robRight" + frameCounter2));
@@ -104,7 +100,7 @@ public class Main{
 				frameCounter2 = 0;
 		}
 		
-		robotLeft = new Animation(300, false);
+		robotLeft = new Animation(100, false);
 		int frameCounter3 = 0;
 		for (int x = 1280 + 32; x > -32; x -= robotStep) {
 			robotLeft.addFrame(new Frame(x, 300, "robLeft" + frameCounter3));
@@ -127,23 +123,12 @@ public class Main{
 		ctrl.addSpriteToFrontBuffer(sprMap1);
 				
 		//scripting
-		for (Command c: commands) {
-			if (c.isCommand("show_sprite") && c.getNumParms() == 3) {
-				int x = Integer.parseInt(c.getParmByIndex(0));
-				int y = Integer.parseInt(c.getParmByIndex(1));
-				String tag = c.getParmByIndex(2);
-				ctrl.addSpriteToFrontBuffer(x, y, tag);
-			} else if (c.isCommand("text") && c.getNumParms() == 6) {
-				String display = c.getParmByIndex(0);
-				int x = Integer.parseInt(c.getParmByIndex(1));
-				int y = Integer.parseInt(c.getParmByIndex(2));
-				int red = Integer.parseInt(c.getParmByIndex(3));
-				int green = Integer.parseInt(c.getParmByIndex(4));
-				int blue = Integer.parseInt(c.getParmByIndex(5));
-				Color col = new Color(red, green, blue);
-				ctrl.drawString(x, y, display, col);		
-			}
-		}
+		if (!scriptSprites.isEmpty())
+			for (ScriptSprite spr: scriptSprites)
+				ctrl.addSpriteToFrontBuffer(spr.getX(), spr.getY(), spr.getTag());
+		if (!scriptTexts.isEmpty())
+			for (ScriptText txt: scriptTexts)
+				ctrl.drawString(txt.getX(), txt.getY(), txt.getText(), txt.getColor());
 		
 		//robot animations
 		Frame rdFrame = robotDown.getCurrentFrame();
