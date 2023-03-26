@@ -65,7 +65,7 @@ public class Main{
 		
 		//robot animations
 		Animation botAnim = new Animation(100, false);
-		MoveCharacter robotMove = new MoveCharacter(botAnim, 4, 0, 360, 1280, 360);
+		MoveCharacter robotMove = new MoveCharacter(botAnim, 4, 200, 300, 1000, 300);
 		robotAnim = robotMove.getAnimation();
 		
 	}
