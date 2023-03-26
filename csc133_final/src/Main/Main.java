@@ -20,6 +20,7 @@ import Data.Sprite;
 import Data.Frame;
 import FileIO.EZFileWrite;
 import Graphics.Graphic;
+import Graphics.TileMap;
 import FileIO.EZFileRead;
 import Input.Mouse;
 import logic.Control;
@@ -36,6 +37,7 @@ public class Main{
 	private static ScriptReader scriptReader;              
 	private static ArrayList<ScriptSprite> scriptSprites;  
 	private static ArrayList<ScriptText> scriptTexts;
+	private static TileMap tileMap;
 	private static Sprite sprMap1;    
 	private static Animation robotDown;
 	private static Animation robotUp;
@@ -62,15 +64,8 @@ public class Main{
 		
 		//map1
 		BufferedImage grassTile = ctrl.getSpriteFromBackBuffer("grass").getSprite();
-		BufferedImage map1 = new BufferedImage(1280, 720, BufferedImage.TYPE_INT_RGB);
-		for (int i = 0; i < 10; i++) 
-			for (int j = 0; j < 6; j++) {
-				int x = i << 7;
-				int y = (j << 7) - 40;
-				Graphics g = map1.getGraphics();
-				g.drawImage(grassTile, x, y, null);
-			}
-		sprMap1 = new Sprite(0, 0, map1, "map1");
+		tileMap = new TileMap(grassTile);
+		sprMap1 = tileMap.getSprite();
 		
 		//robot animations
 		robotDown = new Animation(100, false);
@@ -121,7 +116,7 @@ public class Main{
 		
 		//map1
 		ctrl.addSpriteToFrontBuffer(sprMap1);
-				
+		
 		//scripting
 		if (!scriptSprites.isEmpty())
 			for (ScriptSprite spr: scriptSprites)
