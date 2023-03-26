@@ -41,7 +41,7 @@ public class Main{
 	private static TileMap tileMap;
 	private static Sprite sprMap1;    
 	private static Animation robotAnim;
-	//private static final int robotStep = 4;
+	//private static final int robotStep = 10;
 	// End Static fields...
 	
 	public static void main(String[] args) {
@@ -65,7 +65,7 @@ public class Main{
 		
 		//robot animations
 		Animation botAnim = new Animation(100, false);
-		MoveCharacter robotMove = new MoveCharacter(botAnim, 4, 200, 300, 1000, 300);
+		MoveCharacter robotMove = new MoveCharacter(botAnim, 10, 400, 400, 1000, 300);
 		robotAnim = robotMove.getAnimation();
 		
 	}
