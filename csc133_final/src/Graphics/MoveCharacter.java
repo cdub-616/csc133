@@ -8,14 +8,18 @@ public class MoveCharacter {
 	Animation anima;
 	
 	//constructor
-	public MoveCharacter(Animation anima, int step, int curX, int curY, int newX, int newY) {
+	//public MoveCharacter(Animation anima, int step, int curX, int curY, int endX, int endY) {
+	public MoveCharacter(Animation anima, int frameCounter, int maxFrameCounter, int step, int curX, int curY, int endX, int endY) {
 		this.anima = anima;
-		int frameCounter = 0;
-		int changeX = newX - curX;
-		int changeY = newY - curY;
+		//int frameCounter = 0;
+		//int changeX = newX - curX;
+		//int changeY = newY - curY;
+		int changeX = endX - curX;
+		int changeY = endY - curY;
 		double slope;
-		int y = curY;
-		int x = curX;
+		//double slope = changeY / changeX;
+		//int y = curY;
+		//int x = curX;
 		if (changeX != 0)  //prevent divide by 0
 			slope = Math.atan(changeY / changeX);  //convert slope to radians
 		else slope = Math.PI / 2;
@@ -23,13 +27,17 @@ public class MoveCharacter {
 		double yStep = Math.abs((changeY) * Math.sin(slope));
 		if (slope >= (Math.atan(1))  || slope <= (Math.atan(-1))) {  //up or down animation
 			if (changeY >= 0 && changeX >= 0) {     //down animation right
-				for (y = curY; y < newY; y += yStep) {
+				int x = (int)(curX + xStep);
+				int y = (int)(curY + yStep);
+				anima.addFrame(new Frame(x, y, "robDown" + frameCounter));
+				
+				/*for (y = curY; y < newY; y += yStep) {
 					anima.addFrame(new Frame(x, y, "robDown" + frameCounter));
 					x += xStep;
 					frameCounter++;
 					if (frameCounter > 3)
 						frameCounter = 0;
-				}
+				}*/
 			}
 			else if (changeY > 0 && changeX < 0) {  //down animation left
 				for (x = curX; x > newX; x -= xStep) {
