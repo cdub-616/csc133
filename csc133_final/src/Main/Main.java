@@ -20,7 +20,7 @@ import Data.Sprite;
 import Data.Frame;
 import FileIO.EZFileWrite;
 import Graphics.Graphic;
-import Graphics.MoveCharacter;
+import Graphics.MoveSprite;
 import Graphics.TileMap;
 import FileIO.EZFileRead;
 import Input.Mouse;
@@ -65,7 +65,7 @@ public class Main{
 		
 		//robot animations
 		Animation botAnim = new Animation(100, false);
-		MoveCharacter robotMove = new MoveCharacter(botAnim, 0, 4, 10, 400, 400, 1000, 300);
+		MoveSprite robotMove = new MoveSprite(botAnim, 10, 200, 400, 1000, 300);
 		robotAnim = robotMove.getAnimation();
 		
 	}
