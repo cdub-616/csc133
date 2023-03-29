@@ -14,6 +14,7 @@ import Data.RECT;
 import Data.ScriptReader;
 import Data.ScriptSprite;
 import Data.ScriptText;
+import Data.ScriptTextShadow;
 import Data.Sprite;
 import Data.Frame;
 import FileIO.EZFileWrite;
@@ -28,7 +29,7 @@ public class Main{
 	// Fields (Static) below...
 	//public static String coord = "";  //coordinate tool
 	private static ArrayList<ScriptSprite> scriptSprites;  
-	private static ArrayList<ScriptText> scriptTexts;
+	private static ArrayList<ScriptTextShadow> scriptTextShadows;
 	private static int[] buffer;  //some hypothetical game variables
 	private static ScriptReader scriptReader; 
 	// End Static fields...
@@ -44,7 +45,7 @@ public class Main{
 		//scripting
 		scriptReader = new ScriptReader("script.txt");
 		scriptSprites = new ArrayList<ScriptSprite>(scriptReader.getScriptSprites());
-		scriptTexts = new ArrayList<ScriptText>(scriptReader.getScriptTexts());
+		scriptTextShadows = new ArrayList<ScriptTextShadow>(scriptReader.getScriptTextShadows());
 		
 	}
 	
@@ -62,9 +63,13 @@ public class Main{
 				Sprite sprite = new Sprite(spr.getX(), spr.getY(), buf, spr.getTag());
 				ctrl.addSpriteToFrontBuffer(sprite);
 			}
-		if (!scriptTexts.isEmpty())
-			for (ScriptText txt: scriptTexts)
-				ctrl.drawString(txt.getX(), txt.getY(), txt.getText(), txt.getColor());
+		if (!scriptTextShadows.isEmpty())
+			for (ScriptTextShadow txt: scriptTextShadows) {
+				ScriptText text = txt.getText();
+				ScriptText shadow = txt.getShadow();
+				ctrl.drawString(text.getX(), text.getY(), text.getText(), text.getColor());
+				ctrl.drawString(shadow.getX(), shadow.getY(), shadow.getText(), shadow.getColor());
+			}
 		
 	}
 	// Additional Static methods below...(if needed)
