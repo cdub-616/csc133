@@ -1,4 +1,5 @@
 #demo scripts
 
-show_sprite: 100, 100, f0
-text: Howdy partner!, 100, 150, 255, 0, 0, 2, 0, 0, 0
+show_sprite: 576, 296, f0
+text: Persephone, 600, 445, 255, 0, 0
+#rect_texthover: 625, 300, 685, 415, Persephone, Princess, 255, 0, 0, 1, 0, 0, 0 
