@@ -11,6 +11,9 @@ import java.util.StringTokenizer;
 import Data.Animation;
 import Data.Click;
 import Data.RECT;
+import Data.ScriptReader;
+import Data.ScriptSprite;
+import Data.ScriptText;
 import Data.Sprite;
 import Data.Frame;
 import FileIO.EZFileWrite;
@@ -28,10 +31,7 @@ public class Main{
 	public static String s2 = "";
 	public static ArrayList<Command> commands;
 	private static int[] buffer;  //some hypothetical game variables
-	/*private static RECT disk;
-	private static int dropShadow = 2;*/
-	/*public static Command c;
-	public static Command c2;*/
+	private static ScriptReader scriptReader; 
 	// End Static fields...
 	
 	public static void main(String[] args) {
@@ -42,78 +42,31 @@ public class Main{
 	/* This is your access to things BEFORE the game loop starts */
 	public static void start(Control ctrl){
 		//TODO:  Code your starting conditions here...NOT DRAW CALLS HERE! (no addSprite or drawString)
-		/*String raw = "show_sprite: 100, 100, f0";
-		String raw2 = "text: Howdy partner!";
-		c = new Command(raw);
-		c2 = new Command(raw2);*/
-		/*disk = new RECT(101, 52, 162, 112, "savetag", "Save Game");
-		buffer = new int[40];  //initialize game vars
-		//assign random values to the buffer for testing
-		for (int i = 0; i < buffer.length; i++) {
-			int value = (int)(Math.random() * 100);
-			buffer[i] = value;
-		}*/
-		EZFileRead ezr = new EZFileRead("script.txt");
-		commands = new ArrayList<>();
-		for (int i = 0; i < ezr.getNumLines(); i++) {
-			String raw = ezr.getLine(i);
-			raw = raw.trim();
-			if (!raw.equals("")) {
-				boolean b = raw.charAt(0) == '#';
-				if (!b)
-					commands.add(new Command(raw));
-			}
-		}
+		//scripting
+		scriptReader = new ScriptReader("script.txt");
+		scriptSprites = new ArrayList<ScriptSprite>(scriptReader.getScriptSprites());
+		scriptTexts = new ArrayList<ScriptText>(scriptReader.getScriptTexts());
+		
 	}
 	
 	/* This is your access to the "game loop" (It is a "callback" method from the Control class (do NOT modify that class!))*/
 	public static void update(Control ctrl) {
 		// TODO: This is where you can code! (Starting code below is just to show you how it works)	
-		/*if (c.isCommand("show_sprite") && c.getNumParms() == 3) {
-			int x = Integer.parseInt(c.getParmByIndex(0));
-			int y = Integer.parseInt(c.getParmByIndex(1));
-			String tag = c.getParmByIndex(2);
-			ctrl.addSpriteToFrontBuffer(x, y, tag);
-		}
-		if (c2.isCommand("text") && c2.getNumParms() == 1) {
-			String display = c2.getParmByIndex(0);
-			ctrl.drawString(0, 250, display, Color.WHITE);
-		}*/
-		//Point p = Mouse.getMouseCoords();
-		//coord = p.toString();  //coordinate tool
-		//ctrl.drawString(500, 360, coord, Color.WHITE);  //coordinate tool
-		/*ctrl.addSpriteToFrontBuffer(100, 50, "save");  //display the save icon
-		//for hover...
-		Point p = Mouse.getMouseCoords();
-		int x = (int)p.getX();
-		int y = (int)p.getY();
-		if (disk.isCollision(x, y))
-			s = disk.getHoverLabel();
-		else
-			s = "";
-		ctrl.drawString(x, y - 2, s, Color.BLACK);
-		ctrl.drawString(x - dropShadow, y - 2 - dropShadow, s, Color.YELLOW);
-		//for mouse polling...
-		if (Control.getMouseInput() != null) {
-			if (disk.isClicked(Control.getMouseInput(), Click.LEFT_BUTTON)) {
-				saveData();
-				s2 = "Game Saved";
+		/*Point p = Mouse.getMouseCoords();
+		coord = p.toString();  //coordinate tool
+		ctrl.drawString(500, 360, coord, Color.WHITE);  //coordinate tool*/
+		
+		//scripting
+		if (!scriptSprites.isEmpty())
+			for (ScriptSprite spr: scriptSprites) {
+				BufferedImage buf = ctrl.getSpriteFromBackBuffer(spr.getTag()).getSprite();
+				Sprite sprite = new Sprite(spr.getX(), spr.getY(), buf, spr.getTag());
+				ctrl.addSpriteToFrontBuffer(sprite);
 			}
-		}	
-		ctrl.drawString(0, 200, s2, Color.WHITE);  //display saved game message when applicable*/
-		for (Command c: commands) {
-			if (c.isCommand("show_sprite") && c.getNumParms() == 3) {
-				int x = Integer.parseInt(c.getParmByIndex(0));
-				int y = Integer.parseInt(c.getParmByIndex(1));
-				String tag = c.getParmByIndex(2);
-				ctrl.addSpriteToFrontBuffer(x, y, tag);
-			}
-			else if (c.isCommand("text") && c.getNumParms() == 1) {
-				String display = c.getParmByIndex(0);
-				ctrl.drawString(0, 250, display, Color.WHITE);
-			}
-				
-		}
+		if (!scriptTexts.isEmpty())
+			for (ScriptText txt: scriptTexts)
+				ctrl.drawString(txt.getX(), txt.getY(), txt.getText(), txt.getColor());
+		
 	}
 	// Additional Static methods below...(if needed)
 	//create a routine to save the game data
