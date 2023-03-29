@@ -1,2 +1,4 @@
+#demo scripts
+
 show_sprite: 100, 100, f0
-#text: Howdy partner!
+text: Howdy partner!, 100, 250, 255, 0, 0
