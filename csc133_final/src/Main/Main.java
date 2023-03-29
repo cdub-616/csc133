@@ -27,9 +27,8 @@ import timer.stopWatchX;
 public class Main{
 	// Fields (Static) below...
 	//public static String coord = "";  //coordinate tool
-	public static String s = "";
-	public static String s2 = "";
-	public static ArrayList<Command> commands;
+	private static ArrayList<ScriptSprite> scriptSprites;  
+	private static ArrayList<ScriptText> scriptTexts;
 	private static int[] buffer;  //some hypothetical game variables
 	private static ScriptReader scriptReader; 
 	// End Static fields...
