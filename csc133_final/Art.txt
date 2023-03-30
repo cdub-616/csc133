@@ -1,2 +1,1 @@
 Art/f.png*f0
-Art/saveicon.png*save

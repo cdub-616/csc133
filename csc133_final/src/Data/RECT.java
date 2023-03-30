@@ -51,7 +51,7 @@ public class RECT {
 		this.gHover = gHover;
 	}
 	
-	//Methods
+	//methods
 	public int getX1() {
 		return x1;
 	}

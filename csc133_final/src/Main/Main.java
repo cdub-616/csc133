@@ -6,18 +6,23 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
 import Data.Animation;
+import Data.Atext;
 import Data.Click;
 import Data.RECT;
 import Data.Sprite;
 import Data.Frame;
 import FileIO.EZFileWrite;
+import Graphics.Graphic;
 import FileIO.EZFileRead;
 import Input.Mouse;
 import logic.Control;
+import particles.ParticleSystem;
+import particles.Rain;
 import script.Command;
 import script.ScriptReader;
 import script.ScriptRectTextHover;
@@ -37,6 +42,7 @@ public class Main{
 	private static int[] buffer;  //some hypothetical game variables
 	private static ScriptReader scriptReader; 
 	private static String perString = "";
+
 	// End Static fields...
 	
 	public static void main(String[] args) {
@@ -47,12 +53,14 @@ public class Main{
 	/* This is your access to things BEFORE the game loop starts */
 	public static void start(Control ctrl){
 		//TODO:  Code your starting conditions here...NOT DRAW CALLS HERE! (no addSprite or drawString)
+
 		//scripting
 		scriptReader = new ScriptReader("script.txt");
 		scriptSprites = new ArrayList<ScriptSprite>(scriptReader.getScriptSprites());
 		scriptTextShadows = new ArrayList<ScriptTextShadow>(scriptReader.getScriptTextShadows());
 		scriptRectTextHovers = new ArrayList<ScriptRectTextHover>(scriptReader.getScriptRectTextHover());	
 		scriptTexts = new ArrayList<ScriptText>(scriptReader.getScriptTexts());
+
 	}
 	
 	/* This is your access to the "game loop" (It is a "callback" method from the Control class (do NOT modify that class!))*/
