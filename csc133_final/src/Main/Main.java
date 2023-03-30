@@ -62,41 +62,62 @@ public class Main{
 		/*coord = p.toString();  //coordinate tool
 		ctrl.drawString(500, 360, coord, Color.WHITE);  //coordinate tool*/
 		
-		int x = (int)p.getX();
-		int y = (int)p.getY();
-		
+		int x = (int)p.getX(), y = (int)p.getY(), shadow = 0;
+		RECT rect = new RECT();
+		ScriptText rText = new ScriptText();
+		ScriptText rShadow = new ScriptText();
+		boolean sprites = false, texts = false, textShadows = false, rectTextHovers = false;
 		//scripting
-		if (!scriptSprites.isEmpty())
+		if (!scriptSprites.isEmpty() && sprites == false) {
+			sprites = true;
 			for (ScriptSprite spr: scriptSprites) {
 				BufferedImage buf = ctrl.getSpriteFromBackBuffer(spr.getTag()).getSprite();
 				Sprite sprite = new Sprite(spr.getX(), spr.getY(), buf, spr.getTag());
 				ctrl.addSpriteToFrontBuffer(sprite);
 			}
-		if (!scriptTexts.isEmpty())
+		}
+		if (!scriptTexts.isEmpty() && texts == false) {
+			texts = true;
 			for (ScriptText txt: scriptTexts) {
 				ctrl.drawString(txt.getX(), txt.getY(), txt.getText(), txt.getColor());
 			}
-		if (!scriptTextShadows.isEmpty())
+		}
+		if (!scriptTextShadows.isEmpty() && textShadows == false) {
+			textShadows = true;
+			texts = true;
 			for (ScriptTextShadow txt: scriptTextShadows) {
 				ScriptText text = txt.getText();
-				ScriptText shadow = txt.getShadow();
-				ctrl.drawString(shadow.getX(), shadow.getY(), shadow.getText(), shadow.getColor());
+				ScriptText shad = txt.getShadow();
+				ctrl.drawString(shad.getX(), shad.getY(), shad.getText(), shad.getColor());
 				ctrl.drawString(text.getX(), text.getY(), text.getText(), text.getColor());		
 			}
-		if (!scriptRectTextHovers.isEmpty())
+		}
+		if (!scriptRectTextHovers.isEmpty() && rectTextHovers == false) {
+			rectTextHovers = true;
 			for (ScriptRectTextHover hover: scriptRectTextHovers) {
-				RECT rect = hover.getRect();
-				int shadow = hover.getShadow();
+				//RECT rect = hover.getRect();
+				rect = hover.getRect();
+				//int shadow = hover.getShadow();
+				shadow = hover.getShadow();
 				ScriptTextShadow textShadow = hover.getScriptTextShadow();
-				ScriptText rText = textShadow.getText();
-				ScriptText rShadow = textShadow.getShadow();
-				if (rect.isCollision(x, y))  //check for chicken collision
+				//ScriptText rText = textShadow.getText();
+				//ScriptText rShadow = textShadow.getShadow();
+				rText = textShadow.getText();
+				rShadow = textShadow.getShadow();
+				/*if (rect.isCollision(x, y))  //check for chicken collision
 					perString = rect.getHoverLabel();
 				else
 					perString = "";
 				ctrl.drawString(x, y, perString, rShadow.getColor());
-				ctrl.drawString(x - shadow, y - shadow, perString, rText.getColor());
+				ctrl.drawString(x - shadow, y - shadow, perString, rText.getColor());*/
 			}
+		}
+		if (rect.isCollision(x, y))  //check for chicken collision
+			perString = rect.getHoverLabel();
+		else
+			perString = "";
+		ctrl.drawString(x, y, perString, rShadow.getColor());
+		ctrl.drawString(x - shadow, y - shadow, perString, rText.getColor());
 	}
 	
 	// Additional Static methods below...(if needed)
