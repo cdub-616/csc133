@@ -57,19 +57,13 @@ public class Main{
 	/* This is your access to the "game loop" (It is a "callback" method from the Control class (do NOT modify that class!))*/
 	public static void update(Control ctrl) {
 		// TODO: This is where you can code! (Starting code below is just to show you how it works)	
+		
 		Point p = Mouse.getMouseCoords();
 		/*coord = p.toString();  //coordinate tool
 		ctrl.drawString(500, 360, coord, Color.WHITE);  //coordinate tool*/
 		
-		//Point p = Mouse.getMouseCoords();
 		int x = (int)p.getX();
 		int y = (int)p.getY();
-		ScriptText rText = new ScriptText();
-		ScriptText rShadow = new ScriptText();
-		RECT rect = new RECT();
-		//ScriptText rText;
-		//ScriptText rShadow;
-		//RECT rect;
 		
 		//scripting
 		if (!scriptSprites.isEmpty())
@@ -89,37 +83,22 @@ public class Main{
 				ctrl.drawString(shadow.getX(), shadow.getY(), shadow.getText(), shadow.getColor());
 				ctrl.drawString(text.getX(), text.getY(), text.getText(), text.getColor());		
 			}
-		int val = 0;
 		if (!scriptRectTextHovers.isEmpty())
-			//for (ScriptRectTextHover hover: scriptRectTextHovers) {
-			while (scriptRectTextHovers.size() > val) {
-				rect = scriptRectTextHovers.get(val).getRect();
-				//rect = new RECT(hover.getRect().getX1(), hover.getRect().getY1(), hover.getRect().getX2(), hover.getRect().getY2(), hover.getRect().getTag(), hover.getRect().getHoverLabel());
-				ScriptTextShadow textShadow = scriptRectTextHovers.get(val).getScriptTextShadow();
-				//rText = new ScriptText(textShadow.getShadow().getText(), textShadow.getShadow().getX(), textShadow.getShadow().getY(), textShadow.getShadow().getColor());
-				//rShadow = new ScriptText(textShadow.getText().getText(), textShadow.getText().getX(), textShadow.getText().getY(), textShadow.getText().getColor());
-				rText = textShadow.getText();
-				rShadow = textShadow.getShadow();
+			for (ScriptRectTextHover hover: scriptRectTextHovers) {
+				RECT rect = hover.getRect();
+				int shadow = hover.getShadow();
+				ScriptTextShadow textShadow = hover.getScriptTextShadow();
+				ScriptText rText = textShadow.getText();
+				ScriptText rShadow = textShadow.getShadow();
+				if (rect.isCollision(x, y))  //check for chicken collision
+					perString = rect.getHoverLabel();
+				else
+					perString = "";
+				ctrl.drawString(x, y, perString, rShadow.getColor());
+				ctrl.drawString(x - shadow, y - shadow, perString, rText.getColor());
 			}
-		RECT testRect = new RECT(625, 300, 685, 415, "Persephone", "Princess");
-		
-		
-		//detect collision
-		if (rect.isCollision(x, y))  //check for chicken collision
-			perString = rect.getHoverLabel();
-		else
-			perString = "";
-		ctrl.drawString(rShadow.getX(), rShadow.getY(), perString, rShadow.getColor());
-		ctrl.drawString(rText.getX(), rText.getY(), perString, rText.getColor());
-		
-		if (testRect.isCollision(x, y))
-			perString = testRect.getHoverLabel();
-		else
-			perString = "";
-		ctrl.drawString(x - 2, y - 2, perString, Color.red);
-		
-			
 	}
+	
 	// Additional Static methods below...(if needed)
 	//create a routine to save the game data
 	public static void saveData() {

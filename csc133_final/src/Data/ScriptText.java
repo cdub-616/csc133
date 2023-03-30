@@ -15,6 +15,7 @@ public class ScriptText {
 		y = 0;
 		col = Color.white;
 	}
+	
 	public ScriptText(String str, int x, int y, Color col) {
 		this.str = str;
 		this.x = x;

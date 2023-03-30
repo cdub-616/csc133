@@ -5,11 +5,13 @@ public class ScriptRectTextHover {
 	RECT rect;
 	ScriptTextShadow text;
 	ScriptText sText;
+	int shadow;
 	
 	//constructor
-	public ScriptRectTextHover(RECT rect, ScriptTextShadow text) { //with shadow
+	public ScriptRectTextHover(RECT rect, int shadow, ScriptTextShadow text) { //with shadow
 		this.rect = rect;
 		this.text = text;
+		this.shadow = shadow;
 	}
 	
 	public ScriptRectTextHover(RECT rect, ScriptText sText) {      //without shadow
@@ -28,5 +30,9 @@ public class ScriptRectTextHover {
 	
 	public ScriptText getScriptText() {
 		return sText;
+	}
+	
+	public int getShadow() {
+		return shadow;
 	}
 }

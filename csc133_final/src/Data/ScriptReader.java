@@ -83,7 +83,7 @@ public class ScriptReader {
 				ScriptText shadowText = new ScriptText(hoverLabel, x1 + shadow, y1 + 2 + shadow, shadowCol);
 				ScriptText hoverText = new ScriptText(hoverLabel, x1 + 2, y1 + 2, textCol);
 				ScriptTextShadow text = new ScriptTextShadow(hoverText, shadowText);
-				rTHovers.add(new ScriptRectTextHover(rect, text));		
+				rTHovers.add(new ScriptRectTextHover(rect, shadow, text));		
 			}
 		}
 	}
