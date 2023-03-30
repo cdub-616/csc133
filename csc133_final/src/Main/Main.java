@@ -29,7 +29,7 @@ import timer.stopWatchX;
 
 public class Main{
 	// Fields (Static) below...
-	public static String coord = "";  //coordinate tool
+	//public static String coord = "";  //coordinate tool
 	private static ArrayList<ScriptSprite> scriptSprites;  
 	private static ArrayList<ScriptText> scriptTexts;
 	private static ArrayList<ScriptTextShadow> scriptTextShadows;
@@ -60,9 +60,10 @@ public class Main{
 		// TODO: This is where you can code! (Starting code below is just to show you how it works)	
 		
 		Point p = Mouse.getMouseCoords();
-		coord = p.toString();  //coordinate tool
-		ctrl.drawString(500, 360, coord, Color.WHITE);  //coordinate tool
+		/*coord = p.toString();  //coordinate tool
+		ctrl.drawString(500, 360, coord, Color.WHITE);  //coordinate tool*/
 		
+		//variables for scripting
 		int x = (int)p.getX(), y = (int)p.getY(), shadow = 0;
 		RECT rect = new RECT();
 		ScriptText rText = new ScriptText();
@@ -70,8 +71,7 @@ public class Main{
 		ArrayList<RECT> rectArray = new ArrayList<>();
 		Vector<Integer> intVec = new Vector<>();
 		ArrayList<ScriptText> rTArray = new ArrayList<>();
-		ArrayList<ScriptText> rSArray = new ArrayList<>();
-		
+		ArrayList<ScriptText> rSArray = new ArrayList<>();	
 		boolean sprites = false, texts = false, textShadows = false, rectTextHovers = false;
 		
 		//scripting
@@ -109,14 +109,15 @@ public class Main{
 				rSArray.add(textShadow.getShadow());
 			}
 		}
-		
 		for (int i = 0; i < rectArray.size(); i++) {
 			rect = rectArray.get(i);
 		if (rect.isCollision(x, y))  //check for chicken collision
 			perString = rect.getHoverLabel();
 		else
 			perString = "";
-		shadow = rSArray.get(i).getColor();
+		shadow = intVec.get(i);
+		rText = rTArray.get(i);
+		rShadow = rSArray.get(i);
 		ctrl.drawString(x, y, perString, rShadow.getColor());
 		ctrl.drawString(x - shadow, y - shadow, perString, rText.getColor());
 		}
