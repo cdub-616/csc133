@@ -1,10 +1,10 @@
-package Data;
+package script;
 
 import java.awt.Color;
 import java.util.ArrayList;
 
+import Data.RECT;
 import FileIO.EZFileRead;
-import script.Command;
 
 public class ScriptReader {
 	//fields
@@ -31,6 +31,8 @@ public class ScriptReader {
 		sprites = new ArrayList<ScriptSprite>();
 		textShad = new ArrayList<ScriptTextShadow>();
 		text = new ArrayList<ScriptText>();
+		
+		//fill ArrayLists
 		for (Command c: commands) {
 			if (c.isCommand("show_sprite") && c.getNumParms() == 3) {  
 				int x = Integer.parseInt(c.getParmByIndex(0));

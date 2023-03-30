@@ -7,15 +7,11 @@ import java.awt.image.BufferedImage;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
+import java.util.Vector;
 
 import Data.Animation;
 import Data.Click;
 import Data.RECT;
-import Data.ScriptReader;
-import Data.ScriptRectTextHover;
-import Data.ScriptSprite;
-import Data.ScriptText;
-import Data.ScriptTextShadow;
 import Data.Sprite;
 import Data.Frame;
 import FileIO.EZFileWrite;
@@ -23,12 +19,17 @@ import FileIO.EZFileRead;
 import Input.Mouse;
 import logic.Control;
 import script.Command;
+import script.ScriptReader;
+import script.ScriptRectTextHover;
+import script.ScriptSprite;
+import script.ScriptText;
+import script.ScriptTextShadow;
 import sound.Sound;
 import timer.stopWatchX;
 
 public class Main{
 	// Fields (Static) below...
-	//public static String coord = "";  //coordinate tool
+	public static String coord = "";  //coordinate tool
 	private static ArrayList<ScriptSprite> scriptSprites;  
 	private static ArrayList<ScriptText> scriptTexts;
 	private static ArrayList<ScriptTextShadow> scriptTextShadows;
@@ -59,14 +60,20 @@ public class Main{
 		// TODO: This is where you can code! (Starting code below is just to show you how it works)	
 		
 		Point p = Mouse.getMouseCoords();
-		/*coord = p.toString();  //coordinate tool
-		ctrl.drawString(500, 360, coord, Color.WHITE);  //coordinate tool*/
+		coord = p.toString();  //coordinate tool
+		ctrl.drawString(500, 360, coord, Color.WHITE);  //coordinate tool
 		
 		int x = (int)p.getX(), y = (int)p.getY(), shadow = 0;
 		RECT rect = new RECT();
 		ScriptText rText = new ScriptText();
 		ScriptText rShadow = new ScriptText();
+		ArrayList<RECT> rectArray = new ArrayList<>();
+		Vector<Integer> intVec = new Vector<>();
+		ArrayList<ScriptText> rTArray = new ArrayList<>();
+		ArrayList<ScriptText> rSArray = new ArrayList<>();
+		
 		boolean sprites = false, texts = false, textShadows = false, rectTextHovers = false;
+		
 		//scripting
 		if (!scriptSprites.isEmpty() && sprites == false) {
 			sprites = true;
@@ -95,29 +102,24 @@ public class Main{
 		if (!scriptRectTextHovers.isEmpty() && rectTextHovers == false) {
 			rectTextHovers = true;
 			for (ScriptRectTextHover hover: scriptRectTextHovers) {
-				//RECT rect = hover.getRect();
-				rect = hover.getRect();
-				//int shadow = hover.getShadow();
-				shadow = hover.getShadow();
+				rectArray.add(hover.getRect());
+				intVec.add(hover.getShadow());
 				ScriptTextShadow textShadow = hover.getScriptTextShadow();
-				//ScriptText rText = textShadow.getText();
-				//ScriptText rShadow = textShadow.getShadow();
-				rText = textShadow.getText();
-				rShadow = textShadow.getShadow();
-				/*if (rect.isCollision(x, y))  //check for chicken collision
-					perString = rect.getHoverLabel();
-				else
-					perString = "";
-				ctrl.drawString(x, y, perString, rShadow.getColor());
-				ctrl.drawString(x - shadow, y - shadow, perString, rText.getColor());*/
+				rTArray.add(textShadow.getText());
+				rSArray.add(textShadow.getShadow());
 			}
 		}
+		
+		for (int i = 0; i < rectArray.size(); i++) {
+			rect = rectArray.get(i);
 		if (rect.isCollision(x, y))  //check for chicken collision
 			perString = rect.getHoverLabel();
 		else
 			perString = "";
+		shadow = rSArray.get(i).getColor();
 		ctrl.drawString(x, y, perString, rShadow.getColor());
 		ctrl.drawString(x - shadow, y - shadow, perString, rText.getColor());
+		}
 	}
 	
 	// Additional Static methods below...(if needed)

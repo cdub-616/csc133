@@ -1,4 +1,4 @@
-package Data;
+package script;
 
 public class ScriptSprite {
 	//fields

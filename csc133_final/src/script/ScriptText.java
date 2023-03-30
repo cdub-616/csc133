@@ -1,4 +1,4 @@
-package Data;
+package script;
 
 import java.awt.Color;
 
@@ -8,7 +8,7 @@ public class ScriptText {
 	private String str;
 	private Color col;
 		
-	//constructor
+	//constructors
 	public ScriptText() {
 		str = "";
 		x = 0;

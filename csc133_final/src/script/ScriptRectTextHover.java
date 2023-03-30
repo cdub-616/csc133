@@ -1,16 +1,25 @@
-package Data;
+package script;
+
+import Data.RECT;
 
 public class ScriptRectTextHover {
 	//fields
 	RECT rect;
-	ScriptTextShadow text;
+	ScriptTextShadow shadText;
 	ScriptText sText;
 	int shadow;
 	
-	//constructor
-	public ScriptRectTextHover(RECT rect, int shadow, ScriptTextShadow text) { //with shadow
+	//constructors
+	public ScriptRectTextHover() {
+		RECT rect = new RECT();
+		ScriptTextShadow shadText = new ScriptTextShadow();
+		ScriptText sText = new ScriptText();
+		shadow = 0;
+	}
+	
+	public ScriptRectTextHover(RECT rect, int shadow, ScriptTextShadow shadText) { //with shadow
 		this.rect = rect;
-		this.text = text;
+		this.shadText = shadText;
 		this.shadow = shadow;
 	}
 	
@@ -25,7 +34,7 @@ public class ScriptRectTextHover {
 	}
 	
 	public ScriptTextShadow getScriptTextShadow() {
-		return text;
+		return shadText;
 	}
 	
 	public ScriptText getScriptText() {

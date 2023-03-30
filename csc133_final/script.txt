@@ -1,10 +1,13 @@
 #demo scripts
 
 #show_sprite: x, y, tag
-show_sprite: 576, 296, f0
+show_sprite: 363, 176, f0
+show_sprite: 726, 352, f0
 
 #text: display, x, y, red, green, blue
-text: Persephone, 600, 445, 0, 0, 255
+text: Persephone, 386, 320, 0, 0, 255
+text: Princess, 765, 500, 0, 255, 0
 
 #rect_texthover: x1, y1, x2, y2, tag, label, labelRed, labelGreen, labelBlue, shadowOffset, shadowRed, shadowGreen, shadowBlue
-rect_texthover: 625, 300, 685, 415, Persephone, Princess, 255, 255, 0, 1, 0, 0, 0 
+rect_texthover: 413, 180, 474, 297, Persephone, Princess, 255, 255, 0, 1, 0, 0, 0 
+rect_texthover: 775, 357, 835, 474, Princess, Persephone, 255, 0, 0, 1, 0, 0, 0
