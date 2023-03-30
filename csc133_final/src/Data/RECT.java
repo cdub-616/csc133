@@ -1,7 +1,7 @@
 package Data;
 
 public class RECT {
-	//Fields
+	//fields
 	private int x1;
 	private int y1;
 	private int x2;
@@ -10,7 +10,7 @@ public class RECT {
 	private String hoverLabel;
 	private Frame gHover;
 	
-	//Constructor
+	//constructors
 	public RECT(int x1, int y1, int x2, int y2, String tag) {
 		this.x1 = x1;
 		this.y1 = y1;
@@ -41,7 +41,7 @@ public class RECT {
 		this.gHover = gHover;
 	}
 	
-	//Methods
+	//methods
 	public String getTag() {
 		return tag;
 	}
