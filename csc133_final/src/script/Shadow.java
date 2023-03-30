@@ -8,7 +8,7 @@ public class Shadow {
 	
 	//constructors
 	public Shadow() {
-		ScriptText shadowText = new ScriptText();
+		shadowText = new ScriptText();
 	}
 	
 	public Shadow(int shadow, Color shadColor, ScriptText oldText) {

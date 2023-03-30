@@ -11,9 +11,9 @@ public class ScriptRectTextHover {
 	
 	//constructors
 	public ScriptRectTextHover() {
-		RECT rect = new RECT();
-		ScriptTextShadow shadText = new ScriptTextShadow();
-		ScriptText sText = new ScriptText();
+		rect = new RECT();
+		shadText = new ScriptTextShadow();
+		sText = new ScriptText();
 		shadow = 0;
 	}
 	

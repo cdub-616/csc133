@@ -109,9 +109,10 @@ public class Main{
 				rSArray.add(textShadow.getShadow());
 			}
 		}
+		//check for RECT collision
 		for (int i = 0; i < rectArray.size(); i++) {
 			rect = rectArray.get(i);
-		if (rect.isCollision(x, y))  //check for chicken collision
+		if (rect.isCollision(x, y)) 
 			perString = rect.getHoverLabel();
 		else
 			perString = "";

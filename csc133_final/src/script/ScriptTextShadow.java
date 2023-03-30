@@ -7,8 +7,8 @@ public class ScriptTextShadow {
 	
 	//constructors
 	public ScriptTextShadow() {
-		ScriptText text = new ScriptText();
-		ScriptText shadow = new ScriptText();
+		text = new ScriptText();
+		shadow = new ScriptText();
 	}
 	
 	public ScriptTextShadow(ScriptText text, ScriptText shadow) {
