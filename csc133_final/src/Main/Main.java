@@ -35,13 +35,16 @@ import timer.stopWatchX;
 public class Main{
 	// Fields (Static) below...
 	//public static String coord = "";  //coordinate tool
+	
+	//variables for scripting
 	private static ArrayList<ScriptSprite> scriptSprites;  
 	private static ArrayList<ScriptText> scriptTexts;
 	private static ArrayList<ScriptTextShadow> scriptTextShadows;
 	private static ArrayList<ScriptRectTextHover> scriptRectTextHovers;
-	private static int[] buffer;  //some hypothetical game variables
 	private static ScriptReader scriptReader; 
-	private static String perString = "";
+	private static String perString = "", clickString = "";
+	
+	private static int[] buffer;  //some hypothetical game variables
 
 	// End Static fields...
 	
@@ -68,6 +71,7 @@ public class Main{
 		// TODO: This is where you can code! (Starting code below is just to show you how it works)	
 		
 		Point p = Mouse.getMouseCoords();
+		
 		/*coord = p.toString();  //coordinate tool
 		ctrl.drawString(500, 360, coord, Color.WHITE);  //coordinate tool*/
 		
@@ -120,8 +124,16 @@ public class Main{
 		//check for RECT collision
 		for (int i = 0; i < rectArray.size(); i++) {
 			rect = rectArray.get(i);
-		if (rect.isCollision(x, y)) 
+		if (rect.isCollision(x, y)) {
 			perString = rect.getHoverLabel();
+			if (Control.getMouseInput() != null) {
+				if (Control.getMouseInput().getButton() == Click.LEFT_BUTTON) {
+					clickString = "Click";	
+				}
+				else
+					clickString = "";
+			}
+		}
 		else
 			perString = "";
 		shadow = intVec.get(i);
@@ -129,6 +141,7 @@ public class Main{
 		rShadow = rSArray.get(i);
 		ctrl.drawString(x, y, perString, rShadow.getColor());
 		ctrl.drawString(x - shadow, y - shadow, perString, rText.getColor());
+		ctrl.drawString(x + 100, y - 50, clickString, Color.white);
 		}
 	}
 	
