@@ -124,18 +124,27 @@ public class Main{
 		//check for RECT collision
 		for (int i = 0; i < rectArray.size(); i++) {
 			rect = rectArray.get(i);
-		if (rect.isCollision(x, y)) {
-			perString = rect.getHoverLabel();
-			if (Control.getMouseInput() != null) {
-				if (Control.getMouseInput().getButton() == Click.LEFT_BUTTON) {
-					clickString = "Click";	
-				}
-				else
-					clickString = "";
+			if (rect.isCollision(x, y)) {
+				perString = rect.getHoverLabel();
 			}
-		}
-		else
-			perString = "";
+			else
+				perString = "";
+			if (Control.getMouseInput() != null) {
+				if (i == 0) {
+					if (rect.isClicked(Control.getMouseInput(), Click.LEFT_BUTTON)) {
+						clickString = "Left Click";	
+					}
+					else 
+						clickString = "";
+				}
+				if (i == 1) { 
+					if (rect.isClicked(Control.getMouseInput(), Click.RIGHT_BUTTTON)) {
+						clickString = "Right Click";
+					}
+					else
+						clickString = "";
+				}
+			}
 		shadow = intVec.get(i);
 		rText = rTArray.get(i);
 		rShadow = rSArray.get(i);
