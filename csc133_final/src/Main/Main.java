@@ -35,13 +35,15 @@ import timer.stopWatchX;
 public class Main{
 	// Fields (Static) below...
 	//public static String coord = "";  //coordinate tool
+	
+	//variables for scripting
 	private static ArrayList<ScriptSprite> scriptSprites;  
 	private static ArrayList<ScriptText> scriptTexts;
 	private static ArrayList<ScriptTextShadow> scriptTextShadows;
 	private static ArrayList<ScriptRectTextHover> scriptRectTextHovers;
-	private static int[] buffer;  //some hypothetical game variables
 	private static ScriptReader scriptReader; 
-	private static String perString = "";
+	
+	private static int[] buffer;  //some hypothetical game variables
 
 	// End Static fields...
 	
@@ -60,7 +62,6 @@ public class Main{
 		scriptTextShadows = new ArrayList<ScriptTextShadow>(scriptReader.getScriptTextShadows());
 		scriptRectTextHovers = new ArrayList<ScriptRectTextHover>(scriptReader.getScriptRectTextHover());	
 		scriptTexts = new ArrayList<ScriptText>(scriptReader.getScriptTexts());
-
 	}
 	
 	/* This is your access to the "game loop" (It is a "callback" method from the Control class (do NOT modify that class!))*/
@@ -68,6 +69,7 @@ public class Main{
 		// TODO: This is where you can code! (Starting code below is just to show you how it works)	
 		
 		Point p = Mouse.getMouseCoords();
+		
 		/*coord = p.toString();  //coordinate tool
 		ctrl.drawString(500, 360, coord, Color.WHITE);  //coordinate tool*/
 		
@@ -117,22 +119,43 @@ public class Main{
 				rSArray.add(textShadow.getShadow());
 			}
 		}
-		//check for RECT collision
+		
+		//check for RECT collision/click
+		String perString = "", clickString = "";
 		for (int i = 0; i < rectArray.size(); i++) {
 			rect = rectArray.get(i);
-		if (rect.isCollision(x, y)) 
-			perString = rect.getHoverLabel();
-		else
-			perString = "";
-		shadow = intVec.get(i);
-		rText = rTArray.get(i);
-		rShadow = rSArray.get(i);
-		ctrl.drawString(x, y, perString, rShadow.getColor());
-		ctrl.drawString(x - shadow, y - shadow, perString, rText.getColor());
+			if (rect.isCollision(x, y)) {
+				perString = rect.getHoverLabel();
+			}
+			else
+				perString = "";
+			if (Control.getMouseInput() != null) {
+				if (i == 0) {
+					if (rect.isClicked(Control.getMouseInput(), Click.LEFT_BUTTON)) {
+						clickString = "Left Click";	
+					}
+				}
+				if (i == 1) { 
+					if (rect.isClicked(Control.getMouseInput(), Click.RIGHT_BUTTTON)) {
+						if (Control.getMouseInput() != null) {
+							clickString = "Right Click";
+						}
+					}
+				}
+			}
+			else
+				clickString = "";
+			shadow = intVec.get(i);
+			rText = rTArray.get(i);
+			rShadow = rSArray.get(i);
+			ctrl.drawString(x, y, perString, rShadow.getColor());
+			ctrl.drawString(x - shadow, y - shadow, perString, rText.getColor());
+			ctrl.drawString(x + 100, y - 50, clickString, Color.white);
 		}
 	}
 	
 	// Additional Static methods below...(if needed)
+	
 	//create a routine to save the game data
 	public static void saveData() {
 		//save data to a String to output...

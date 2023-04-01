@@ -48,7 +48,7 @@ public class ScriptReader {
 				int blue = Integer.parseInt(c.getParmByIndex(5));
 				Color col = new Color(red, green, blue);
 				text.add(new ScriptText(display, x, y, col));
-			} else if (c.isCommand("text") && c.getNumParms() == 10) { //with shadow
+			} else if (c.isCommand("shadowtext") && c.getNumParms() == 10) { //with shadow
 				String display = c.getParmByIndex(0);
 				int x = Integer.parseInt(c.getParmByIndex(1));
 				int y = Integer.parseInt(c.getParmByIndex(2));

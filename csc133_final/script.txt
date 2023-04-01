@@ -5,9 +5,14 @@ show_sprite: 363, 176, f0
 show_sprite: 726, 352, f0
 
 #text: display, x, y, red, green, blue
-text: Persephone, 386, 320, 0, 0, 255
-text: Princess, 765, 500, 0, 255, 0
+text: Left Click Persephone, 331, 320, 0, 0, 255
+text: Right Click Princess, 710, 500, 0, 255, 0
+
+#shadowtext: display, x, y, red, green, blue, shadowOffset, shadowRed, shadowGreen, shadowBlue
+shadowtext: DEMO, 610, 100, 255, 0, 255, 3, 255, 255, 255
 
 #rect_texthover: x1, y1, x2, y2, tag, label, labelRed, labelGreen, labelBlue, shadowOffset, shadowRed, shadowGreen, shadowBlue
 rect_texthover: 413, 180, 474, 297, Persephone, Princess, 255, 255, 0, 1, 0, 0, 0 
 rect_texthover: 775, 357, 835, 474, Princess, Persephone, 255, 0, 0, 1, 0, 0, 0
+
+garbage test line
