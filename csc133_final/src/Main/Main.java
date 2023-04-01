@@ -119,39 +119,6 @@ public class Main{
 				rSArray.add(textShadow.getShadow());
 			}
 		}
-		
-		//check for RECT collision/click
-		String perString = "", clickString = "";
-		for (int i = 0; i < rectArray.size(); i++) {
-			rect = rectArray.get(i);
-			if (rect.isCollision(x, y)) {
-				perString = rect.getHoverLabel();
-			}
-			else
-				perString = "";
-			if (Control.getMouseInput() != null) {
-				if (i == 0) {
-					if (rect.isClicked(Control.getMouseInput(), Click.LEFT_BUTTON)) {
-						clickString = "Left Click";	
-					}
-				}
-				if (i == 1) { 
-					if (rect.isClicked(Control.getMouseInput(), Click.RIGHT_BUTTTON)) {
-						if (Control.getMouseInput() != null) {
-							clickString = "Right Click";
-						}
-					}
-				}
-			}
-			else
-				clickString = "";
-			shadow = intVec.get(i);
-			rText = rTArray.get(i);
-			rShadow = rSArray.get(i);
-			ctrl.drawString(x, y, perString, rShadow.getColor());
-			ctrl.drawString(x - shadow, y - shadow, perString, rText.getColor());
-			ctrl.drawString(x + 100, y - 50, clickString, Color.white);
-		}
 	}
 	
 	// Additional Static methods below...(if needed)
