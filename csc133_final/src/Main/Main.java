@@ -20,6 +20,7 @@ import Input.Mouse;
 import logic.Control;
 import particles.ParticleSystem;
 import particles.Rain;
+import particles.Shiny;
 import script.Command;
 import sound.Sound;
 import timer.stopWatchX;
@@ -28,7 +29,8 @@ public class Main{
 	// Fields (Static) below...
 	//public static String coord = "";  //coordinate tool
 	private static int[] buffer;        //some hypothetical game variables
-	public static Rain rain;
+	//public static Rain rain;
+	public static Shiny shiny;
 	// End Static fields...
 	
 	public static void main(String[] args) {
@@ -40,7 +42,8 @@ public class Main{
 	public static void start(Control ctrl){
 		//TODO:  Code your starting conditions here...NOT DRAW CALLS HERE! (no addSprite or drawString)
 		//set up a rain particle system
-		rain = new Rain(-50, 0, 1200, 90, 25, 60, 150);
+		//rain = new Rain(-50, 0, 1200, 90, 25, 60, 150);
+		shiny = new Shiny(0, 0, 1280, 720, 24, 64, 1024);
 	}
 	
 	/* This is your access to the "game loop" (It is a "callback" method from the Control class (do NOT modify that class!))*/
@@ -52,7 +55,8 @@ public class Main{
 		//display the BG first
 		ctrl.addSpriteToFrontBuffer(0, 0, "forest");
 		//add rain particle stuff here...
-		ParticleSystem pm2 = rain.getParticleSystem();
+		//ParticleSystem pm2 = rain.getParticleSystem();
+		ParticleSystem pm2 = shiny.getParticleSystem();
 		Iterator<Frame> it2 = pm2.getParticles();
 		while (it2.hasNext()) {
 			Frame par2 = it2.next();
