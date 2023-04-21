@@ -13,6 +13,7 @@ public class Particle {
 	private stopWatchX timer;
 	//to preserve for resetting...
 	private int rootX, rootY;
+	private int minX, maxX, minY, maxY;
 	private boolean isReset;
 	
 	//constructor
@@ -21,6 +22,10 @@ public class Particle {
 		this.particleSpriteTag = particleSpriteTag;
 		this.x = getRandomInt(minX, maxX);
 		this.y = getRandomInt(minY, maxY);
+		this.minX = minX;
+		this.minY = minY;
+		this.maxX = maxX;
+		this.maxY = maxY;
 		lifecycle = getRandomInt(minLife, maxLife);
 		this.xMove = xMove;
 		this.yMove = yMove;
@@ -38,10 +43,29 @@ public class Particle {
 	
 	public void changeX(int newX) {
 		x = newX;
+		rootX = x;
 	}
-	
+	public void changeY(int newY) {
+		y = newY;
+		rootY = y;
+	}
 	public int getX() {
 		return x;
+	}
+	public int getY() {
+		return y;
+	}
+	public int getMaxX() {
+		return maxX;
+	}
+	public int getMaxY() {
+		return maxY;
+	}
+	public int getMinX() {
+		return minX;
+	}
+	public int getMinY() {
+		return minY;
 	}
 	
 	public int getLifeCycle() {

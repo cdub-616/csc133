@@ -43,7 +43,7 @@ public class Main{
 		//TODO:  Code your starting conditions here...NOT DRAW CALLS HERE! (no addSprite or drawString)
 		//set up a rain particle system
 		//rain = new Rain(-50, 0, 1200, 90, 25, 60, 150);
-		shiny = new Shiny(0, 0, 1280, 720, 24, 64, 1024);
+		shiny = new Shiny(510, 180, 128, 128, 8, 16, 16);
 	}
 	
 	/* This is your access to the "game loop" (It is a "callback" method from the Control class (do NOT modify that class!))*/
@@ -56,13 +56,19 @@ public class Main{
 		ctrl.addSpriteToFrontBuffer(0, 0, "forest");
 		//add rain particle stuff here...
 		//ParticleSystem pm2 = rain.getParticleSystem();
-		ParticleSystem pm2 = shiny.getParticleSystem();
-		Iterator<Frame> it2 = pm2.getParticles();
-		while (it2.hasNext()) {
+		ParticleSystem pm = shiny.getParticleSystem();
+		//Iterator<Frame> it2 = pm2.getParticles();
+		Iterator<Frame> it = pm.getParticles();
+		/*while (it2.hasNext()) {
 			Frame par2 = it2.next();
 			ctrl.addSpriteToFrontBuffer(par2.getX(), par2.getY(), par2.getSpriteTag());
+		}*/
+		while (it.hasNext()) {
+			Frame par = it.next();
+			ctrl.addSpriteToFrontBuffer(par.getX(), par.getY(), par.getSpriteTag());
 		}
 	}
+	
 	// Additional Static methods below...(if needed)
 	//create a routine to save the game data
 	public static void saveData() {
