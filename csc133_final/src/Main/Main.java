@@ -43,7 +43,7 @@ public class Main{
 		//TODO:  Code your starting conditions here...NOT DRAW CALLS HERE! (no addSprite or drawString)
 		//set up a rain particle system
 		//rain = new Rain(-50, 0, 1200, 90, 25, 60, 150);
-		shiny = new Shiny(510, 180, 128, 128, 8, 16, 16);
+		shiny = new Shiny(510, 180, 128, 128, 32, 64, 16);
 	}
 	
 	/* This is your access to the "game loop" (It is a "callback" method from the Control class (do NOT modify that class!))*/

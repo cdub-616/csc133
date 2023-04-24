@@ -13,7 +13,7 @@ public class Particle {
 	private stopWatchX timer;
 	//to preserve for resetting...
 	private int rootX, rootY;
-	private int minX, maxX, minY, maxY;
+	private int minX, maxX, minY, maxY, minLife, maxLife, mindelay, maxdelay, delay;
 	private boolean isReset;
 	
 	//constructor
@@ -26,6 +26,10 @@ public class Particle {
 		this.minY = minY;
 		this.maxX = maxX;
 		this.maxY = maxY;
+		this.minLife = minLife;
+		this.maxLife = maxLife;
+		this.mindelay = mindelay;
+		this.maxdelay = maxdelay;
 		lifecycle = getRandomInt(minLife, maxLife);
 		this.xMove = xMove;
 		this.yMove = yMove;
@@ -67,9 +71,26 @@ public class Particle {
 	public int getMinY() {
 		return minY;
 	}
-	
+	public int getMinLife() {
+		return minLife;
+	}
+	public int getmaxLife() {
+		return maxLife;
+	}
+	public int getMindelay() {
+		return mindelay;
+	}
+	public int getMaxdelay() {
+		return maxdelay;
+	}
+	public void setDelay(int del) {
+		delay = del;
+	}
 	public int getLifeCycle() {
 		return lifecycle;
+	}
+	public void setLifeCycle(int life) {
+		lifecycle = life;
 	}
 	
 	public int getAge() {
