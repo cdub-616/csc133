@@ -58,8 +58,8 @@ public class Main{
 	public static void start(Control ctrl){
 		//TODO:  Code your starting conditions here...NOT DRAW CALLS HERE! (no addSprite or drawString)
 		//set up a rain particle system
-		rain = new Rain(-50, 0, 1200, 90, 25, 60, 150);
-		shiny = new Shiny(510, 180, 128, 128, 16, 32, 16);
+		rain = new Rain(-50, 0, 1200, 90, 25, 60, 25);
+		shiny = new Shiny(510, 180, 128, 128, 8, 64, 8);
 
 		//scripting
 		/*scriptReader = new ScriptReader("script.txt");
@@ -86,11 +86,17 @@ public class Main{
 		Iterator<Frame> it = pm.getParticles();
 		while (it2.hasNext()) {
 			Frame par2 = it2.next();
-			ctrl.addSpriteToFrontBuffer(par2.getX(), par2.getY(), par2.getSpriteTag());
+			Sprite spr2 = ctrl.getSpriteFromBackBuffer(par2.getSpriteTag());
+			BufferedImage buf2 = ctrl.getSpriteFromBackBuffer(spr2.getTag()).getSprite();
+			Sprite sprite2 = new Sprite(par2.getX(), par2.getY(), buf2, par2.getSpriteTag());
+			ctrl.addSpriteToFrontBuffer(sprite2);
 		}
 		while (it.hasNext()) {
 			Frame par = it.next();
-			ctrl.addSpriteToFrontBuffer(par.getX(), par.getY(), par.getSpriteTag());
+			Sprite spr = ctrl.getSpriteFromBackBuffer(par.getSpriteTag());
+			BufferedImage buf = ctrl.getSpriteFromBackBuffer(spr.getTag()).getSprite();
+			Sprite sprite = new Sprite(par.getX(), par.getY(), buf, par.getSpriteTag());
+			ctrl.addSpriteToFrontBuffer(sprite);
 		}
 		//variables for scripting
 		/*int x = (int)p.getX(), y = (int)p.getY(), shadow = 0;
