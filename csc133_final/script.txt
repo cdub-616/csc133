@@ -1,2 +1,9 @@
-show_sprite: 100, 100, f0
-#text: Howdy partner!
+#demo scripts
+
+#show_sprite: x, y, tag
+
+#text: display, x, y, red, green, blue
+
+#shadowtext: display, x, y, red, green, blue, shadowOffset, shadowRed, shadowGreen, shadowBlue
+
+#rect_texthover: x1, y1, x2, y2, tag, label, labelRed, labelGreen, labelBlue, shadowOffset, shadowRed, shadowGreen, shadowBlue

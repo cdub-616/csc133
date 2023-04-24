@@ -8,13 +8,16 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.StringTokenizer;
+import java.util.Vector;
 
 import Data.Animation;
+import Data.Atext;
 import Data.Click;
 import Data.RECT;
 import Data.Sprite;
 import Data.Frame;
 import FileIO.EZFileWrite;
+import Graphics.Graphic;
 import FileIO.EZFileRead;
 import Input.Mouse;
 import logic.Control;
@@ -22,6 +25,11 @@ import particles.ParticleSystem;
 import particles.Rain;
 import particles.Shiny;
 import script.Command;
+import script.ScriptReader;
+import script.ScriptRectTextHover;
+import script.ScriptSprite;
+import script.ScriptText;
+import script.ScriptTextShadow;
 import sound.Sound;
 import timer.stopWatchX;
 
@@ -31,6 +39,14 @@ public class Main{
 	private static int[] buffer;        //some hypothetical game variables
 	//public static Rain rain;
 	public static Shiny shiny;
+	
+	//variables for scripting
+	private static ArrayList<ScriptSprite> scriptSprites;  
+	private static ArrayList<ScriptText> scriptTexts;
+	private static ArrayList<ScriptTextShadow> scriptTextShadows;
+	private static ArrayList<ScriptRectTextHover> scriptRectTextHovers;
+	private static ScriptReader scriptReader; 
+	
 	// End Static fields...
 	
 	public static void main(String[] args) {
@@ -44,13 +60,22 @@ public class Main{
 		//set up a rain particle system
 		//rain = new Rain(-50, 0, 1200, 90, 25, 60, 150);
 		shiny = new Shiny(510, 180, 128, 128, 32, 64, 16);
+
+		//scripting
+		scriptReader = new ScriptReader("script.txt");
+		scriptSprites = new ArrayList<ScriptSprite>(scriptReader.getScriptSprites());
+		scriptTextShadows = new ArrayList<ScriptTextShadow>(scriptReader.getScriptTextShadows());
+		scriptRectTextHovers = new ArrayList<ScriptRectTextHover>(scriptReader.getScriptRectTextHover());	
+		scriptTexts = new ArrayList<ScriptText>(scriptReader.getScriptTexts());
 	}
 	
 	/* This is your access to the "game loop" (It is a "callback" method from the Control class (do NOT modify that class!))*/
 	public static void update(Control ctrl) {
 		// TODO: This is where you can code! (Starting code below is just to show you how it works)	
-		/*Point p = Mouse.getMouseCoords();
-		coord = p.toString();                           //coordinate tool
+		
+		Point p = Mouse.getMouseCoords();
+		
+		/*coord = p.toString();  //coordinate tool
 		ctrl.drawString(500, 360, coord, Color.WHITE);  //coordinate tool*/
 		//display the BG first
 		ctrl.addSpriteToFrontBuffer(0, 0, "forest");
@@ -66,10 +91,57 @@ public class Main{
 		while (it.hasNext()) {
 			Frame par = it.next();
 			ctrl.addSpriteToFrontBuffer(par.getX(), par.getY(), par.getSpriteTag());
+		
+		//variables for scripting
+		int x = (int)p.getX(), y = (int)p.getY(), shadow = 0;
+		RECT rect = new RECT();
+		ScriptText rText = new ScriptText();
+		ScriptText rShadow = new ScriptText();
+		ArrayList<RECT> rectArray = new ArrayList<>();
+		Vector<Integer> intVec = new Vector<>();
+		ArrayList<ScriptText> rTArray = new ArrayList<>();
+		ArrayList<ScriptText> rSArray = new ArrayList<>();	
+		boolean sprites = false, texts = false, textShadows = false, rectTextHovers = false;
+		
+		//scripting
+		if (!scriptSprites.isEmpty() && sprites == false) {
+			sprites = true;
+			for (ScriptSprite spr: scriptSprites) {
+				BufferedImage buf = ctrl.getSpriteFromBackBuffer(spr.getTag()).getSprite();
+				Sprite sprite = new Sprite(spr.getX(), spr.getY(), buf, spr.getTag());
+				ctrl.addSpriteToFrontBuffer(sprite);
+			}
+		}
+		if (!scriptTexts.isEmpty() && texts == false) {
+			texts = true;
+			for (ScriptText txt: scriptTexts) {
+				ctrl.drawString(txt.getX(), txt.getY(), txt.getText(), txt.getColor());
+			}
+		}
+		if (!scriptTextShadows.isEmpty() && textShadows == false) {
+			textShadows = true;
+			texts = true;
+			for (ScriptTextShadow txt: scriptTextShadows) {
+				ScriptText text = txt.getText();
+				ScriptText shad = txt.getShadow();
+				ctrl.drawString(shad.getX(), shad.getY(), shad.getText(), shad.getColor());
+				ctrl.drawString(text.getX(), text.getY(), text.getText(), text.getColor());		
+			}
+		}
+		if (!scriptRectTextHovers.isEmpty() && rectTextHovers == false) {
+			rectTextHovers = true;
+			for (ScriptRectTextHover hover: scriptRectTextHovers) {
+				rectArray.add(hover.getRect());
+				intVec.add(hover.getShadow());
+				ScriptTextShadow textShadow = hover.getScriptTextShadow();
+				rTArray.add(textShadow.getText());
+				rSArray.add(textShadow.getShadow());
+			}
 		}
 	}
 	
 	// Additional Static methods below...(if needed)
+	
 	//create a routine to save the game data
 	public static void saveData() {
 		//save data to a String to output...

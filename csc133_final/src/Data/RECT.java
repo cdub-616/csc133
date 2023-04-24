@@ -1,7 +1,7 @@
 package Data;
 
 public class RECT {
-	//Fields
+	//fields
 	private int x1;
 	private int y1;
 	private int x2;
@@ -10,7 +10,17 @@ public class RECT {
 	private String hoverLabel;
 	private Frame gHover;
 	
-	//Constructor
+	//constructors
+	public RECT() {
+		x1 = 0;
+		y1 = 0;
+		x2 = 1;
+		y2 = 1; 
+		tag = "";
+		hoverLabel = "";
+		gHover = null;
+	}
+	
 	public RECT(int x1, int y1, int x2, int y2, String tag) {
 		this.x1 = x1;
 		this.y1 = y1;
@@ -41,7 +51,23 @@ public class RECT {
 		this.gHover = gHover;
 	}
 	
-	//Methods
+	//methods
+	public int getX1() {
+		return x1;
+	}
+	
+	public int getY1() {
+		return y1;
+	}
+	
+	public int getX2() {
+		return x2;
+	}
+	
+	public int getY2() {
+		return y2;
+	}
+	
 	public String getTag() {
 		return tag;
 	}
