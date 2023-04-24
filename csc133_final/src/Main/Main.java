@@ -23,6 +23,7 @@ import Input.Mouse;
 import logic.Control;
 import particles.ParticleSystem;
 import particles.Rain;
+import particles.Shiny;
 import script.Command;
 import script.ScriptReader;
 import script.ScriptRectTextHover;
@@ -35,6 +36,9 @@ import timer.stopWatchX;
 public class Main{
 	// Fields (Static) below...
 	//public static String coord = "";  //coordinate tool
+	private static int[] buffer;        //some hypothetical game variables
+	//public static Rain rain;
+	public static Shiny shiny;
 	
 	//variables for scripting
 	private static ArrayList<ScriptSprite> scriptSprites;  
@@ -43,8 +47,6 @@ public class Main{
 	private static ArrayList<ScriptRectTextHover> scriptRectTextHovers;
 	private static ScriptReader scriptReader; 
 	
-	private static int[] buffer;  //some hypothetical game variables
-
 	// End Static fields...
 	
 	public static void main(String[] args) {
@@ -55,6 +57,9 @@ public class Main{
 	/* This is your access to things BEFORE the game loop starts */
 	public static void start(Control ctrl){
 		//TODO:  Code your starting conditions here...NOT DRAW CALLS HERE! (no addSprite or drawString)
+		//set up a rain particle system
+		//rain = new Rain(-50, 0, 1200, 90, 25, 60, 150);
+		shiny = new Shiny(510, 180, 128, 128, 32, 64, 16);
 
 		//scripting
 		scriptReader = new ScriptReader("script.txt");
@@ -72,6 +77,20 @@ public class Main{
 		
 		/*coord = p.toString();  //coordinate tool
 		ctrl.drawString(500, 360, coord, Color.WHITE);  //coordinate tool*/
+		//display the BG first
+		ctrl.addSpriteToFrontBuffer(0, 0, "forest");
+		//add rain particle stuff here...
+		//ParticleSystem pm2 = rain.getParticleSystem();
+		ParticleSystem pm = shiny.getParticleSystem();
+		//Iterator<Frame> it2 = pm2.getParticles();
+		Iterator<Frame> it = pm.getParticles();
+		/*while (it2.hasNext()) {
+			Frame par2 = it2.next();
+			ctrl.addSpriteToFrontBuffer(par2.getX(), par2.getY(), par2.getSpriteTag());
+		}*/
+		while (it.hasNext()) {
+			Frame par = it.next();
+			ctrl.addSpriteToFrontBuffer(par.getX(), par.getY(), par.getSpriteTag());
 		
 		//variables for scripting
 		int x = (int)p.getX(), y = (int)p.getY(), shadow = 0;
