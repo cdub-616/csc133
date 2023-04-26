@@ -37,15 +37,13 @@ public class Main{
 	// Fields (Static) below...
 	//public static String coord = "";  //coordinate tool
 	private static int[] buffer;        //some hypothetical game variables
-	public static Rain rain;
-	public static Shiny shiny;
 	
 	//variables for scripting
-	/*private static ArrayList<ScriptSprite> scriptSprites;  
+	private static ArrayList<ScriptSprite> scriptSprites;  
 	private static ArrayList<ScriptText> scriptTexts;
 	private static ArrayList<ScriptTextShadow> scriptTextShadows;
 	private static ArrayList<ScriptRectTextHover> scriptRectTextHovers;
-	private static ScriptReader scriptReader;*/
+	private static ScriptReader scriptReader;
 	
 	// End Static fields...
 	
@@ -58,15 +56,13 @@ public class Main{
 	public static void start(Control ctrl){
 		//TODO:  Code your starting conditions here...NOT DRAW CALLS HERE! (no addSprite or drawString)
 		//set up a rain particle system
-		rain = new Rain(-50, 0, 1200, 90, 25, 60, 25);
-		shiny = new Shiny(510, 180, 128, 128, 8, 64, 8);
-
+		
 		//scripting
-		/*scriptReader = new ScriptReader("script.txt");
+		scriptReader = new ScriptReader("script.txt");
 		scriptSprites = new ArrayList<ScriptSprite>(scriptReader.getScriptSprites());
 		scriptTextShadows = new ArrayList<ScriptTextShadow>(scriptReader.getScriptTextShadows());
 		scriptRectTextHovers = new ArrayList<ScriptRectTextHover>(scriptReader.getScriptRectTextHover());	
-		scriptTexts = new ArrayList<ScriptText>(scriptReader.getScriptTexts());*/
+		scriptTexts = new ArrayList<ScriptText>(scriptReader.getScriptTexts());
 	}
 	
 	/* This is your access to the "game loop" (It is a "callback" method from the Control class (do NOT modify that class!))*/
@@ -74,32 +70,11 @@ public class Main{
 		// TODO: This is where you can code! (Starting code below is just to show you how it works)	
 		
 		Point p = Mouse.getMouseCoords();
-		
 		/*coord = p.toString();  //coordinate tool
 		ctrl.drawString(500, 360, coord, Color.WHITE);  //coordinate tool*/
-		//display the BG first
-		ctrl.addSpriteToFrontBuffer(0, 0, "forest");
-		//add rain particle stuff here...
-		ParticleSystem pm2 = rain.getParticleSystem();
-		ParticleSystem pm = shiny.getParticleSystem();
-		Iterator<Frame> it2 = pm2.getParticles();
-		Iterator<Frame> it = pm.getParticles();
-		while (it2.hasNext()) {
-			Frame par2 = it2.next();
-			Sprite spr2 = ctrl.getSpriteFromBackBuffer(par2.getSpriteTag());
-			BufferedImage buf2 = ctrl.getSpriteFromBackBuffer(spr2.getTag()).getSprite();
-			Sprite sprite2 = new Sprite(par2.getX(), par2.getY(), buf2, par2.getSpriteTag());
-			ctrl.addSpriteToFrontBuffer(sprite2);
-		}
-		while (it.hasNext()) {
-			Frame par = it.next();
-			Sprite spr = ctrl.getSpriteFromBackBuffer(par.getSpriteTag());
-			BufferedImage buf = ctrl.getSpriteFromBackBuffer(spr.getTag()).getSprite();
-			Sprite sprite = new Sprite(par.getX(), par.getY(), buf, par.getSpriteTag());
-			ctrl.addSpriteToFrontBuffer(sprite);
-		}
+		
 		//variables for scripting
-		/*int x = (int)p.getX(), y = (int)p.getY(), shadow = 0;
+		int x = (int)p.getX(), y = (int)p.getY(), shadow = 0;
 		RECT rect = new RECT();
 		ScriptText rText = new ScriptText();
 		ScriptText rShadow = new ScriptText();
@@ -107,10 +82,10 @@ public class Main{
 		Vector<Integer> intVec = new Vector<>();
 		ArrayList<ScriptText> rTArray = new ArrayList<>();
 		ArrayList<ScriptText> rSArray = new ArrayList<>();	
-		boolean sprites = false, texts = false, textShadows = false, rectTextHovers = false;*/
+		boolean sprites = false, texts = false, textShadows = false, rectTextHovers = false;
 		
 		//scripting
-		/*if (!scriptSprites.isEmpty() && sprites == false) {
+		if (!scriptSprites.isEmpty() && sprites == false) {
 			sprites = true;
 			for (ScriptSprite spr: scriptSprites) {
 				BufferedImage buf = ctrl.getSpriteFromBackBuffer(spr.getTag()).getSprite();
@@ -143,7 +118,7 @@ public class Main{
 				rTArray.add(textShadow.getText());
 				rSArray.add(textShadow.getShadow());
 			}
-		}*/
+		}
 	}
 	// Additional Static methods below...(if needed)
 	
