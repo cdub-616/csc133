@@ -39,7 +39,8 @@ public class Main{
 	private static ArrayList<ScriptSprite> scriptSprites;  
 	private static ArrayList<ScriptText> scriptTexts;
 	private static TileMap tileMap;
-	private static Sprite sprMap1;    
+	private static Sprite sprMap1;   
+	private static MoveSprite robotMove;
 	private static Animation robotAnim;
 	//private static final int robotStep = 10;
 	// End Static fields...
@@ -65,7 +66,7 @@ public class Main{
 		
 		//robot animations
 		Animation botAnim = new Animation(100, false);
-		MoveSprite robotMove = new MoveSprite(botAnim, 10, 200, 400, 1000, 300);
+		robotMove = new MoveSprite(botAnim, 10, 50, 650, 51, 651);
 		robotAnim = robotMove.getAnimation();
 		
 	}
@@ -94,6 +95,11 @@ public class Main{
 				ctrl.drawString(txt.getX(), txt.getY(), txt.getText(), txt.getColor());
 		
 		//robot animation
+		if (!robotMove.compareCoords((int)p.getX(), (int)p.getY())) {
+			System.out.println(p.getX() + " " + p.getY());
+			robotMove.changeCoords((int)p.getX(), (int)p.getY());
+			robotAnim = robotMove.getAnimation();
+		}
 		Frame robotFrame = robotAnim.getCurrentFrame();
 		if (robotFrame != null)
 			ctrl.addSpriteToFrontBuffer(robotFrame.getX(), robotFrame.getY(), robotFrame.getSpriteTag());
