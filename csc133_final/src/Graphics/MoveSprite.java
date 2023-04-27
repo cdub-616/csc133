@@ -6,11 +6,14 @@ import Data.Frame;
 public class MoveSprite {
 	//fields
 	Animation anima;
-	int endX, endY;
+	int step, curX, curY, endX, endY;
 	
 	//constructor
 	public MoveSprite(Animation anima, int step, int curX, int curY, int endX, int endY) {
 		this.anima = anima;
+		this.step = step;
+		this.curX = curX;
+		this.curY = curY;
 		this.endX = endX;
 		this.endY = endY;
 		int frameCounter = 0;
@@ -18,7 +21,6 @@ public class MoveSprite {
 		double changeY = getChange(curY, endY);
 		double slope = getSlope(curX, curY, endX, endY);
 		double x, y, xStep, yStep;
-		System.out.println(1);
 		if (slope >= (Math.atan(1))  || slope <= (Math.atan(-1))) {  //up or down animation
 			if (changeY >= 0 && changeX >= 0) {                        //down animation right
 				for (x = curX, y = curY; x < endX; x += xStep, y += yStep) {
@@ -150,9 +152,18 @@ public class MoveSprite {
 	public Animation getAnimation() {
 		return anima;
 	}
-	public void changeCoords(int nX, int nY) {
-		endX = nX;
-		endY = nY;
+	public int getStep() {
+		return step;
+	}
+	public int getCurX() {
+		return curX;
+	}
+	public int getCurY() {
+		return curY;
+	}
+	public void updateCoords(int cX, int cY) {
+		curX = cX;
+		curY = cY;
 	}
 	public boolean compareCoords(int nX, int nY) {
 		if (nX == endX && nY == endY)

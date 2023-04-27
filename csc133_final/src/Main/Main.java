@@ -95,11 +95,24 @@ public class Main{
 				ctrl.drawString(txt.getX(), txt.getY(), txt.getText(), txt.getColor());
 		
 		//robot animation
-		if (!robotMove.compareCoords((int)p.getX(), (int)p.getY())) {
-			System.out.println(p.getX() + " " + p.getY());
-			robotMove.changeCoords((int)p.getX(), (int)p.getY());
-			robotAnim = robotMove.getAnimation();
+		if (Control.getMouseInput() != null) {
+			Click click = Control.getMouseInput();
+			if (click.getButton() == 1)	{
+				int newX = (int)p.getX();
+				int newY = (int)p.getY();
+				if (!robotMove.compareCoords(newX, newY)) {
+					Animation anim = robotMove.getAnimation();
+					int stp = robotMove.getStep();
+					int cX = robotMove.getCurX();
+					int cY = robotMove.getCurY();
+					MoveSprite updateRobotMove = new MoveSprite(anim, stp, cX, 
+						cY, newX, newY);
+					robotAnim = updateRobotMove.getAnimation();
+					robotMove.updateCoords(newX, newY);
+				}	
+			}
 		}
+		
 		Frame robotFrame = robotAnim.getCurrentFrame();
 		if (robotFrame != null)
 			ctrl.addSpriteToFrontBuffer(robotFrame.getX(), robotFrame.getY(), robotFrame.getSpriteTag());
