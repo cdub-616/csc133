@@ -8,9 +8,9 @@ public class Animation {
 	//Fields
 	private ArrayList<Frame> frames;
 	private stopWatchX timer;
-	private int cursor;
+	private int cursor, delay;
 	private boolean isLooping;
-	private boolean isFinished;
+	private boolean isFinished;	
 	
 	//Constructor
 	public Animation(int delay, boolean isLooping) {
@@ -18,6 +18,7 @@ public class Animation {
 		timer = new stopWatchX(delay);
 		this.isLooping = isLooping;
 		cursor = 0;
+		this.delay = delay;
 		isFinished = false;
 	}
 	
@@ -51,5 +52,8 @@ public class Animation {
 
 	public boolean isFinished() {
 		return isFinished;
+	}
+	public int getDelay() {
+		return delay;
 	}
 }

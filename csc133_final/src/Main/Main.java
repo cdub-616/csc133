@@ -43,7 +43,7 @@ public class Main{
 	private static Sprite sprMap1;   
 	private static MoveSprite robotMove;
 	private static Animation robotAnim;
-	//private static final int robotStep = 10;
+	private static int startX = 50, startY = 650, curX, curY, newX, newY;
 	// End Static fields...
 	
 	public static void main(String[] args) {
@@ -66,12 +66,15 @@ public class Main{
 		sprMap1 = tileMap.getSprite();
 		
 		//robot animations
+		curX = startX;
+		curY = startY;
+		newX = startX;
+		newY = startY;
 		myRobotTags = new String[]{"robDown", "robUp", "robRight", "robLeft"};
 		Animation botAnim = new Animation(100, false);
-		robotMove = new MoveSprite(32, "myBot", myRobotTags, botAnim, 10, 50, 650,
-			51, 651);
+		robotMove = new MoveSprite(myRobotTags, botAnim, 10, curX, curY, 
+			startX, startY);
 		robotAnim = robotMove.getAnimation();
-		
 	}
 	
 	/* This is your access to the "game loop" (It is a "callback" method from the Control class (do NOT modify that class!))*/
@@ -89,8 +92,10 @@ public class Main{
 		//scripting
 		if (!scriptSprites.isEmpty())
 			for (ScriptSprite spr: scriptSprites) {
-				BufferedImage buf = ctrl.getSpriteFromBackBuffer(spr.getTag()).getSprite();
-				Sprite sprite = new Sprite(spr.getX(), spr.getY(), buf, spr.getTag());
+				BufferedImage buf = ctrl.getSpriteFromBackBuffer(spr.getTag())
+					.getSprite();
+				Sprite sprite = new Sprite(spr.getX(), spr.getY(), buf, 
+					spr.getTag());
 				ctrl.addSpriteToFrontBuffer(sprite);
 			}
 		if (!scriptTexts.isEmpty())
@@ -101,24 +106,28 @@ public class Main{
 		if (Control.getMouseInput() != null) {
 			Click click = Control.getMouseInput();
 			if (click.getButton() == 1)	{
-				int newX = (int)p.getX();
-				int newY = (int)p.getY();
-				if (!robotMove.compareCoords(newX, newY)) {
-					Animation anim = robotMove.getAnimation();
-					int stp = robotMove.getStep();
-					int cX = robotMove.getCurX();
-					int cY = robotMove.getCurY();
-					MoveSprite updateRobotMove = new MoveSprite(32, "myBot", 
-						myRobotTags, anim, stp, cX, cY, newX, newY);
-					robotAnim = updateRobotMove.getAnimation();
-					robotMove.updateCoords(newX, newY);
-				}	
+				newX = (int)p.getX();
+				newY = (int)p.getY();
 			}
 		}
+		if (!robotMove.compareCoords(newX, newY)) {
+			Animation anim = robotMove.getAnimation();
+			int stp = robotMove.getStep();
+			robotMove = new MoveSprite(myRobotTags, anim, stp, curX, curY, newX, 
+				newY);
+			robotAnim = robotMove.getAnimation();	
+			}
 		
 		Frame robotFrame = robotAnim.getCurrentFrame();
-		if (robotFrame != null)
-			ctrl.addSpriteToFrontBuffer(robotFrame.getX(), robotFrame.getY(), robotFrame.getSpriteTag());
+		if (robotFrame != null) {
+			ctrl.addSpriteToFrontBuffer(robotFrame.getX(), robotFrame.getY(), 
+				robotFrame.getSpriteTag());
+		}
+		curX = robotFrame.getX();
+		curY = robotFrame.getY();
+		int myBotSize = 32;
+		RECT mybot = new RECT(curX, curY, curX + myBotSize, curY + myBotSize,
+			"myBotRECT");
 		
 	}
 	

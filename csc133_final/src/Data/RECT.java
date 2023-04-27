@@ -45,6 +45,18 @@ public class RECT {
 	public String getTag() {
 		return tag;
 	}
+	public int getX1() {
+		return x1;
+	}
+	public int getY1() {
+		return y1;
+	}
+	public int getX2() {
+		return x2;
+	}
+	public int getY2() {
+		return y2;
+	}
 	
 	public String getHoverLabel() {
 		return hoverLabel;
@@ -67,11 +79,5 @@ public class RECT {
 		if (c.getButton() != buttonComparator)
 			return false;  //Not our button
 		return isCollision(c.getX(), c.getY());
-	}
-	public void updateRect(int nX1, int nY1, int nX2, int nY2) {
-		x1 = nX1;
-		y1 = nY1;
-		x2 = nX2;
-		y2 = nY2;
 	}
 }
