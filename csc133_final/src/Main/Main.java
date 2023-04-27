@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.StringTokenizer;
 
-import Characters.MoveSprite;
 import Data.Animation;
 import Data.Atext;
 import Data.Click;
@@ -19,6 +18,7 @@ import Data.ScriptSprite;
 import Data.ScriptText;
 import Data.Sprite;
 import Data.Frame;
+import Data.MoveSprite;
 import FileIO.EZFileWrite;
 import Graphics.Graphic;
 import Graphics.TileMap;
@@ -35,6 +35,7 @@ public class Main{
 	// Fields (Static) below...
 	public static String coord = "";             //coordinate tool
 	private static int[] buffer;                 //some hypothetical game variables
+	private static String[] myRobotTags;
 	private static ScriptReader scriptReader;              
 	private static ArrayList<ScriptSprite> scriptSprites;  
 	private static ArrayList<ScriptText> scriptTexts;
@@ -65,8 +66,10 @@ public class Main{
 		sprMap1 = tileMap.getSprite();
 		
 		//robot animations
+		myRobotTags = new String[]{"robDown", "robUp", "robRight", "robLeft"};
 		Animation botAnim = new Animation(100, false);
-		robotMove = new MoveSprite(botAnim, 10, 50, 650, 51, 651);
+		robotMove = new MoveSprite(32, "myBot", myRobotTags, botAnim, 10, 50, 650,
+			51, 651);
 		robotAnim = robotMove.getAnimation();
 		
 	}
@@ -105,10 +108,10 @@ public class Main{
 					int stp = robotMove.getStep();
 					int cX = robotMove.getCurX();
 					int cY = robotMove.getCurY();
-					MoveSprite updateRobotMove = new MoveSprite(anim, stp, cX, 
-						cY, newX, newY);
+					MoveSprite updateRobotMove = new MoveSprite(32, "myBot", 
+						myRobotTags, anim, stp, cX, cY, newX, newY);
 					robotAnim = updateRobotMove.getAnimation();
-					robotMove.updateCoords(newX, newY);
+					//robotMove.updateCoords(newX, newY);
 				}	
 			}
 		}
