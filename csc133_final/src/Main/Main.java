@@ -111,7 +111,7 @@ public class Main{
 					MoveSprite updateRobotMove = new MoveSprite(32, "myBot", 
 						myRobotTags, anim, stp, cX, cY, newX, newY);
 					robotAnim = updateRobotMove.getAnimation();
-					//robotMove.updateCoords(newX, newY);
+					robotMove.updateCoords(newX, newY);
 				}	
 			}
 		}

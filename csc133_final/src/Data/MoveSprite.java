@@ -254,10 +254,10 @@ public class MoveSprite {
 	public int getCurY() {
 		return curY;
 	}
-	/*public void updateCoords(int cX, int cY) {
+	public void updateCoords(int cX, int cY) {
 		curX = cX;
 		curY = cY;
-	}*/
+	}
 	public RECT getRect() {
 		return rect;
 	}
