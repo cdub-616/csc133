@@ -1,4 +1,4 @@
-package Graphics;
+package Characters;
 
 import Data.Animation;
 import Data.Frame;

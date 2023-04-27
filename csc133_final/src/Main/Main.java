@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.StringTokenizer;
 
+import Characters.MoveSprite;
 import Data.Animation;
 import Data.Atext;
 import Data.Click;
@@ -20,7 +21,6 @@ import Data.Sprite;
 import Data.Frame;
 import FileIO.EZFileWrite;
 import Graphics.Graphic;
-import Graphics.MoveSprite;
 import Graphics.TileMap;
 import FileIO.EZFileRead;
 import Input.Mouse;
