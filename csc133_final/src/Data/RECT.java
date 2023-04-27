@@ -11,6 +11,13 @@ public class RECT {
 	private Frame gHover;
 	
 	//Constructor
+	public RECT() {
+		x1 = 0;
+		x2 = 1;
+		y1 = 0;
+		y2 = 1;
+		tag = "vanillaRECT";
+	}
 	public RECT(int x1, int y1, int x2, int y2, String tag) {
 		this.x1 = x1;
 		this.y1 = y1;

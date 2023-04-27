@@ -13,9 +13,6 @@ import Data.Animation;
 import Data.Atext;
 import Data.Click;
 import Data.RECT;
-import Data.ScriptReader;
-import Data.ScriptSprite;
-import Data.ScriptText;
 import Data.Sprite;
 import Data.Frame;
 import Data.MoveSprite;
@@ -28,6 +25,10 @@ import logic.Control;
 import particles.ParticleSystem;
 import particles.Rain;
 import script.Command;
+import script.ScriptObstacle;
+import script.ScriptReader;
+import script.ScriptSprite;
+import script.ScriptText;
 import sound.Sound;
 import timer.stopWatchX;
 
@@ -37,8 +38,10 @@ public class Main{
 	private static int[] buffer;                 //some hypothetical game variables
 	private static String[] myRobotTags;
 	private static ScriptReader scriptReader;              
-	private static ArrayList<ScriptSprite> scriptSprites;  
-	private static ArrayList<ScriptText> scriptTexts;
+	private static ArrayList<ScriptSprite> scriptSprites = new ArrayList<>();  
+	private static ArrayList<ScriptText> scriptTexts = new ArrayList<>();
+	private static ArrayList<ScriptObstacle> scriptObstacles = 
+		new ArrayList<>();
 	private static TileMap tileMap;
 	private static Sprite sprMap1;   
 	private static MoveSprite robotMove;
@@ -57,8 +60,9 @@ public class Main{
 		
 		//scripting
 		scriptReader = new ScriptReader("script.txt");
-		scriptSprites = new ArrayList<ScriptSprite>(scriptReader.getScriptSprites());
-		scriptTexts = new ArrayList<ScriptText>(scriptReader.getScriptTexts());
+		scriptSprites = scriptReader.getScriptSprites();
+		scriptTexts = scriptReader.getScriptTexts();
+		scriptObstacles = scriptReader.getScriptObstacles();
 		
 		//map1
 		BufferedImage grassTile = ctrl.getSpriteFromBackBuffer("grass").getSprite();
@@ -97,6 +101,17 @@ public class Main{
 				Sprite sprite = new Sprite(spr.getX(), spr.getY(), buf, 
 					spr.getTag());
 				ctrl.addSpriteToFrontBuffer(sprite);
+			}
+		if (!scriptObstacles.isEmpty())
+			for (ScriptObstacle obs: scriptObstacles) {
+				BufferedImage buf = ctrl.getSpriteFromBackBuffer(obs.getSTag())
+					.getSprite();
+				Sprite sprite = new Sprite(obs.getX(), obs.getY(), buf,
+					obs.getSTag());
+				ctrl.addSpriteToFrontBuffer(sprite);
+				RECT rect = new RECT(obs.getX(), obs.getY(), obs.getX() + 
+					obs.getObSize(), obs.getY() + obs.getObSize(), 
+					obs.getRTag());
 			}
 		if (!scriptTexts.isEmpty())
 			for (ScriptText txt: scriptTexts)

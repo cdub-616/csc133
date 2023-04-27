@@ -8,10 +8,11 @@ import FileIO.EZFileRead;
 
 public class ScriptReader {
 	//fields
-	private ArrayList<ScriptRectTextHover> rTHovers;
-	private ArrayList<ScriptSprite> sprites;
-	private ArrayList<ScriptTextShadow> textShad;
-	private ArrayList<ScriptText> text;
+	private ArrayList<ScriptRectTextHover> rTHovers = new ArrayList<>();
+	private ArrayList<ScriptSprite> sprites = new ArrayList<>();
+	private ArrayList<ScriptTextShadow> textShad = new ArrayList<>();
+	private ArrayList<ScriptText> text = new ArrayList<>();
+	private ArrayList<ScriptObstacle> obstacles = new ArrayList<>();
 		
 	//constructor
 	public ScriptReader(String filename) {
@@ -27,10 +28,6 @@ public class ScriptReader {
 					commands.add(new Command(raw));
 			}
 		}
-		rTHovers = new ArrayList<ScriptRectTextHover>();
-		sprites = new ArrayList<ScriptSprite>();
-		textShad = new ArrayList<ScriptTextShadow>();
-		text = new ArrayList<ScriptText>();
 		
 		//fill ArrayLists
 		for (Command c: commands) {
@@ -39,6 +36,14 @@ public class ScriptReader {
 				int y = Integer.parseInt(c.getParmByIndex(1));
 				String tag = c.getParmByIndex(2);
 				sprites.add(new ScriptSprite(x, y, tag));
+			} else if (c.isCommand("obstacle") & c.getNumParms() == 5) {
+				int x = Integer.parseInt(c.getParmByIndex(0));
+				int y = Integer.parseInt(c.getParmByIndex(1));
+				String sTag = c.getParmByIndex(2);
+				int objectSize = Integer.parseInt(c.getParmByIndex(3));
+				String rTag = c.getParmByIndex(4);
+				obstacles.add(new ScriptObstacle(x, y, sTag, objectSize, 
+					rTag));
 			} else if (c.isCommand("text") && c.getNumParms() == 6) { //without shadow
 				String display = c.getParmByIndex(0);
 				int x = Integer.parseInt(c.getParmByIndex(1));
@@ -105,5 +110,8 @@ public class ScriptReader {
 	
 	public ArrayList<ScriptText> getScriptTexts(){
 		return text;
+	}
+	public ArrayList<ScriptObstacle> getScriptObstacles(){
+		return obstacles;
 	}
 }
