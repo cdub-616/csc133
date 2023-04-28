@@ -42,11 +42,13 @@ public class Main{
 	private static ArrayList<ScriptText> scriptTexts = new ArrayList<>();
 	private static ArrayList<ScriptObstacle> scriptObstacles = 
 		new ArrayList<>();
+	private static Frame robotFrame;
 	private static TileMap tileMap;
 	private static Sprite sprMap1;   
 	private static MoveSprite robotMove;
 	private static Animation robotAnim;
 	private static int startX = 50, startY = 650, curX, curY, newX, newY;
+	private static boolean startOver = true, exit;
 	// End Static fields...
 	
 	public static void main(String[] args) {
@@ -56,7 +58,8 @@ public class Main{
 	
 	/* This is your access to things BEFORE the game loop starts */
 	public static void start(Control ctrl){
-		//TODO:  Code your starting conditions here...NOT DRAW CALLS HERE! (no addSprite or drawString)
+		//TODO:  Code your starting conditions here...NOT DRAW CALLS HERE! 
+		//(no addSprite or drawString)
 		
 		//scripting
 		scriptReader = new ScriptReader("script.txt");
@@ -64,26 +67,13 @@ public class Main{
 		scriptTexts = scriptReader.getScriptTexts();
 		scriptObstacles = scriptReader.getScriptObstacles();
 		
-		//map1
-		BufferedImage grassTile = ctrl.getSpriteFromBackBuffer("grass").getSprite();
-		tileMap = new TileMap(grassTile);
-		sprMap1 = tileMap.getSprite();
-		
-		//robot animations
-		curX = startX;
-		curY = startY;
-		newX = startX;
-		newY = startY;
-		myRobotTags = new String[]{"robDown", "robUp", "robRight", "robLeft"};
-		Animation botAnim = new Animation(100, false);
-		robotMove = new MoveSprite(myRobotTags, botAnim, 10, curX, curY, 
-			startX, startY);
-		robotAnim = robotMove.getAnimation();
 	}
 	
 	/* This is your access to the "game loop" (It is a "callback" method from the Control class (do NOT modify that class!))*/
 	public static void update(Control ctrl) {
 		// TODO: This is where you can code! (Starting code below is just to show you how it works)	
+		//fields
+		ArrayList<RECT> rectList = new ArrayList<>();
 		
 		//coordinate tool
 		Point p = Mouse.getMouseCoords();
@@ -91,6 +81,10 @@ public class Main{
 		ctrl.drawString(500, 360, coord, Color.WHITE);  //coordinate tool
 		
 		//map1
+		BufferedImage grassTile = ctrl.getSpriteFromBackBuffer("grass")
+			.getSprite();
+		tileMap = new TileMap(grassTile);
+		sprMap1 = tileMap.getSprite();
 		ctrl.addSpriteToFrontBuffer(sprMap1);
 		
 		//scripting
@@ -112,12 +106,26 @@ public class Main{
 				RECT rect = new RECT(obs.getX(), obs.getY(), obs.getX() + 
 					obs.getObSize(), obs.getY() + obs.getObSize(), 
 					obs.getRTag());
+				rectList.add(rect);
 			}
 		if (!scriptTexts.isEmpty())
 			for (ScriptText txt: scriptTexts)
-				ctrl.drawString(txt.getX(), txt.getY(), txt.getText(), txt.getColor());
+				ctrl.drawString(txt.getX(), txt.getY(), txt.getText(), 
+					txt.getColor());
 		
 		//robot animation
+		Animation botAnim = new Animation(100, false);
+		int botStep = 10;
+		myRobotTags = new String[]{"robDown", "robUp", "robRight", "robLeft"};
+		if (startOver) {
+			curX = startX;
+			curY = startY;
+			newX = startX;
+			newY = startY;
+			startOver = false;
+			robotMove = new MoveSprite(myRobotTags, botAnim, botStep, curX, 
+				curY, startX, startY);
+		}
 		if (Control.getMouseInput() != null) {
 			Click click = Control.getMouseInput();
 			if (click.getButton() == 1)	{
@@ -126,14 +134,13 @@ public class Main{
 			}
 		}
 		if (!robotMove.compareCoords(newX, newY)) {
-			Animation anim = robotMove.getAnimation();
-			int stp = robotMove.getStep();
-			robotMove = new MoveSprite(myRobotTags, anim, stp, curX, curY, newX, 
-				newY);
-			robotAnim = robotMove.getAnimation();	
-			}
-		
-		Frame robotFrame = robotAnim.getCurrentFrame();
+			curX = robotFrame.getX();
+			curY = robotFrame.getY();
+			robotMove = new MoveSprite(myRobotTags, botAnim, botStep, curX, 
+				curY, newX, newY);
+		}
+		robotAnim = robotMove.getAnimation();
+		robotFrame = robotAnim.getCurrentFrame();
 		if (robotFrame != null) {
 			ctrl.addSpriteToFrontBuffer(robotFrame.getX(), robotFrame.getY(), 
 				robotFrame.getSpriteTag());
@@ -144,6 +151,13 @@ public class Main{
 		RECT mybot = new RECT(curX, curY, curX + myBotSize, curY + myBotSize,
 			"myBotRECT");
 		
+		//check for collision
+		for (RECT rect: rectList) {
+			if (rect.isCollision(rect, mybot)) {
+				ctrl.drawString(curX, curY, "hi", Color.white);
+				startOver = true;
+			}
+		}
 	}
 	
 	// Additional Static methods below...(if needed)

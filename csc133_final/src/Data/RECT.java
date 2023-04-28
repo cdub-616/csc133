@@ -81,6 +81,29 @@ public class RECT {
 		}
 		return false;
 	}
+	public boolean isCollision(RECT r1, RECT r2) {
+		int r1x1 = r1.getX1();
+		int r1x2 = r1.getX2();
+		int r1y1 = r1.getY1();
+		int r1y2 = r1.getY2();
+		int r2x1 = r2.getX1();
+		int r2x2 = r2.getX2();
+		int r2y1 = r2.getY1();
+		int r2y2 = r2.getY2();		
+		if (r1x2 > r2x1 && r1y2 > r2y1)
+			if (r1x1 < r2x2 && r1y1 < r2y2)
+				return true;
+		if (r1x1 < r2x1 && r1y1 > r2y1)
+			if (r1x2 > r2x2 && r1y2 < r2y2)
+				return true;
+		if (r2x2 > r1x1 && r2y2 > r1y1)
+			if (r2x1 < r1x2 && r2y1 < r1y2)
+				return true;
+		if (r2x1 < r1x1 && r2y1 > r1y1)
+			if (r2x2 > r1x2 && r2y2 < r1y2)
+				return true;
+		return false;
+	}
 	
 	public boolean isClicked(Click c, int buttonComparator) {
 		if (c.getButton() != buttonComparator)

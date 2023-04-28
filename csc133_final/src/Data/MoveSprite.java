@@ -42,11 +42,9 @@ public class MoveSprite {
 					if (frameCounter > 3)
 						frameCounter = 0;
 				}
-				if (x != endX || y != endY) {
-					anima.addFrame(new Frame(endX, endY, down + frameCounter));
-				}
+				anima.addFrame(new Frame(endX, endY, down + 0));
 			}
-			else if (changeY > 0 && changeX < 0) {                      //down animation left
+			else if (changeY > 0 && changeX < 0) {         //down animation left
 				for (x = curX, y = curY; x > endX; x -= xStep, y += yStep) {
 					slope = getSlope(x, y, endX, endY);
 					xStep = getXStep(step, slope);
@@ -59,9 +57,7 @@ public class MoveSprite {
 					if (frameCounter > 3)
 						frameCounter = 0;
 				}
-				if (x != endX || y != endY) {
-					anima.addFrame(new Frame(endX, endY, down + frameCounter));
-				}
+				anima.addFrame(new Frame(endX, endY, down + 0));
 			}
 			else if (changeY < 0 && changeX >= 0) {         //up animation right
 				for (x = curX, y = curY; y > endY; x += xStep, y -= yStep) {
@@ -76,10 +72,8 @@ public class MoveSprite {
 					if (frameCounter > 3)
 						frameCounter = 0;
 				}
-				if (x != endX || y != endY) {
-					anima.addFrame(new Frame(endX, endY, up + frameCounter));
-				}
-			} else {                                                    //up animation left
+				anima.addFrame(new Frame(endX, endY, down + 0));
+			} else {                                         //up animation left
 				for (x = curX, y = curY; x > endX; x -= xStep, y -= yStep) {
 					slope = getSlope(x, y, endX, endY);
 					xStep = getXStep(step, slope);
@@ -92,12 +86,10 @@ public class MoveSprite {
 					if (frameCounter > 3)
 						frameCounter = 0;
 				}
-				if (x != endX || y != endY) {
-					anima.addFrame(new Frame(endX, endY, up + frameCounter));
-				}
+				anima.addFrame(new Frame(endX, endY, down + 0));
 			}
-		} else {                                                      //left or right animation
-			if (changeX >= 0 && changeY >= 0) {                         //right animation down
+		} else {                                       //left or right animation
+			if (changeX >= 0 && changeY >= 0) {           //right animation down
 				for (x = curX, y = curY; x < endX; x += xStep, y += yStep) {
 					slope = getSlope(x, y, endX, endY);
 					xStep = getXStep(step, slope);
@@ -110,9 +102,7 @@ public class MoveSprite {
 					if (frameCounter > 1)
 						frameCounter = 0;
 				}
-				if (x != endX || y != endY) {
-					anima.addFrame(new Frame(endX, endY, right + frameCounter));
-				}
+				anima.addFrame(new Frame(endX, endY, down + 0));
 			}
 			else if (changeX > 0 && changeY < 0) {          //right animation up
 				for (x = curX, y = curY; x < endX; x += xStep, y -= yStep) {
@@ -127,9 +117,7 @@ public class MoveSprite {
 					if (frameCounter > 1)
 						frameCounter = 0;
 				}
-				if (x != endX || y != endY) {
-					anima.addFrame(new Frame(endX, endY, right + frameCounter));
-				}
+				anima.addFrame(new Frame(endX, endY, down + 0));
 			}
 			else if (changeX < 0 && changeY > 0) {         //left animation down
 				for (x = curX, y = curY; x > endX; x -= xStep, y += yStep) {
@@ -144,9 +132,7 @@ public class MoveSprite {
 					if (frameCounter > 1)
 						frameCounter = 0;
 				}
-				if (x != endX || y != endY) {
-					anima.addFrame(new Frame(endX, endY, left + frameCounter));
-				}
+				anima.addFrame(new Frame(endX, endY, down + 0));
 			} else {                                         //left animation up
 				for (x = curX, y = curY; x > endX; x -= xStep, y -= yStep) {
 					slope = getSlope(x, y, endX, endY);
@@ -160,9 +146,7 @@ public class MoveSprite {
 					if (frameCounter > 1)
 						frameCounter = 0;
 				}
-				if (x != endX || y != endY) {
-					anima.addFrame(new Frame(endX, endY, left + frameCounter));
-				}
+				anima.addFrame(new Frame(endX, endY, down + 0));
 			}
 		}
 	}
