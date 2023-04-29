@@ -3,8 +3,19 @@
 #show_sprite: x, y, tag
 #show_sprite: 300, 300, f0
 
+#subObstacle: bufX, bufY, width, height, x, y, spriteTag, spriteSize, RECTTag
+subObstacle: 0, 0, 64, 64, 600, 300, "bush", 64, "bush" 
+
 #obstacle: x, y, spriteTag, spriteSize, RECTTag
-obstacle: 300, 300, f0, 128, "Pers"
+#obstacle: 300, 300, f0, 128, "Pers"
+
+#subImage: x, y, width, height
+# grass tile
+subImage: 0, 64, 128, 128
+
+#start: x, y
+start: 50, 650
+
 #text: display, x, y, red, green, blue
 
 #shadowtext: display, x, y, red, green, blue, shadowOffset, shadowRed, shadowGreen, shadowBlue
