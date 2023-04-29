@@ -16,11 +16,11 @@ public class ScriptObstacle {
 		sTag = "vanillaSprite";
 		rTag = "vanillaRect";
 	}
-	public ScriptObstacle(int x, int y, String tag, int obSize, String rTag) {
+	public ScriptObstacle(int x, int y, String sTag, int obSize, String rTag) {
 		this.x = x;
 		this.y = y;
 		this.obSize = obSize;
-		this.sTag = tag;
+		this.sTag = sTag;
 		this.rTag = rTag;
 	}
 	

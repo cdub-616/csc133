@@ -28,6 +28,9 @@ import script.Command;
 import script.ScriptObstacle;
 import script.ScriptReader;
 import script.ScriptSprite;
+import script.ScriptStartPosition;
+import script.ScriptSubImage;
+import script.ScriptSubObstacle;
 import script.ScriptText;
 import sound.Sound;
 import timer.stopWatchX;
@@ -42,12 +45,21 @@ public class Main{
 	private static ArrayList<ScriptText> scriptTexts = new ArrayList<>();
 	private static ArrayList<ScriptObstacle> scriptObstacles = 
 		new ArrayList<>();
+	private static ArrayList<ScriptSubImage> scriptSubImages = 
+		new ArrayList<>();
+	private static ArrayList<ScriptStartPosition> scriptStartPositions = 
+		new ArrayList<>();
+	private static ArrayList<ScriptSubObstacle> scriptSubObstacles = 
+		new ArrayList<>();
+	private static ArrayList<RECT> rectList = new ArrayList<>();
+	private static ArrayList<Sprite> spriteList = new ArrayList<>();
 	private static Frame robotFrame;
 	private static TileMap tileMap;
-	private static Sprite sprMap1;   
+	private static Sprite sprMap1, sprBush;
+	private static RECT rectBush;
 	private static MoveSprite robotMove;
 	private static Animation robotAnim;
-	private static int startX = 50, startY = 650, curX, curY, newX, newY;
+	private static int startX, startY, curX, curY, newX, newY;
 	private static boolean startOver = true, exit;
 	// End Static fields...
 	
@@ -66,6 +78,37 @@ public class Main{
 		scriptSprites = scriptReader.getScriptSprites();
 		scriptTexts = scriptReader.getScriptTexts();
 		scriptObstacles = scriptReader.getScriptObstacles();
+		scriptSubImages = scriptReader.getScriptSubImage();
+		scriptStartPositions = scriptReader.getScriptStartPosition();
+		scriptSubObstacles = scriptReader.getScriptSubObstacles();
+		
+		//map
+		ScriptSubImage grassImage = new ScriptSubImage();
+		grassImage = scriptSubImages.get(0);
+		BufferedImage sheet = ctrl.getSpriteFromBackBuffer("sheet").getSprite();
+		BufferedImage grass = sheet.getSubimage(grassImage.getX(), 
+			grassImage.getY(), grassImage.getWidth(), grassImage.getHeight());
+		tileMap = new TileMap(grass);
+		sprMap1 = tileMap.getSprite();
+		
+		//obstacles
+		ScriptSubObstacle bushImage = new ScriptSubObstacle();
+		bushImage = scriptSubObstacles.get(0);
+		BufferedImage bush = sheet.getSubimage(bushImage.getBufX(), 
+			bushImage.getBufY(), bushImage.getWidth(), bushImage.getHeight());
+		sprBush = new Sprite(bushImage.getX(), bushImage.getY(), bush, 
+			bushImage.getSTag());
+		rectBush = new RECT(bushImage.getX(), bushImage.getY(), bushImage.getX()
+			+ bushImage.getObSize(), bushImage.getY() + bushImage.getObSize(), 
+			bushImage.getRTag());
+		rectList.add(rectBush);
+		spriteList.add(sprBush);
+		
+		//start
+		ScriptStartPosition start = new ScriptStartPosition();
+		start = scriptStartPositions.get(0);
+		startX = start.getStartX();
+		startY = start.getStartY();
 		
 	}
 	
@@ -73,7 +116,7 @@ public class Main{
 	public static void update(Control ctrl) {
 		// TODO: This is where you can code! (Starting code below is just to show you how it works)	
 		//fields
-		ArrayList<RECT> rectList = new ArrayList<>();
+
 		
 		//coordinate tool
 		Point p = Mouse.getMouseCoords();
@@ -81,11 +124,12 @@ public class Main{
 		ctrl.drawString(500, 360, coord, Color.WHITE);  //coordinate tool
 		
 		//map1
-		BufferedImage grassTile = ctrl.getSpriteFromBackBuffer("grass")
-			.getSprite();
-		tileMap = new TileMap(grassTile);
-		sprMap1 = tileMap.getSprite();
 		ctrl.addSpriteToFrontBuffer(sprMap1);
+		
+		//sprites
+		for (Sprite spr: spriteList) {
+			ctrl.addSpriteToFrontBuffer(spr);
+		}
 		
 		//scripting
 		if (!scriptSprites.isEmpty())
@@ -150,7 +194,7 @@ public class Main{
 		int myBotSize = 32;
 		RECT mybot = new RECT(curX, curY, curX + myBotSize, curY + myBotSize,
 			"myBotRECT");
-		
+	
 		//check for collision
 		for (RECT rect: rectList) {
 			if (rect.isCollision(rect, mybot)) {

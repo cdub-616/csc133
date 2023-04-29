@@ -13,6 +13,9 @@ public class ScriptReader {
 	private ArrayList<ScriptTextShadow> textShad = new ArrayList<>();
 	private ArrayList<ScriptText> text = new ArrayList<>();
 	private ArrayList<ScriptObstacle> obstacles = new ArrayList<>();
+	private ArrayList<ScriptSubImage> subImages = new ArrayList<>();
+	private ArrayList<ScriptStartPosition> startPositions = new ArrayList<>();
+	private ArrayList<ScriptSubObstacle> subObstacles = new ArrayList<>();
 		
 	//constructor
 	public ScriptReader(String filename) {
@@ -36,6 +39,20 @@ public class ScriptReader {
 				int y = Integer.parseInt(c.getParmByIndex(1));
 				String tag = c.getParmByIndex(2);
 				sprites.add(new ScriptSprite(x, y, tag));
+			}else if (c.isCommand("start") & c.getNumParms() == 2) {
+				int x = Integer.parseInt(c.getParmByIndex(0));
+				int y = Integer.parseInt(c.getParmByIndex(1));
+				ScriptStartPosition startPosition = 
+					new ScriptStartPosition(x, y);
+				startPositions.add(startPosition);
+			}else if (c.isCommand("subImage") & c.getNumParms() == 4) {
+				int x = Integer.parseInt(c.getParmByIndex(0));
+				int y = Integer.parseInt(c.getParmByIndex(1));
+				int width = Integer.parseInt(c.getParmByIndex(2));
+				int height = Integer.parseInt(c.getParmByIndex(3));
+				ScriptSubImage subImage = new ScriptSubImage(x, y, width, 
+					height);
+				subImages.add(subImage);
 			} else if (c.isCommand("obstacle") & c.getNumParms() == 5) {
 				int x = Integer.parseInt(c.getParmByIndex(0));
 				int y = Integer.parseInt(c.getParmByIndex(1));
@@ -44,6 +61,19 @@ public class ScriptReader {
 				String rTag = c.getParmByIndex(4);
 				obstacles.add(new ScriptObstacle(x, y, sTag, objectSize, 
 					rTag));
+			} else if (c.isCommand("subObstacle") & c.getNumParms() == 9){
+				int bufX = Integer.parseInt(c.getParmByIndex(0));
+				int bufY = Integer.parseInt(c.getParmByIndex(1));
+				int width = Integer.parseInt(c.getParmByIndex(2));
+				int height = Integer.parseInt(c.getParmByIndex(3));
+				int x = Integer.parseInt(c.getParmByIndex(4));
+				int y = Integer.parseInt(c.getParmByIndex(5));
+				String sTag = c.getParmByIndex(6);
+				int objectSize = Integer.parseInt(c.getParmByIndex(7));
+				String rTag = c.getParmByIndex(8);
+				ScriptSubObstacle subObstacle = new ScriptSubObstacle(bufX, bufY, 
+					width, height, x, y, sTag, objectSize, rTag);
+				subObstacles.add(subObstacle);
 			} else if (c.isCommand("text") && c.getNumParms() == 6) { //without shadow
 				String display = c.getParmByIndex(0);
 				int x = Integer.parseInt(c.getParmByIndex(1));
@@ -99,15 +129,21 @@ public class ScriptReader {
 	public ArrayList<ScriptSprite> getScriptSprites() {
 		return sprites;
 	}
-		
+	public ArrayList<ScriptSubImage> getScriptSubImage(){
+		return subImages;
+	}
 	public ArrayList<ScriptTextShadow> getScriptTextShadows(){
 		return textShad;
 	}
-	
+	public ArrayList<ScriptStartPosition> getScriptStartPosition(){
+		return startPositions;
+	}
 	public ArrayList<ScriptRectTextHover> getScriptRectTextHover(){
 		return rTHovers;
 	}
-	
+	public ArrayList<ScriptSubObstacle> getScriptSubObstacles(){
+		return subObstacles;
+	}
 	public ArrayList<ScriptText> getScriptTexts(){
 		return text;
 	}
