@@ -40,7 +40,6 @@ public class Main{
 	// Fields (Static) below...
 	public static String coord = "";             //coordinate tool
 	private static int[] buffer;                 //some hypothetical game variables
-	//private static String[] myRobotTags;
 	private static ScriptReader scriptReader;              
 	private static ArrayList<RECT> rectList = new ArrayList<>();
 	private static ArrayList<Sprite> spriteList = new ArrayList<>();
@@ -48,16 +47,11 @@ public class Main{
 	private static ArrayList<ScriptText> scriptTexts = new ArrayList<>();
 	private static ArrayList<ScriptAnimation> scriptAnimations = 
 		new ArrayList<>();
-	//private static ArrayList<BufferedImage> robotBufs = new ArrayList<>();
 	private static Frame robotFrame;
-	//private static TileMap tileMap;
-	//private static Sprite sprMap1, sprBush;
-	//private static RECT rectBush;
-	private static MoveRobot robotMove;
-	private static Animation botAnim;
-	
-	private static int startX, startY, curX, curY, newX, newY;
-	private static boolean startOver = true, exit;
+	private static MoveRobot moveRobot;
+	private static Animation botAnim, robotAnim;
+	private static int startX, startY, curX, curY, newX, newY, botStep;
+	private static boolean startOver = true;
 	// End Static fields...
 	
 	public static void main(String[] args) {
@@ -72,7 +66,6 @@ public class Main{
 		
 		//fields
 		ArrayList<ScriptSprite> scriptSprites = new ArrayList<>();  
-		//ArrayList<ScriptText> scriptTexts = new ArrayList<>();
 		ArrayList<ScriptObstacle> scriptObstacles = new ArrayList<>();
 		ArrayList<ScriptSubImage> scriptSubImages = new ArrayList<>();
 		ArrayList<ScriptStartPosition> scriptStartPositions = new ArrayList<>();
@@ -94,7 +87,6 @@ public class Main{
 				Sprite sprite = new Sprite(spr.getX(), spr.getY(), buf, 
 					spr.getTag());
 				spriteList.add(sprite);
-				//ctrl.addSpriteToFrontBuffer(sprite);
 			}
 		}
 		if (!scriptObstacles.isEmpty()) {
@@ -104,7 +96,6 @@ public class Main{
 				Sprite sprite = new Sprite(obs.getX(), obs.getY(), buf,
 					obs.getSTag());
 				spriteList.add(sprite);
-				//ctrl.addSpriteToFrontBuffer(sprite);
 				RECT rect = new RECT(obs.getX(), obs.getY(), obs.getX() + 
 					obs.getObSize(), obs.getY() + obs.getObSize(), 
 					obs.getRTag());
@@ -144,54 +135,44 @@ public class Main{
 		
 		//robot animation
 		if (!scriptAnimations.isEmpty()) {
-			ScriptAnimation sAnima = new ScriptAnimation();
-			sAnima = scriptAnimations.get(0);
+			ScriptAnimation sAnima = scriptAnimations.get(0);
 			int delay = sAnima.getDelay();
 			boolean isLooping = sAnima.getIsLooping();
-			int startX = sAnima.getStartX();
-			int startY = sAnima.getStartY();
+			int sX = sAnima.getStartX();
+			int sY = sAnima.getStartY();
 			int bitSize = sAnima.getBitSize();
-			int numImages = sAnima.getNumImages();
+			botStep = sAnima.getStep();
 			botAnim = new Animation(delay, isLooping);
-			BufferedImage buf = sheet.getSubimage(startX, startY, bitSize, 
-				bitSize);
+			BufferedImage buf = sheet.getSubimage(sX, sY, bitSize, bitSize);
 			Sprite downLeft = new Sprite(0, 0, buf, "down1");
 			robotSpriteList.add(downLeft);
-			buf = sheet.getSubimage(startX + bitSize, startY, bitSize, bitSize);
+			buf = sheet.getSubimage(sX + bitSize, sY, bitSize, bitSize);
 			Sprite downRight = new Sprite(0, 0, buf, "down3");
 			robotSpriteList.add(downRight);
-			buf = sheet.getSubimage(startX + bitSize * 2, startY, bitSize, 
-				bitSize);
+			buf = sheet.getSubimage(sX + bitSize * 2, sY, bitSize, bitSize);
 			Sprite down = new Sprite(0, 0, buf, "down0");
 			Sprite downAgain = new Sprite(0, 0, buf, "down2");
 			robotSpriteList.add(down);
 			robotSpriteList.add(downAgain);
-			buf = sheet.getSubimage(startX + bitSize * 3, startY, bitSize, 
-				bitSize);
+			buf = sheet.getSubimage(sX + bitSize * 3, sY, bitSize, bitSize);
 			Sprite leftForward = new Sprite(0, 0, buf, "left1");
 			robotSpriteList.add(leftForward);
-			buf = sheet.getSubimage(startX + bitSize * 4,  startY, bitSize, 
-				bitSize);
+			buf = sheet.getSubimage(sX + bitSize * 4,  sY, bitSize, bitSize);
 			Sprite left = new Sprite(0, 0, buf, "left0");
 			robotSpriteList.add(left);
-			buf = sheet.getSubimage(startX + bitSize * 5, startY, bitSize, 
-				bitSize);
+			buf = sheet.getSubimage(sX + bitSize * 5, sY, bitSize, bitSize);
 			Sprite rightForward = new Sprite(0, 0, buf, "right1");
 			robotSpriteList.add(rightForward);
-			buf = sheet.getSubimage(startX + bitSize * 6, startY, bitSize, 
-				bitSize);
+			buf = sheet.getSubimage(sX + bitSize * 6, sY, bitSize, bitSize);
 			Sprite right = new Sprite(0, 0, buf, "right0");
 			robotSpriteList.add(right);
-			buf = sheet.getSubimage(startX + bitSize * 7, startY, bitSize, 
-				bitSize);
+			buf = sheet.getSubimage(sX + bitSize * 7, sY, bitSize, bitSize);
 			Sprite upLeft = new Sprite(0, 0, buf, "up1");
 			robotSpriteList.add(upLeft);
-			buf = sheet.getSubimage(startX + bitSize * 8, startY, bitSize, 
-				bitSize);
+			buf = sheet.getSubimage(sX + bitSize * 8, sY, bitSize, bitSize);
 			Sprite upRight = new Sprite(0, 0, buf, "up3");
 			robotSpriteList.add(upRight);
-			buf = sheet.getSubimage(startX + bitSize * 9, startY, bitSize, 
-				bitSize);
+			buf = sheet.getSubimage(sX + bitSize * 9, sY, bitSize, bitSize);
 			Sprite up = new Sprite(0, 0, buf, "up0");
 			Sprite upAgain = new Sprite(0, 0, buf, "up2");
 			robotSpriteList.add(up);
@@ -208,10 +189,7 @@ public class Main{
 		// show you how it works)
 		
 		//fields
-		int botStep = scriptAnimations.get(0).getStep();
-		//String[] myRobotTags = new String[]{"robDown", "robUp", "robRight", 
-		//	"robLeft"};
-		Animation robotAnim = new Animation();
+		
 		
 		//coordinate tool
 		Point p = Mouse.getMouseCoords();
@@ -235,18 +213,13 @@ public class Main{
 		}
 		
 		//robot animation
-		//Animation botAnim = new Animation(100, false);
-		//robotAnim = new Animation(100, false);
-		
 		if (startOver) {
 			curX = startX;
 			curY = startY;
 			newX = startX;
 			newY = startY;
 			startOver = false;
-			//robotMove = new MoveRobot(myRobotTags, botAnim, botStep, curX, 
-			//	curY, startX, startY);
-			robotMove = new MoveRobot(botAnim, botStep, curX, curY, startX, 
+			moveRobot = new MoveRobot(botAnim, botStep, curX, curY, startX, 
 				startY);
 		}
 		if (Control.getMouseInput() != null) {
@@ -256,29 +229,32 @@ public class Main{
 				newY = (int)p.getY();
 			}
 		}
-		if (!robotMove.compareCoords(newX, newY)) {
-			curX = robotFrame.getX();
-			curY = robotFrame.getY();
-			//robotMove = new MoveRobot(myRobotTags, robotAnim, botStep, curX, 
-			//	curY, newX, newY);
-			robotMove = new MoveRobot(botAnim, botStep, curX, curY, newX, 
-				newY);
+		if (!moveRobot.compareCoords(newX, newY)) {	
+			//curX = robotFrame.getX();
+			//curY = robotFrame.getY();
+			System.out.println("newbot " + curX + " " + curY + " " + newX + " " + newY);
+			
+			moveRobot = new MoveRobot(botAnim, botStep, curX, curY, newX, newY);
 		}
-		robotAnim = robotMove.getAnimation();
-		robotFrame = botAnim.getCurrentFrame();
+		//moveRobot = new MoveRobot(botAnim, botStep, curX, curY, newX, newY);
+		robotAnim = moveRobot.getAnimation();
+		robotFrame = robotAnim.getCurrentFrame();
+		curX = robotFrame.getX();
+		curY = robotFrame.getY();
+		System.out.println(curX + " " + curY + " " + newX + " " + newY);
 		if (robotFrame != null) {
 			ctrl.addSpriteToFrontBuffer(robotFrame.getX(), robotFrame.getY(), 
 				robotFrame.getSpriteTag());
 		}
-		curX = robotFrame.getX();
-		curY = robotFrame.getY();
+		
+		//myBot rect
 		int myBotSize = 32;
-		RECT mybot = new RECT(curX, curY, curX + myBotSize, curY + myBotSize,
+		RECT myBot = new RECT(curX, curY, curX + myBotSize, curY + myBotSize,
 			"myBotRECT");
 		
 		//check for collision
 		for (RECT rect: rectList) {
-			if (rect.isCollision(rect, mybot)) {
+			if (rect.isCollision(rect, myBot)) {
 				ctrl.drawString(curX, curY, "hi", Color.white);
 				startOver = true;
 			}

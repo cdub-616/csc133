@@ -1,20 +1,19 @@
 package Data;
 
-import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-
 public class MoveRobot {
 	//fields
-	Animation anima;
-	int step, curX, curY, endX, endY;
+	private Animation anima = new Animation();
+	private int step, endX, endY;
 	
 	//constructor
+	public MoveRobot() {
+		step = 0;
+		anima.addFrame(new Frame(0, 0, "vanilla"));
+	}
 	public MoveRobot(Animation anima, int step, int curX, int curY, int endX, 
 			int endY) {
 		this.anima = anima;
 		this.step = step;
-		this.curX = curX;
-		this.curY = curY;
 		this.endX = endX;
 		this.endY = endY;
 		String down = "down", up = "up", right = "right", left = "left";
@@ -156,8 +155,6 @@ public class MoveRobot {
 		int curY, int endX, int endY) {
 		this.anima = anima;
 		this.step = step;
-		this.curX = curX;
-		this.curY = curY;
 		this.endX = endX;
 		this.endY = endY;
 		String down = facing[0], up = facing[1], right = facing[2], 
