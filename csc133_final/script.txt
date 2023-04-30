@@ -21,3 +21,6 @@ start: 50, 650
 #shadowtext: display, x, y, red, green, blue, shadowOffset, shadowRed, shadowGreen, shadowBlue
 
 #rect_texthover: x1, y1, x2, y2, tag, label, labelRed, labelGreen, labelBlue, shadowOffset, shadowRed, shadowGreen, shadowBlue
+
+#animation: delay, isLooping, startX, startY, bitSize, numImages
+animation: 100, false, 0, 192, 32, 10, 10

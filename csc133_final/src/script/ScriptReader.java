@@ -16,6 +16,7 @@ public class ScriptReader {
 	private ArrayList<ScriptSubImage> subImages = new ArrayList<>();
 	private ArrayList<ScriptStartPosition> startPositions = new ArrayList<>();
 	private ArrayList<ScriptSubObstacle> subObstacles = new ArrayList<>();
+	private ArrayList<ScriptAnimation> animations = new ArrayList<>();
 		
 	//constructor
 	public ScriptReader(String filename) {
@@ -39,6 +40,17 @@ public class ScriptReader {
 				int y = Integer.parseInt(c.getParmByIndex(1));
 				String tag = c.getParmByIndex(2);
 				sprites.add(new ScriptSprite(x, y, tag));
+			}else if (c.isCommand("animation") & c.getNumParms() == 7) {
+				int delay = Integer.parseInt(c.getParmByIndex(0));
+				boolean isLooping = Boolean.parseBoolean(c.getParmByIndex(1));
+				int startX = Integer.parseInt(c.getParmByIndex(2));
+				int startY = Integer.parseInt(c.getParmByIndex(3));
+				int bitSize = Integer.parseInt(c.getParmByIndex(4));
+				int numImages = Integer.parseInt(c.getParmByIndex(5));
+				int step = Integer.parseInt(c.getParmByIndex(6));
+				ScriptAnimation animation = new ScriptAnimation(delay, 
+					isLooping, startX, startY, bitSize, numImages, step);
+				animations.add(animation);
 			}else if (c.isCommand("start") & c.getNumParms() == 2) {
 				int x = Integer.parseInt(c.getParmByIndex(0));
 				int y = Integer.parseInt(c.getParmByIndex(1));
@@ -74,7 +86,8 @@ public class ScriptReader {
 				ScriptSubObstacle subObstacle = new ScriptSubObstacle(bufX, bufY, 
 					width, height, x, y, sTag, objectSize, rTag);
 				subObstacles.add(subObstacle);
-			} else if (c.isCommand("text") && c.getNumParms() == 6) { //without shadow
+			//without shadow
+			} else if (c.isCommand("text") && c.getNumParms() == 6) { 
 				String display = c.getParmByIndex(0);
 				int x = Integer.parseInt(c.getParmByIndex(1));
 				int y = Integer.parseInt(c.getParmByIndex(2));
@@ -83,7 +96,8 @@ public class ScriptReader {
 				int blue = Integer.parseInt(c.getParmByIndex(5));
 				Color col = new Color(red, green, blue);
 				text.add(new ScriptText(display, x, y, col));
-			} else if (c.isCommand("shadowtext") && c.getNumParms() == 10) { //with shadow
+			//with shadow
+			} else if (c.isCommand("shadowtext") && c.getNumParms() == 10) { 
 				String display = c.getParmByIndex(0);
 				int x = Integer.parseInt(c.getParmByIndex(1));
 				int y = Integer.parseInt(c.getParmByIndex(2));
@@ -117,9 +131,12 @@ public class ScriptReader {
 				int shadowBlue = Integer.parseInt(c.getParmByIndex(12));
 				Color shadowCol = new Color(shadowRed, shadowGreen, shadowBlue);
 				RECT rect = new RECT(x1, y1, x2, y2, tag, hoverLabel);
-				ScriptText shadowText = new ScriptText(hoverLabel, x1 + shadow, y1 + 2 + shadow, shadowCol);
-				ScriptText hoverText = new ScriptText(hoverLabel, x1 + 2, y1 + 2, textCol);
-				ScriptTextShadow text = new ScriptTextShadow(hoverText, shadowText);
+				ScriptText shadowText = new ScriptText(hoverLabel, x1 + shadow, 
+					y1 + 2 + shadow, shadowCol);
+				ScriptText hoverText = new ScriptText(hoverLabel, x1 + 2, 
+					y1 + 2, textCol);
+				ScriptTextShadow text = new ScriptTextShadow(hoverText, 
+					shadowText);
 				rTHovers.add(new ScriptRectTextHover(rect, shadow, text));		
 			}
 		}
@@ -149,5 +166,8 @@ public class ScriptReader {
 	}
 	public ArrayList<ScriptObstacle> getScriptObstacles(){
 		return obstacles;
+	}
+	public ArrayList<ScriptAnimation> getScriptAnimations(){
+		return animations;
 	}
 }

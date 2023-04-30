@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.GraphicsEnvironment;
 import java.awt.MouseInfo;
 import java.awt.Point;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
@@ -171,6 +172,15 @@ public class Control{
 			String file = st.nextToken();
 			String tag = st.nextToken();
 			backbuffer.addSprite(new Sprite(0, 0, file, tag));
+		}
+	}
+	public void addBufImageToBackBuffer(ArrayList<Sprite> spriteList) {
+		for (Sprite sprite: spriteList) {
+			int x = sprite.getX();
+			int y = sprite.getY();
+			BufferedImage image = sprite.getSprite();
+			String tag = sprite.getTag();
+			backbuffer.addSprite(new Sprite(x, y, image, tag));
 		}
 	}
 	

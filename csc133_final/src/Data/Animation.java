@@ -13,6 +13,14 @@ public class Animation {
 	private boolean isFinished;	
 	
 	//Constructor
+	public Animation() {
+		delay = 1;
+		isLooping = false;
+		frames = new ArrayList<>();
+		timer = new stopWatchX(delay);
+		cursor = 0;
+		isFinished = false;
+	}
 	public Animation(int delay, boolean isLooping) {
 		frames = new ArrayList<>();
 		timer = new stopWatchX(delay);

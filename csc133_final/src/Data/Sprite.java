@@ -39,7 +39,12 @@ public class Sprite implements Runnable{
 		Thread t = new Thread(this);
 		t.start();
 	}*/
-	
+	public Sprite() {
+		_x = 0;
+		_y = 0;
+		_image = null;
+		_tag = "vanilla";
+	}
 	public Sprite(int x, int y, BufferedImage image, String tag){
 		_image = image;
 		_x = x;
