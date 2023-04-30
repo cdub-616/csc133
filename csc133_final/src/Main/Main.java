@@ -213,7 +213,7 @@ public class Main{
 		}
 		
 		//robot animation
-		if (startOver) {
+		/*if (startOver) {
 			curX = startX;
 			curY = startY;
 			newX = startX;
@@ -258,7 +258,52 @@ public class Main{
 				ctrl.drawString(curX, curY, "hi", Color.white);
 				startOver = true;
 			}
-		}	
+		}	*/
+		//robot animation
+				Animation botAnim = new Animation(100, false);
+				int botStep = 10;
+				String[] myRobotTags = new String[]{"robDown", "robUp", "robRight", "robLeft"};
+				if (startOver) {
+					curX = startX;
+					curY = startY;
+					newX = startX;
+					newY = startY;
+					startOver = false;
+					moveRobot = new MoveRobot(myRobotTags, botAnim, botStep, curX, 
+						curY, startX, startY);
+				}
+				if (Control.getMouseInput() != null) {
+					Click click = Control.getMouseInput();
+					if (click.getButton() == 1)	{
+						newX = (int)p.getX();
+						newY = (int)p.getY();
+					}
+				}
+				if (!moveRobot.compareCoords(newX, newY)) {
+					curX = robotFrame.getX();
+					curY = robotFrame.getY();
+					moveRobot = new MoveRobot(myRobotTags, botAnim, botStep, curX, 
+						curY, newX, newY);
+				}
+				robotAnim = moveRobot.getAnimation();
+				robotFrame = robotAnim.getCurrentFrame();
+				if (robotFrame != null) {
+					ctrl.addSpriteToFrontBuffer(robotFrame.getX(), robotFrame.getY(), 
+						robotFrame.getSpriteTag());
+				}
+				curX = robotFrame.getX();
+				curY = robotFrame.getY();
+				int myBotSize = 32;
+				RECT mybot = new RECT(curX, curY, curX + myBotSize, curY + myBotSize,
+					"myBotRECT");
+				
+				//check for collision
+				for (RECT rect: rectList) {
+					if (rect.isCollision(rect, mybot)) {
+						ctrl.drawString(curX, curY, "hi", Color.white);
+						startOver = true;
+					}
+				}
 	}
 	
 	// Additional Static methods below...(if needed)
