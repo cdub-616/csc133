@@ -178,16 +178,20 @@ public class Main{
 				bitSize);
 			Sprite rightForward = new Sprite(0, 0, buf, "right1");
 			robotSpriteList.add(rightForward);
-			buf = sheet.getSubimage(startX * 6, startY, bitSize, bitSize);
+			buf = sheet.getSubimage(startX + bitSize * 6, startY, bitSize, 
+				bitSize);
 			Sprite right = new Sprite(0, 0, buf, "right0");
 			robotSpriteList.add(right);
-			buf = sheet.getSubimage(startX * 7, startY, bitSize, bitSize);
+			buf = sheet.getSubimage(startX + bitSize * 7, startY, bitSize, 
+				bitSize);
 			Sprite upLeft = new Sprite(0, 0, buf, "up1");
 			robotSpriteList.add(upLeft);
-			buf = sheet.getSubimage(startX * 8, startY, bitSize, bitSize);
+			buf = sheet.getSubimage(startX + bitSize * 8, startY, bitSize, 
+				bitSize);
 			Sprite upRight = new Sprite(0, 0, buf, "up3");
 			robotSpriteList.add(upRight);
-			buf = sheet.getSubimage(startX * 9, startY, bitSize, bitSize);
+			buf = sheet.getSubimage(startX + bitSize * 9, startY, bitSize, 
+				bitSize);
 			Sprite up = new Sprite(0, 0, buf, "up0");
 			Sprite upAgain = new Sprite(0, 0, buf, "up2");
 			robotSpriteList.add(up);
@@ -261,7 +265,7 @@ public class Main{
 				newY);
 		}
 		robotAnim = robotMove.getAnimation();
-		robotFrame = robotAnim.getCurrentFrame();
+		robotFrame = botAnim.getCurrentFrame();
 		if (robotFrame != null) {
 			ctrl.addSpriteToFrontBuffer(robotFrame.getX(), robotFrame.getY(), 
 				robotFrame.getSpriteTag());
