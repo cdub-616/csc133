@@ -51,7 +51,7 @@ public class Main{
 	private static Frame robotFrame;
 	private static MoveRobot moveRobot;
 	private static Animation robotAnim;
-	private static int startX, startY, curX, curY, newX, newY, botStep;
+	private static int startX, startY, curX, curY, newX, newY;
 	private static boolean startOver = true;
 	private static Sound song;
 	private static Sound backToStart;
