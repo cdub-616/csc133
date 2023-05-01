@@ -24,6 +24,7 @@ import Input.Mouse;
 import logic.Control;
 import particles.ParticleSystem;
 import particles.Rain;
+import particles.Shiny;
 import script.ScriptAnimation;
 import script.Command;
 import script.ScriptObstacle;
@@ -56,6 +57,8 @@ public class Main{
 	private static Sound song;
 	private static Sound backToStart;
 	private static Sprite sprCursor;
+	private static Shiny shiny;
+	private static Iterator<Frame> it;
 	// End Static fields...
 	
 	public static void main(String[] args) {
@@ -143,6 +146,11 @@ public class Main{
 		rectList.add(rectBush);
 		spriteList.add(sprBush);
 		
+		//shiny objects
+		shiny = new Shiny(startX, startY, 64, 64, 8, 64, 8);
+		ParticleSystem pm = shiny.getParticleSystem();
+		it = pm.getParticles();
+		
 		//start
 		ScriptStartPosition start = new ScriptStartPosition();
 		start = scriptStartPositions.get(0);
@@ -224,6 +232,15 @@ public class Main{
 			for (Sprite spr: spriteList) {
 				ctrl.addSpriteToFrontBuffer(spr);
 			}
+		}
+		
+		//draw particles
+		while (it.hasNext()) {
+			Frame par = it.next();
+			Sprite spr = ctrl.getSpriteFromBackBuffer(par.getSpriteTag());
+			BufferedImage buf = ctrl.getSpriteFromBackBuffer(spr.getTag()).getSprite();
+			Sprite sprite = new Sprite(par.getX(), par.getY(), buf, par.getSpriteTag());
+			ctrl.addSpriteToFrontBuffer(sprite);
 		}
 						
 		//draw texts

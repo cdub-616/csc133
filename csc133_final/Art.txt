@@ -1,4 +1,3 @@
-Art/f.png*f0
 Art/grass_tile.png*grass
 Art/spriteSheet.png*sheet
 Art/robot/robot_down.png*robDown0
@@ -14,3 +13,10 @@ Art/robot/robot_right_forward.png*robRight1
 Art/robot/robot_left.png*robLeft0
 Art/robot/robot_left_forward.png*robLeft1
 Art/robot_cursor.png*mouse_cursor
+Art/shiny1.png*shiny0
+Art/shiny2.png*shiny1
+Art/shiny3.png*shiny2
+Art/shiny4.png*shiny3
+Art/shiny5.png*shiny4
+Art/shiny6.png*shiny5
+Art/shiny7.png*shiny6
