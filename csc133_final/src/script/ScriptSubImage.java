@@ -3,6 +3,7 @@ package script;
 public class ScriptSubImage {
 	//fields
 	private int x, y, width, height;
+	private String sTag;
 	
 	//constructors
 	public ScriptSubImage() {
@@ -10,12 +11,14 @@ public class ScriptSubImage {
 		y = 0;
 		width = 1;
 		height = 1;
+		sTag = "vanilla";
 	}
-	public ScriptSubImage(int x, int y, int width, int height) {
+	public ScriptSubImage(int x, int y, int width, int height, String sTag) {
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
+		this.sTag = sTag;
 	}
 	//methods
 	public int getX() {
@@ -29,5 +32,8 @@ public class ScriptSubImage {
 	}
 	public int getHeight() {
 		return height;
+	}
+	public String getSTag() {
+		return sTag;
 	}
 }

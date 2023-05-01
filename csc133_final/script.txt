@@ -11,7 +11,9 @@ subObstacle: 0, 0, 64, 64, 600, 300, "bush", 64, "bush"
 
 #subImage: x, y, width, height
 # grass tile
-subImage: 0, 64, 128, 128
+subImage: 0, 64, 128, 128, grass_tile
+# mouse cursor
+subImage: 0, 224, 16, 16, mouse_cursor
 
 #start: x, y
 start: 50, 650
@@ -24,3 +26,9 @@ start: 50, 650
 
 #animation: delay, isLooping, startX, startY, bitSize, numImages
 animation: 100, false, 0, 192, 32, 10, 10
+
+#sound: fileName
+sound: Sound/game_music.wav
+sound: Sound/back_to_start_fx.wav
+
+y for mouse cursor 224

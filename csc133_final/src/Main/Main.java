@@ -28,6 +28,7 @@ import script.ScriptAnimation;
 import script.Command;
 import script.ScriptObstacle;
 import script.ScriptReader;
+import script.ScriptSound;
 import script.ScriptSprite;
 import script.ScriptStartPosition;
 import script.ScriptSubImage;
@@ -43,17 +44,18 @@ public class Main{
 	private static ScriptReader scriptReader;              
 	private static ArrayList<RECT> rectList = new ArrayList<>();
 	private static ArrayList<Sprite> spriteList = new ArrayList<>();
-	private static ArrayList<Sprite> robotSpriteList = new ArrayList<>();
 	private static ArrayList<ScriptText> scriptTexts = new ArrayList<>();
 	private static ArrayList<ScriptAnimation> scriptAnimations = 
 		new ArrayList<>();
+	private static ArrayList<ScriptSound> scriptSounds = new ArrayList<>();
 	private static Frame robotFrame;
 	private static MoveRobot moveRobot;
-	private static Animation botAnim, robotAnim;
+	private static Animation robotAnim;
 	private static int startX, startY, curX, curY, newX, newY, botStep;
 	private static boolean startOver = true;
-	private static Sound song = new Sound("Sound/game_music.wav");
-	private static Sound backToStart = new Sound("Sound/back_to_start_fx.wav");
+	private static Sound song;
+	private static Sound backToStart;
+	private static Sprite sprCursor;
 	// End Static fields...
 	
 	public static void main(String[] args) {
@@ -73,6 +75,9 @@ public class Main{
 		ArrayList<ScriptStartPosition> scriptStartPositions = new ArrayList<>();
 		ArrayList<ScriptSubObstacle> scriptSubObstacles = new ArrayList<>();
 		
+		//hide mouse cursor
+		ctrl.hideDefaultCursor();
+		
 		//scripting
 		scriptReader = new ScriptReader("script.txt");
 		scriptSprites = scriptReader.getScriptSprites();
@@ -81,6 +86,7 @@ public class Main{
 		scriptStartPositions = scriptReader.getScriptStartPosition();
 		scriptSubObstacles = scriptReader.getScriptSubObstacles();
 		scriptAnimations = scriptReader.getScriptAnimations();
+		scriptSounds = scriptReader.getScriptSounds();
 		
 		if (!scriptSprites.isEmpty()) {
 			for (ScriptSprite spr: scriptSprites) {
@@ -116,6 +122,14 @@ public class Main{
 		sprMap1 = tileMap.getSprite();
 		spriteList.add(sprMap1);
 		
+		//add cursor sprite to ArrayList
+		ScriptSubImage cursorImage = new ScriptSubImage();
+		cursorImage = scriptSubImages.get(1);
+		BufferedImage cursor = sheet.getSubimage(cursorImage.getX(), 
+			cursorImage.getY(), cursorImage.getWidth(), 
+			cursorImage.getHeight());
+		sprCursor = new Sprite(0, 0, cursor, cursorImage.getSTag());
+		
 		//obstacles
 		ScriptSubObstacle bushImage = new ScriptSubObstacle();
 		bushImage = scriptSubObstacles.get(0);
@@ -136,7 +150,10 @@ public class Main{
 		startY = start.getStartY();
 		
 		//music
+		song = new Sound(scriptSounds.get(0).getFileName());
 		song.setLoop();
+		backToStart = new Sound(scriptSounds.get(1).getFileName());
+		
 		
 		//robot animation
 		/*if (!scriptAnimations.isEmpty()) {
@@ -196,10 +213,11 @@ public class Main{
 		//fields
 		
 		
-		//coordinate tool
+		//coordinate tool & mouse cursor
 		Point p = Mouse.getMouseCoords();
 		coord = p.toString();                           //coordinate tool
 		ctrl.drawString(500, 360, coord, Color.WHITE);  //coordinate tool
+		ctrl.addSpriteToOverlayBuffer(p.x, p.y, sprCursor.getTag());
 		
 		//draw sprites ***make sure map sprite is in 0***
 		if (!spriteList.isEmpty()) {
@@ -220,7 +238,8 @@ public class Main{
 		//robot animation
 		Animation botAnim = new Animation(100, false);
 		int botStep = 10;
-		String[] myRobotTags = new String[]{"robDown", "robUp", "robRight", "robLeft"};
+		String[] myRobotTags = new String[]{"robDown", "robUp", "robRight", 
+			"robLeft"};
 		if (startOver) {
 			curX = startX;
 			curY = startY;

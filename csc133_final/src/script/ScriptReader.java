@@ -17,6 +17,7 @@ public class ScriptReader {
 	private ArrayList<ScriptStartPosition> startPositions = new ArrayList<>();
 	private ArrayList<ScriptSubObstacle> subObstacles = new ArrayList<>();
 	private ArrayList<ScriptAnimation> animations = new ArrayList<>();
+	private ArrayList<ScriptSound> sounds = new ArrayList<>();
 		
 	//constructor
 	public ScriptReader(String filename) {
@@ -40,6 +41,10 @@ public class ScriptReader {
 				int y = Integer.parseInt(c.getParmByIndex(1));
 				String tag = c.getParmByIndex(2);
 				sprites.add(new ScriptSprite(x, y, tag));
+			}else if (c.isCommand("sound") & c.getNumParms() == 1) {
+				String fileName = c.getParmByIndex(0);
+				ScriptSound sound = new ScriptSound(fileName);
+				sounds.add(sound);
 			}else if (c.isCommand("animation") & c.getNumParms() == 7) {
 				int delay = Integer.parseInt(c.getParmByIndex(0));
 				boolean isLooping = Boolean.parseBoolean(c.getParmByIndex(1));
@@ -57,13 +62,14 @@ public class ScriptReader {
 				ScriptStartPosition startPosition = 
 					new ScriptStartPosition(x, y);
 				startPositions.add(startPosition);
-			}else if (c.isCommand("subImage") & c.getNumParms() == 4) {
+			}else if (c.isCommand("subImage") & c.getNumParms() == 5) {
 				int x = Integer.parseInt(c.getParmByIndex(0));
 				int y = Integer.parseInt(c.getParmByIndex(1));
 				int width = Integer.parseInt(c.getParmByIndex(2));
 				int height = Integer.parseInt(c.getParmByIndex(3));
+				String sTag = c.getParmByIndex(4);
 				ScriptSubImage subImage = new ScriptSubImage(x, y, width, 
-					height);
+					height, sTag);
 				subImages.add(subImage);
 			} else if (c.isCommand("obstacle") & c.getNumParms() == 5) {
 				int x = Integer.parseInt(c.getParmByIndex(0));
@@ -169,5 +175,8 @@ public class ScriptReader {
 	}
 	public ArrayList<ScriptAnimation> getScriptAnimations(){
 		return animations;
+	}
+	public ArrayList<ScriptSound> getScriptSounds(){
+		return sounds;
 	}
 }

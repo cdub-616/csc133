@@ -13,3 +13,4 @@ Art/robot/robot_right.png*robRight0
 Art/robot/robot_right_forward.png*robRight1
 Art/robot/robot_left.png*robLeft0
 Art/robot/robot_left_forward.png*robLeft1
+Art/robot_cursor.png*mouse_cursor
