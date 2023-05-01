@@ -53,12 +53,11 @@ public class Main{
 	private static MoveRobot moveRobot;
 	private static Animation robotAnim;
 	private static int startX, startY, curX, curY, newX, newY;
-	private static boolean startOver = true;
+	private static boolean startOver = true, startHud = false;
 	private static Sound song;
 	private static Sound backToStart;
 	private static Sprite sprCursor;
 	private static Shiny shiny;
-	private static Iterator<Frame> it;
 	// End Static fields...
 	
 	public static void main(String[] args) {
@@ -146,16 +145,14 @@ public class Main{
 		rectList.add(rectBush);
 		spriteList.add(sprBush);
 		
-		//shiny objects
-		shiny = new Shiny(startX, startY, 64, 64, 8, 64, 8);
-		ParticleSystem pm = shiny.getParticleSystem();
-		it = pm.getParticles();
-		
 		//start
 		ScriptStartPosition start = new ScriptStartPosition();
 		start = scriptStartPositions.get(0);
 		startX = start.getStartX();
 		startY = start.getStartY();
+		
+		//shiny objects
+		shiny = new Shiny(startX - 16, startY - 16, 64, 64, 8, 64, 8);
 		
 		//music
 		song = new Sound(scriptSounds.get(0).getFileName());
@@ -235,6 +232,8 @@ public class Main{
 		}
 		
 		//draw particles
+		ParticleSystem pm = shiny.getParticleSystem();
+		Iterator<Frame> it = pm.getParticles();
 		while (it.hasNext()) {
 			Frame par = it.next();
 			Sprite spr = ctrl.getSpriteFromBackBuffer(par.getSpriteTag());
@@ -250,6 +249,16 @@ public class Main{
 				ctrl.drawString(txt.getX(), txt.getY(), txt.getText(), 
 					txt.getColor());
 			}
+		}
+		
+		//draw hud
+		if (startHud) {
+			ctrl.addSpriteToHudBuffer(100, 100, "game_hud3");
+			ctrl.drawHudString(116, 130, "Inventory: ", Color.white);
+			ctrl.drawHudString(116, 160, "Load", Color.white);
+			ctrl.drawHudString(250, 160, "Save", Color.white);
+			ctrl.addSpriteToHudBuffer(180, 145, "black_button");
+			ctrl.addSpriteToHudBuffer(315, 145, "red_button");
 		}
 		
 		//robot animation
@@ -271,6 +280,9 @@ public class Main{
 			if (click.getButton() == 1)	{
 				newX = (int)p.getX();
 				newY = (int)p.getY();
+			}
+			if (click.getButton() == 3) {
+				startHud = !startHud;
 			}
 		}
 		if (!moveRobot.compareCoords(newX, newY)) {
