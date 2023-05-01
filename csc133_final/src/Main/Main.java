@@ -52,6 +52,8 @@ public class Main{
 	private static Animation botAnim, robotAnim;
 	private static int startX, startY, curX, curY, newX, newY, botStep;
 	private static boolean startOver = true;
+	private static Sound song = new Sound("Sound/game_music.wav");
+	private static Sound backToStart = new Sound("Sound/back_to_start_fx.wav");
 	// End Static fields...
 	
 	public static void main(String[] args) {
@@ -132,6 +134,9 @@ public class Main{
 		start = scriptStartPositions.get(0);
 		startX = start.getStartX();
 		startY = start.getStartY();
+		
+		//music
+		song.setLoop();
 		
 		//robot animation
 		/*if (!scriptAnimations.isEmpty()) {
@@ -253,7 +258,7 @@ public class Main{
 		//check for collision
 		for (RECT rect: rectList) {
 			if (rect.isCollision(rect, mybot)) {
-				ctrl.drawString(curX, curY, "hi", Color.white);
+				backToStart.playWAV();
 				startOver = true;
 			}
 		}
