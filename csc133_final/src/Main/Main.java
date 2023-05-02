@@ -163,6 +163,8 @@ public class Main{
 			ArrayList<ScriptItemGoal> scriptItemGoals = new ArrayList<>();
 			
 			String levelNumber = "script.txt";
+			//level = 2;
+			//level = 3;
 			if (level == 2) {
 				levelNumber = "script2.txt";
 			}
@@ -310,7 +312,7 @@ public class Main{
 		Point p = Mouse.getMouseCoords();
 		coord = p.toString();                           //coordinate tool
 		ctrl.drawString(500, 360, coord, Color.WHITE);  //coordinate tool
-		ctrl.addSpriteToOverlayBuffer(p.x, p.y, sprCursor.getTag());
+		  ctrl.addSpriteToOverlayBuffer(p.x, p.y, sprCursor.getTag());
 		
 		//draw sprites ***make sure map sprite is in 0***
 		if (!spriteList.isEmpty()) {
