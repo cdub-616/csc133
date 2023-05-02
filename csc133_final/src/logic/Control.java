@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 import Data.Click;
+import Data.RECT;
 import Data.Sprite;
 import Data.gameString;
 import FileIO.EZFileRead;

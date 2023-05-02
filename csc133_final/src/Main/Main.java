@@ -32,6 +32,7 @@ import script.ScriptReader;
 import script.ScriptSound;
 import script.ScriptSprite;
 import script.ScriptStartPosition;
+import script.ScriptSubGoal;
 import script.ScriptSubImage;
 import script.ScriptSubObstacle;
 import script.ScriptText;
@@ -41,9 +42,12 @@ import timer.stopWatchX;
 public class Main{
 	// Fields (Static) below...
 	public static String coord = "";             //coordinate tool
-	private static int[] buffer;                 //some hypothetical game variables
+	//game variables for save/load
+	private static ArrayList<Integer> buffer = new ArrayList<>();
+	private static ArrayList<String> inventoryList = new ArrayList<>();
 	private static ScriptReader scriptReader;              
 	private static ArrayList<RECT> rectList = new ArrayList<>();
+	private static ArrayList<RECT> goalRectList = new ArrayList<>();
 	private static ArrayList<Sprite> spriteList = new ArrayList<>();
 	private static ArrayList<ScriptText> scriptTexts = new ArrayList<>();
 	private static ArrayList<ScriptAnimation> scriptAnimations = 
@@ -52,12 +56,15 @@ public class Main{
 	private static Frame robotFrame;
 	private static MoveRobot moveRobot;
 	private static Animation robotAnim;
-	private static int startX, startY, curX, curY, newX, newY;
-	private static boolean startOver = true, startHud = false;
+	private static int startX, startY, curX, curY, newX, newY, level = 1,
+		goalX, goalY;
+	private static boolean startOver = true, startHud = false, hasItem = false,
+		activeHud = false, loaded = false, saved = false;
 	private static Sound song;
 	private static Sound backToStart;
 	private static Sprite sprCursor;
-	private static Shiny shiny;
+	private static Shiny shiny, shinyGoal;
+	private static RECT hudRedButton, hudBlackButton;
 	// End Static fields...
 	
 	public static void main(String[] args) {
@@ -69,14 +76,14 @@ public class Main{
 	public static void start(Control ctrl){
 		//TODO:  Code your starting conditions here...NOT DRAW CALLS HERE! 
 		//(no addSprite or drawString)
-		
 		//fields
 		ArrayList<ScriptSprite> scriptSprites = new ArrayList<>();  
 		ArrayList<ScriptObstacle> scriptObstacles = new ArrayList<>();
 		ArrayList<ScriptSubImage> scriptSubImages = new ArrayList<>();
 		ArrayList<ScriptStartPosition> scriptStartPositions = new ArrayList<>();
 		ArrayList<ScriptSubObstacle> scriptSubObstacles = new ArrayList<>();
-		
+		ArrayList<ScriptSubGoal> scriptSubGoals = new ArrayList<>();
+
 		//hide mouse cursor
 		ctrl.hideDefaultCursor();
 		
@@ -89,6 +96,7 @@ public class Main{
 		scriptSubObstacles = scriptReader.getScriptSubObstacles();
 		scriptAnimations = scriptReader.getScriptAnimations();
 		scriptSounds = scriptReader.getScriptSounds();
+		scriptSubGoals = scriptReader.getScriptSubGoals();
 		
 		if (!scriptSprites.isEmpty()) {
 			for (ScriptSprite spr: scriptSprites) {
@@ -124,26 +132,36 @@ public class Main{
 		sprMap1 = tileMap.getSprite();
 		spriteList.add(sprMap1);
 		
-		//add cursor sprite to ArrayList
-		ScriptSubImage cursorImage = new ScriptSubImage();
-		cursorImage = scriptSubImages.get(1);
-		BufferedImage cursor = sheet.getSubimage(cursorImage.getX(), 
-			cursorImage.getY(), cursorImage.getWidth(), 
-			cursorImage.getHeight());
-		sprCursor = new Sprite(0, 0, cursor, cursorImage.getSTag());
-		
 		//obstacles
 		ScriptSubObstacle bushImage = new ScriptSubObstacle();
-		bushImage = scriptSubObstacles.get(0);
-		BufferedImage bush = sheet.getSubimage(bushImage.getBufX(), 
-			bushImage.getBufY(), bushImage.getWidth(), bushImage.getHeight());
-		Sprite sprBush = new Sprite(bushImage.getX(), bushImage.getY(), bush, 
-			bushImage.getSTag());
-		RECT rectBush = new RECT(bushImage.getX(), bushImage.getY(), 
-			bushImage.getX() + bushImage.getObSize(), bushImage.getY() + 
-			bushImage.getObSize(), bushImage.getRTag());
-		rectList.add(rectBush);
-		spriteList.add(sprBush);
+		for (ScriptSubObstacle ob: scriptSubObstacles) {
+			bushImage = ob;
+			BufferedImage bush = sheet.getSubimage(bushImage.getBufX(), 
+				bushImage.getBufY(), bushImage.getWidth(), 
+				bushImage.getHeight());
+			Sprite sprBush = new Sprite(bushImage.getX(), bushImage.getY(), 
+				bush, bushImage.getSTag());
+			RECT rectBush = new RECT(bushImage.getX(), bushImage.getY(), 
+				bushImage.getX() + bushImage.getObSize(), bushImage.getY() + 
+				bushImage.getObSize(), bushImage.getRTag());
+			rectList.add(rectBush);
+			spriteList.add(sprBush);
+		}
+		
+		//goal
+		ScriptSubGoal treeImage = new ScriptSubGoal();
+		treeImage = scriptSubGoals.get(0);
+		BufferedImage tree = sheet.getSubimage(treeImage.getBufX(), 
+			treeImage.getBufY(), treeImage.getWidth(), treeImage.getHeight());
+		Sprite sprTree = new Sprite(treeImage.getX(), treeImage.getY(), tree, 
+			treeImage.getSTag());
+		RECT rectTree = new RECT(treeImage.getX(), treeImage.getY(), 
+			treeImage.getX() + treeImage.getObSize(), treeImage.getY() + 
+			treeImage.getObSize(), treeImage.getRTag());
+		spriteList.add(sprTree);
+		goalRectList.add(rectTree);
+		goalX = treeImage.getX();
+		goalY = treeImage.getY();
 		
 		//start
 		ScriptStartPosition start = new ScriptStartPosition();
@@ -151,14 +169,28 @@ public class Main{
 		startX = start.getStartX();
 		startY = start.getStartY();
 		
+		//initialize buffer for load/save
+		buffer.add(level);
+		int item = hasItem ? 1 : 0;
+		buffer.add(item);
+		
 		//shiny objects
 		shiny = new Shiny(startX - 16, startY - 16, 64, 64, 8, 64, 8);
+		shinyGoal = new Shiny(goalX - 28, goalY - 28, 200, 200, 8, 64, 16);
 		
 		//music
 		song = new Sound(scriptSounds.get(0).getFileName());
 		song.setLoop();
 		backToStart = new Sound(scriptSounds.get(1).getFileName());
 		
+		//add cursor sprite to ArrayList
+		ScriptSubImage cursorImage = new ScriptSubImage();
+		cursorImage = scriptSubImages.get(1);
+		BufferedImage cursor = sheet.getSubimage(cursorImage.getX(), 
+			cursorImage.getY(), cursorImage.getWidth(), 
+			cursorImage.getHeight());
+		sprCursor = new Sprite(0, 0, cursor, cursorImage.getSTag());
+				
 		
 		//robot animation
 		/*if (!scriptAnimations.isEmpty()) {
@@ -231,7 +263,7 @@ public class Main{
 			}
 		}
 		
-		//draw particles
+		//draw start particles
 		ParticleSystem pm = shiny.getParticleSystem();
 		Iterator<Frame> it = pm.getParticles();
 		while (it.hasNext()) {
@@ -241,7 +273,17 @@ public class Main{
 			Sprite sprite = new Sprite(par.getX(), par.getY(), buf, par.getSpriteTag());
 			ctrl.addSpriteToFrontBuffer(sprite);
 		}
-						
+		
+		//draw goal particles
+		ParticleSystem goalPM = shinyGoal.getParticleSystem();
+		Iterator<Frame> goalIT = goalPM.getParticles();
+		while (goalIT.hasNext()) {
+			Frame par = goalIT.next();
+			Sprite spr = ctrl.getSpriteFromBackBuffer(par.getSpriteTag());
+			BufferedImage buf = ctrl.getSpriteFromBackBuffer(spr.getTag()).getSprite();
+			Sprite sprite = new Sprite(par.getX(), par.getY(), buf, par.getSpriteTag());
+			ctrl.addSpriteToFrontBuffer(sprite);
+		}
 		//draw texts
 		if (!scriptTexts.isEmpty()) {
 			scriptTexts = scriptReader.getScriptTexts();
@@ -253,12 +295,34 @@ public class Main{
 		
 		//draw hud
 		if (startHud) {
+			int blackX = 180, blackY = 175, redX = 315, redY = 175;
 			ctrl.addSpriteToHudBuffer(100, 100, "game_hud3");
-			ctrl.drawHudString(116, 130, "Inventory: ", Color.white);
-			ctrl.drawHudString(116, 160, "Load", Color.white);
-			ctrl.drawHudString(250, 160, "Save", Color.white);
-			ctrl.addSpriteToHudBuffer(180, 145, "black_button");
-			ctrl.addSpriteToHudBuffer(315, 145, "red_button");
+			ctrl.drawHudString(116, 125, "Inventory: ", Color.white);
+			String inventoryItem = "empty";
+			if (!inventoryList.isEmpty()) {
+				inventoryItem = inventoryList.get(0);
+			}
+			ctrl.drawHudString(230, 125, inventoryItem, Color.white);
+			ctrl.drawHudString(116, 155, "Level: ", Color.white);
+			ctrl.drawHudString(190, 155, Integer.toString(level), Color.white);
+			ctrl.drawHudString(116, 190, "Load", Color.white);
+			ctrl.drawHudString(250, 190, "Save", Color.white);
+			ctrl.addSpriteToHudBuffer(blackX, blackY, "black_button");
+			ctrl.addSpriteToHudBuffer(redX, redY, "red_button");
+			
+			//HUD rects
+			int buttonSize = 16;
+			hudRedButton = new RECT(redX, redY, redX + buttonSize, 
+				redY + buttonSize, "redButtonRECT");
+			hudBlackButton = new RECT(blackX, blackY, blackX + buttonSize, 
+				blackY + buttonSize, "blackButtonRECT");
+			String load = "Loaded...", save = "Saved...";
+			if (loaded) {
+				ctrl.drawHudString(180, 215, load, Color.white);
+			}
+			if (saved) {
+				ctrl.drawHudString(180, 215, save, Color.white);
+			}
 		}
 		
 		//robot animation
@@ -278,47 +342,94 @@ public class Main{
 		if (Control.getMouseInput() != null) {
 			Click click = Control.getMouseInput();
 			if (click.getButton() == 1)	{
+				int hudX = (int)p.getX();
+				int hudY = (int)p.getY();
+				if (!activeHud) {
 				newX = (int)p.getX();
 				newY = (int)p.getY();
+				}
+				//check for collision with HUD RECTS
+				if (hudRedButton != null) {
+					if (hudRedButton.isCollision(hudX, hudY)) {
+						activeHud = true;
+						buffer.add(level);
+						int item = hasItem ? 1 : 0;
+						buffer.add(item);
+						saveData(buffer);
+						saved = true;
+						loaded = false;
+					}
+				}
+				if (hudBlackButton != null) {
+					if (hudBlackButton.isCollision(hudX, hudY)) {
+						//buffer = new ArrayList<>();
+						buffer = loadData(buffer);
+						level = buffer.get(0);
+						int item = buffer.get(1);
+						if (item == 1) {
+							hasItem = true;
+						}
+						else {
+							hasItem = false;
+						}
+						loaded = true;
+						saved = false;
+					}
+				}
 			}
 			if (click.getButton() == 3) {
 				startHud = !startHud;
+				activeHud = !activeHud;
+				loaded = false;
+				saved = false;
 			}
 		}
-		if (!moveRobot.compareCoords(newX, newY)) {
+		if (!activeHud) {
+			if (!moveRobot.compareCoords(newX, newY)) {
+				curX = robotFrame.getX();
+				curY = robotFrame.getY();
+				moveRobot = new MoveRobot(myRobotTags, botAnim, botStep, curX, 
+						curY, newX, newY);
+			}
+			robotAnim = moveRobot.getAnimation();
+			robotFrame = robotAnim.getCurrentFrame();
+			if (robotFrame != null) {
+				ctrl.addSpriteToFrontBuffer(robotFrame.getX(), 
+					robotFrame.getY(), robotFrame.getSpriteTag());
+			}
 			curX = robotFrame.getX();
 			curY = robotFrame.getY();
-			moveRobot = new MoveRobot(myRobotTags, botAnim, botStep, curX, 
-				curY, newX, newY);
-		}
-		robotAnim = moveRobot.getAnimation();
-		robotFrame = robotAnim.getCurrentFrame();
-		if (robotFrame != null) {
-			ctrl.addSpriteToFrontBuffer(robotFrame.getX(), robotFrame.getY(), 
-			robotFrame.getSpriteTag());
-		}
-		curX = robotFrame.getX();
-		curY = robotFrame.getY();
-		int myBotSize = 32;
-		RECT mybot = new RECT(curX, curY, curX + myBotSize, curY + myBotSize,
-			"myBotRECT");
+			int myBotSize = 32;
+			RECT mybot = new RECT(curX, curY, curX + myBotSize, 
+				curY + myBotSize, "myBotRECT");
 				
-		//check for collision
-		for (RECT rect: rectList) {
-			if (rect.isCollision(rect, mybot)) {
-				backToStart.playWAV();
-				startOver = true;
+			//check for general collision
+			for (RECT rect: rectList) {
+				if (rect.isCollision(rect, mybot)) {
+					backToStart.playWAV();
+					startOver = true;
+				}
+			}
+			//check for goal collision
+			for (RECT rect: goalRectList) {
+				if (rect.isCollision(rect, mybot)) {
+					if (hasItem) {
+						level += level;
+						startOver = true;
+					}
+				}
 			}
 		}
+		
 	}
 	
 	// Additional Static methods below...(if needed)
 	//create a routine to save the game data
-	public static void saveData() {
+	public static void saveData(ArrayList<Integer> buffer) {
 		//save data to a String to output...
 		String out = "";
-		for (int i = 0; i < buffer.length; i++)
-			out += buffer[i] + "*";
+		for (int i = 0; i < buffer.size(); i++)
+			out += buffer.get(i) + "*";
 		out = out.substring(0, out.length() - 1);  //remove trailing delimiter
 		//save output String to file
 		EZFileWrite ezw = new EZFileWrite("save.txt");
@@ -327,18 +438,23 @@ public class Main{
 	}
 	
 	//create a routine to restore the game data
-	public static void loadData() {
+	public static ArrayList<Integer> loadData(ArrayList<Integer> buf) {
 		//retrieve data from the file
 		EZFileRead ezr = new EZFileRead("save.txt");
 		String raw = ezr.getLine(0);  //read our one and only line (index #0)
 		//break this down into tokens
 		StringTokenizer st = new StringTokenizer(raw, "*");
-		if (st.countTokens() != buffer.length)
-			return;  //these must match!!!
-		for (int i = 0; i < buffer.length; i++) {
+		if (st.countTokens() != buf.size()) {
+			return buf;  //these must match!!!
+		}
+		else {
+			buf = new ArrayList<>();
+		}
+		for (int i = 0; i < buffer.size(); i++) {
 			String value = st.nextToken();
 			int val = Integer.parseInt(value);
-			buffer[i] = val;
+			buf.add(val);
 		}
+		return buf;
 	}
 }
