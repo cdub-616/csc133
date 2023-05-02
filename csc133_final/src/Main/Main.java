@@ -64,7 +64,7 @@ public class Main{
 	private static boolean startOver = true, startHud = false, hasItem = false,
 		activeHud = false, loaded = false, saved = false, showItem = true;
 	private static Sound song;
-	private static Sound backToStart;
+	private static Sound backToStart, finish, gotIt;
 	private static Sprite sprCursor;
 	private static Shiny shiny, shinyGoal;
 	private static RECT hudRedButton, hudBlackButton;
@@ -200,6 +200,9 @@ public class Main{
 		song = new Sound(scriptSounds.get(0).getFileName());
 		song.setLoop();
 		backToStart = new Sound(scriptSounds.get(1).getFileName());
+		finish = new Sound(scriptSounds.get(2).getFileName());
+		gotIt = new Sound(scriptSounds.get(3).getFileName());
+		
 		
 		//add cursor sprite to ArrayList
 		ScriptSubImage cursorImage = new ScriptSubImage();
@@ -449,6 +452,7 @@ public class Main{
 			//check for itemGoal collision
 			for (RECT rect: itemGoalRectList) {
 				if (rect.isCollision(rect, mybot)) {
+					gotIt.playWAV();
 					showItem = false;
 					inventoryList.add(rect.getTag());
 					hasItem = true;
@@ -459,6 +463,7 @@ public class Main{
 			for (RECT rect: goalRectList) {
 				if (rect.isCollision(rect, mybot)) {
 					if (hasItem) {
+						finish.playWAV();
 						level += level;
 						startOver = true;
 					}

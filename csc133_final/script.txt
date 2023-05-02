@@ -56,5 +56,7 @@ animation: 100, false, 0, 192, 32, 10, 10
 #sound: fileName
 sound: Sound/game_music.wav
 sound: Sound/back_to_start_fx.wav
+sound: Sound/finish_fx.wav
+sound: Sound/gotIt_fx.wav
 
 y for mouse cursor 224
