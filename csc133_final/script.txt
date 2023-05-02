@@ -5,13 +5,32 @@
 
 #subObstacle: bufX, bufY, width, height, x, y, spriteTag, spriteSize, RECTTag
 subObstacle: 0, 0, 64, 64, 600, 300, "bush", 64, "bush"
-subObstacle: 0, 0, 64, 64, 600, 364, "bush1", 64, "bush1"
+subObstacle: 0, 0, 64, 64, 600, 364, "bush", 64, "bush"
+subObstacle: 0, 0, 64, 64, 600, 428, "bush", 64, "bush"
+subObstacle: 0, 0, 64, 64, 664, 428, "bush", 64, "bush"
+subObstacle: 0, 0, 64, 64, 1000, 50, "bush", 64, "bush"
+subObstacle: 0, 0, 64, 64, 1000, 180, "bush", 64, "bush"
+subObstacle: 0, 0, 64, 64, 1130, 250, "bush", 64, "bush"
+subObstacle: 0, 0, 64, 64, 728, 428, "bush", 64, "bush"
+subObstacle: 0, 0, 64, 64, 728, 492, "bush", 64, "bush"
+subObstacle: 0, 0, 64, 64, 728, 556, "bush", 64, "bush"
+subObstacle: 0, 0, 64, 64, 728, 620, "bush", 64, "bush"
+subObstacle: 0, 0, 64, 64, 728, 684, "bush", 64, "bush"
+subObstacle: 0, 0, 64, 64, 475, 0, "bush", 64, "bush"
+subObstacle: 0, 0, 64, 64, 475, 64, "bush", 64, "bush"
+subObstacle: 0, 0, 64, 64, 475, 128, "bush", 64, "bush"
+subObstacle: 0, 0, 64, 64, 539, 128, "bush", 64, "bush"
+subObstacle: 0, 0, 64, 64, 603, 128, "bush", 64, "bush"
+subObstacle: 0, 0, 64, 64, 200, 415, "bush", 64, "bush"
+subObstacle: 0, 0, 64, 64, 360, 600, "bush", 64, "bush"
+subObstacle: 32, 224, 16, 16, 900, 600, "redKey", 16, "redKey"
+subObstacle: 16, 224, 16, 16, 610, 70, "blueKey", 16, "blueKey"
 
 #subGoal: bufX, bufY, width, height, x, y, spriteTag, spriteSize, RECTTag
 subGoal: 384, 64, 128, 128, 1100, 65, "tree", 128, "tree"
 
 #itemGoal: bufX, bufY, width, height, x, y, spriteTag, spriteSize, RECTtag
-itemGoal: 16, 224, 16, 16, 200, 200, "blueKey", 16, "blueKey"
+itemGoal: 48, 224, 16, 16, 200, 200, "greenKey", 16, "greenKey"
 
 #obstacle: x, y, spriteTag, spriteSize, RECTTag
 #obstacle: 300, 300, f0, 128, "Pers"

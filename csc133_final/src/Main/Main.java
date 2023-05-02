@@ -265,9 +265,6 @@ public class Main{
 		// TODO: This is where you can code! (Starting code below is just to 
 		// show you how it works)
 		
-		//fields
-		
-		
 		//coordinate tool & mouse cursor
 		Point p = Mouse.getMouseCoords();
 		coord = p.toString();                           //coordinate tool
@@ -464,6 +461,10 @@ public class Main{
 					if (hasItem) {
 						level += level;
 						startOver = true;
+					}
+					else {
+						ctrl.drawString(rect.getX1() - 30, rect.getY2() + 20,
+							"Missing something...", Color.white);
 					}
 				}
 			}
