@@ -18,6 +18,8 @@ public class ScriptReader {
 	private ArrayList<ScriptSubObstacle> subObstacles = new ArrayList<>();
 	private ArrayList<ScriptAnimation> animations = new ArrayList<>();
 	private ArrayList<ScriptSound> sounds = new ArrayList<>();
+	private ArrayList<ScriptSubGoal> subGoals = new ArrayList<>();
+	private ArrayList<ScriptItemGoal> itemGoals = new ArrayList<>();
 		
 	//constructor
 	public ScriptReader(String filename) {
@@ -41,11 +43,11 @@ public class ScriptReader {
 				int y = Integer.parseInt(c.getParmByIndex(1));
 				String tag = c.getParmByIndex(2);
 				sprites.add(new ScriptSprite(x, y, tag));
-			}else if (c.isCommand("sound") & c.getNumParms() == 1) {
+			}else if (c.isCommand("sound") && c.getNumParms() == 1) {
 				String fileName = c.getParmByIndex(0);
 				ScriptSound sound = new ScriptSound(fileName);
 				sounds.add(sound);
-			}else if (c.isCommand("animation") & c.getNumParms() == 7) {
+			}else if (c.isCommand("animation") && c.getNumParms() == 7) {
 				int delay = Integer.parseInt(c.getParmByIndex(0));
 				boolean isLooping = Boolean.parseBoolean(c.getParmByIndex(1));
 				int startX = Integer.parseInt(c.getParmByIndex(2));
@@ -79,6 +81,32 @@ public class ScriptReader {
 				String rTag = c.getParmByIndex(4);
 				obstacles.add(new ScriptObstacle(x, y, sTag, objectSize, 
 					rTag));
+			}else if (c.isCommand("subGoal") && c.getNumParms() == 9) {
+				int bufX = Integer.parseInt(c.getParmByIndex(0));
+				int bufY = Integer.parseInt(c.getParmByIndex(1));
+				int width = Integer.parseInt(c.getParmByIndex(2));
+				int height = Integer.parseInt(c.getParmByIndex(3));
+				int x = Integer.parseInt(c.getParmByIndex(4));
+				int y = Integer.parseInt(c.getParmByIndex(5));
+				String sTag = c.getParmByIndex(6);
+				int objectSize = Integer.parseInt(c.getParmByIndex(7));
+				String rTag = c.getParmByIndex(8);
+				ScriptSubGoal subGoal = new ScriptSubGoal(bufX, bufY, 
+					width, height, x, y, sTag, objectSize, rTag);
+				subGoals.add(subGoal);
+			}else if (c.isCommand("itemGoal") && c.getNumParms() == 9){
+				int bufX = Integer.parseInt(c.getParmByIndex(0));
+				int bufY = Integer.parseInt(c.getParmByIndex(1));
+				int width = Integer.parseInt(c.getParmByIndex(2));
+				int height = Integer.parseInt(c.getParmByIndex(3));
+				int x = Integer.parseInt(c.getParmByIndex(4));
+				int y = Integer.parseInt(c.getParmByIndex(5));
+				String sTag = c.getParmByIndex(6);
+				int objectSize = Integer.parseInt(c.getParmByIndex(7));
+				String rTag = c.getParmByIndex(8);
+				ScriptItemGoal itemGoal = new ScriptItemGoal(bufX, bufY, 
+					width, height, x, y, sTag, objectSize, rTag);
+				itemGoals.add(itemGoal);
 			} else if (c.isCommand("subObstacle") & c.getNumParms() == 9){
 				int bufX = Integer.parseInt(c.getParmByIndex(0));
 				int bufY = Integer.parseInt(c.getParmByIndex(1));
@@ -178,5 +206,11 @@ public class ScriptReader {
 	}
 	public ArrayList<ScriptSound> getScriptSounds(){
 		return sounds;
+	}
+	public ArrayList<ScriptSubGoal> getScriptSubGoals(){
+		return subGoals;
+	}
+	public ArrayList<ScriptItemGoal> getScriptItemGoals(){
+		return itemGoals;
 	}
 }

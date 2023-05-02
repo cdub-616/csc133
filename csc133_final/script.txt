@@ -4,7 +4,14 @@
 #show_sprite: 300, 300, f0
 
 #subObstacle: bufX, bufY, width, height, x, y, spriteTag, spriteSize, RECTTag
-subObstacle: 0, 0, 64, 64, 600, 300, "bush", 64, "bush" 
+subObstacle: 0, 0, 64, 64, 600, 300, "bush", 64, "bush"
+subObstacle: 0, 0, 64, 64, 600, 364, "bush1", 64, "bush1"
+
+#subGoal: bufX, bufY, width, height, x, y, spriteTag, spriteSize, RECTTag
+subGoal: 384, 64, 128, 128, 1100, 65, "tree", 128, "tree"
+
+#itemGoal: bufX, bufY, width, height, x, y, spriteTag, spriteSize, RECTtag
+itemGoal: 16, 224, 16, 16, 200, 200, "blueKey", 16, "blueKey"
 
 #obstacle: x, y, spriteTag, spriteSize, RECTTag
 #obstacle: 300, 300, f0, 128, "Pers"

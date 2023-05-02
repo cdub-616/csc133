@@ -23,3 +23,7 @@ Art/shiny_particles/shiny7.png*shiny7
 Art/game_hud3.png*game_hud3
 Art/red_button.png*red_button
 Art/black_button.png*black_button
+Art/naked_tree_transparent.png*tree
+Art/blueKey.png*blueKey
+Art/redKey.png*redKey
+Art/greenKey.png*greenKey
