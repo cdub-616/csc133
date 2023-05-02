@@ -29,3 +29,7 @@ Art/redKey.png*redKey
 Art/greenKey.png*greenKey
 Art/lava_tile.png*lava
 Art/planetX_tile.png*planetX
+Art/pond1.png*pond1
+Art/rocket.png*rocket
+Art/lavaFlow.png*lavaFlow
+Art/lavaPond.png*lavaPond
