@@ -1,7 +1,4 @@
-#demo scripts
-
 #show_sprite: x, y, tag
-#show_sprite: 300, 300, f0
 
 #subObstacle: bufX, bufY, width, height, x, y, spriteTag, spriteSize, RECTTag
 subObstacle: 0, 0, 64, 64, 600, 300, "bush", 64, "bush"
@@ -33,7 +30,6 @@ subGoal: 384, 64, 128, 128, 1100, 65, "tree", 128, "tree"
 itemGoal: 48, 224, 16, 16, 200, 200, "greenKey", 16, "greenKey"
 
 #obstacle: x, y, spriteTag, spriteSize, RECTTag
-#obstacle: 300, 300, f0, 128, "Pers"
 
 #subImage: x, y, width, height
 # grass tile
@@ -51,12 +47,9 @@ start: 50, 650
 #rect_texthover: x1, y1, x2, y2, tag, label, labelRed, labelGreen, labelBlue, shadowOffset, shadowRed, shadowGreen, shadowBlue
 
 #animation: delay, isLooping, startX, startY, bitSize, numImages
-animation: 100, false, 0, 192, 32, 10, 10
 
 #sound: fileName
 sound: Sound/game_music.wav
 sound: Sound/back_to_start_fx.wav
 sound: Sound/finish_fx.wav
 sound: Sound/gotIt_fx.wav
-
-y for mouse cursor 224

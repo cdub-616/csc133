@@ -27,3 +27,5 @@ Art/naked_tree_transparent.png*tree
 Art/blueKey.png*blueKey
 Art/redKey.png*redKey
 Art/greenKey.png*greenKey
+Art/lava_tile.png*lava
+Art/planetX_tile.png*planetX

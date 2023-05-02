@@ -45,8 +45,7 @@ public class Main{
 	public static String coord = "";             //coordinate tool
 	//game variables for save/load
 	private static ArrayList<Integer> buffer = new ArrayList<>();
-	private static ArrayList<String> inventoryList = new ArrayList<>();
-	private static ScriptReader scriptReader;              
+	private static ArrayList<String> inventoryList = new ArrayList<>();          
 	private static ArrayList<RECT> rectList = new ArrayList<>();
 	private static ArrayList<RECT> goalRectList = new ArrayList<>();
 	private static ArrayList<RECT> itemGoalRectList = new ArrayList<>();
@@ -56,13 +55,15 @@ public class Main{
 	private static ArrayList<ScriptAnimation> scriptAnimations = 
 		new ArrayList<>();
 	private static ArrayList<ScriptSound> scriptSounds = new ArrayList<>();
+	private static ScriptReader scriptReader;    
 	private static Frame robotFrame;
 	private static MoveRobot moveRobot;
 	private static Animation robotAnim;
 	private static int startX, startY, curX, curY, newX, newY, level = 1,
 		goalX, goalY;
 	private static boolean startOver = true, startHud = false, hasItem = false,
-		activeHud = false, loaded = false, saved = false, showItem = true;
+		activeHud = false, loaded = false, saved = false, showItem = true,
+		newLevel = true;
 	private static Sound song;
 	private static Sound backToStart, finish, gotIt;
 	private static Sprite sprCursor;
@@ -79,139 +80,14 @@ public class Main{
 	public static void start(Control ctrl){
 		//TODO:  Code your starting conditions here...NOT DRAW CALLS HERE! 
 		//(no addSprite or drawString)
-		//fields
-		ArrayList<ScriptSprite> scriptSprites = new ArrayList<>();  
-		ArrayList<ScriptObstacle> scriptObstacles = new ArrayList<>();
-		ArrayList<ScriptSubImage> scriptSubImages = new ArrayList<>();
-		ArrayList<ScriptStartPosition> scriptStartPositions = new ArrayList<>();
-		ArrayList<ScriptSubObstacle> scriptSubObstacles = new ArrayList<>();
-		ArrayList<ScriptSubGoal> scriptSubGoals = new ArrayList<>();
-		ArrayList<ScriptItemGoal> scriptItemGoals = new ArrayList<>();
 
 		//hide mouse cursor
 		ctrl.hideDefaultCursor();
-		
-		//scripting
-		scriptReader = new ScriptReader("script.txt");
-		scriptSprites = scriptReader.getScriptSprites();
-		scriptObstacles = scriptReader.getScriptObstacles();
-		scriptSubImages = scriptReader.getScriptSubImage();
-		scriptStartPositions = scriptReader.getScriptStartPosition();
-		scriptSubObstacles = scriptReader.getScriptSubObstacles();
-		scriptAnimations = scriptReader.getScriptAnimations();
-		scriptSounds = scriptReader.getScriptSounds();
-		scriptSubGoals = scriptReader.getScriptSubGoals();
-		scriptItemGoals = scriptReader.getScriptItemGoals();
-		
-		if (!scriptSprites.isEmpty()) {
-			for (ScriptSprite spr: scriptSprites) {
-				BufferedImage buf = ctrl.getSpriteFromBackBuffer(spr.getTag())
-					.getSprite();
-				Sprite sprite = new Sprite(spr.getX(), spr.getY(), buf, 
-					spr.getTag());
-				spriteList.add(sprite);
-			}
-		}
-		if (!scriptObstacles.isEmpty()) {
-			for (ScriptObstacle obs: scriptObstacles) {
-				BufferedImage buf = ctrl.getSpriteFromBackBuffer(obs.getSTag())
-					.getSprite();
-				Sprite sprite = new Sprite(obs.getX(), obs.getY(), buf,
-					obs.getSTag());
-				spriteList.add(sprite);
-				RECT rect = new RECT(obs.getX(), obs.getY(), obs.getX() + 
-					obs.getObSize(), obs.getY() + obs.getObSize(), 
-					obs.getRTag());
-				rectList.add(rect);
-			}
-		}
-		
-		//map
-		ScriptSubImage grassImage = new ScriptSubImage();
-		grassImage = scriptSubImages.get(0);
-		BufferedImage sheet = ctrl.getSpriteFromBackBuffer("sheet").getSprite();
-		BufferedImage grass = sheet.getSubimage(grassImage.getX(), 
-			grassImage.getY(), grassImage.getWidth(), grassImage.getHeight());
-		TileMap tileMap = new TileMap(grass);
-		Sprite sprMap1 = new Sprite();
-		sprMap1 = tileMap.getSprite();
-		spriteList.add(sprMap1);
-		
-		//obstacles
-		ScriptSubObstacle bushImage = new ScriptSubObstacle();
-		for (ScriptSubObstacle ob: scriptSubObstacles) {
-			bushImage = ob;
-			BufferedImage bush = sheet.getSubimage(bushImage.getBufX(), 
-				bushImage.getBufY(), bushImage.getWidth(), 
-				bushImage.getHeight());
-			Sprite sprBush = new Sprite(bushImage.getX(), bushImage.getY(), 
-				bush, bushImage.getSTag());
-			RECT rectBush = new RECT(bushImage.getX(), bushImage.getY(), 
-				bushImage.getX() + bushImage.getObSize(), bushImage.getY() + 
-				bushImage.getObSize(), bushImage.getRTag());
-			rectList.add(rectBush);
-			spriteList.add(sprBush);
-		}
-		
-		//itemGoal
-		ScriptItemGoal keyImage = new ScriptItemGoal();
-		keyImage = scriptItemGoals.get(0);
-		BufferedImage key = sheet.getSubimage(keyImage.getBufX(), 
-			keyImage.getBufY(), keyImage.getWidth(), keyImage.getHeight());
-		Sprite sprKey = new Sprite(keyImage.getX(), keyImage.getY(), key, 
-			keyImage.getSTag());
-		RECT rectKey = new RECT(keyImage.getX(), keyImage.getY(), 
-			keyImage.getX() + keyImage.getObSize(), keyImage.getY() + 
-			keyImage.getObSize(), keyImage.getRTag());
-		spriteItemList.add(sprKey);
-		itemGoalRectList.add(rectKey);
-		
-		//goal
-		ScriptSubGoal treeImage = new ScriptSubGoal();
-		treeImage = scriptSubGoals.get(0);
-		BufferedImage tree = sheet.getSubimage(treeImage.getBufX(), 
-			treeImage.getBufY(), treeImage.getWidth(), treeImage.getHeight());
-		Sprite sprTree = new Sprite(treeImage.getX(), treeImage.getY(), tree, 
-			treeImage.getSTag());
-		RECT rectTree = new RECT(treeImage.getX(), treeImage.getY(), 
-			treeImage.getX() + treeImage.getObSize(), treeImage.getY() + 
-			treeImage.getObSize(), treeImage.getRTag());
-		spriteList.add(sprTree);
-		goalRectList.add(rectTree);
-		goalX = treeImage.getX();
-		goalY = treeImage.getY();
-		
-		//start
-		ScriptStartPosition start = new ScriptStartPosition();
-		start = scriptStartPositions.get(0);
-		startX = start.getStartX();
-		startY = start.getStartY();
 		
 		//initialize buffer for load/save
 		buffer.add(level);
 		int item = hasItem ? 1 : 0;
 		buffer.add(item);
-		
-		//shiny objects
-		shiny = new Shiny(startX - 16, startY - 16, 64, 64, 8, 64, 8);
-		shinyGoal = new Shiny(goalX - 28, goalY - 28, 200, 200, 8, 64, 16);
-		
-		//music
-		song = new Sound(scriptSounds.get(0).getFileName());
-		song.setLoop();
-		backToStart = new Sound(scriptSounds.get(1).getFileName());
-		finish = new Sound(scriptSounds.get(2).getFileName());
-		gotIt = new Sound(scriptSounds.get(3).getFileName());
-		
-		
-		//add cursor sprite to ArrayList
-		ScriptSubImage cursorImage = new ScriptSubImage();
-		cursorImage = scriptSubImages.get(1);
-		BufferedImage cursor = sheet.getSubimage(cursorImage.getX(), 
-			cursorImage.getY(), cursorImage.getWidth(), 
-			cursorImage.getHeight());
-		sprCursor = new Sprite(0, 0, cursor, cursorImage.getSTag());
-				
 		
 		//robot animation
 		/*if (!scriptAnimations.isEmpty()) {
@@ -267,6 +143,168 @@ public class Main{
 	public static void update(Control ctrl) {
 		// TODO: This is where you can code! (Starting code below is just to 
 		// show you how it works)
+		
+		//determine level
+		if (newLevel) {	
+			
+			spriteList.clear();
+			rectList.clear();
+			spriteItemList.clear();
+			itemGoalRectList.clear();
+			goalRectList.clear();
+			
+			ArrayList<ScriptSprite> scriptSprites = new ArrayList<>();  
+			ArrayList<ScriptObstacle> scriptObstacles = new ArrayList<>();
+			ArrayList<ScriptSubImage> scriptSubImages = new ArrayList<>();
+			ArrayList<ScriptStartPosition> scriptStartPositions = 
+				new ArrayList<>();
+			ArrayList<ScriptSubObstacle> scriptSubObstacles = new ArrayList<>();
+			ArrayList<ScriptSubGoal> scriptSubGoals = new ArrayList<>();
+			ArrayList<ScriptItemGoal> scriptItemGoals = new ArrayList<>();
+			
+			String levelNumber = "script.txt";
+			if (level == 2) {
+				levelNumber = "script2.txt";
+			}
+			if (level == 3) {
+				levelNumber = "script3.txt";
+			}
+			if (level == 4) {
+				System.exit(0);
+			}
+			//scripting
+			scriptReader = new ScriptReader(levelNumber);
+			scriptSprites = scriptReader.getScriptSprites();
+			scriptObstacles = scriptReader.getScriptObstacles();
+			scriptSubImages = scriptReader.getScriptSubImage();
+			scriptStartPositions = scriptReader.getScriptStartPosition();
+			scriptSubObstacles = scriptReader.getScriptSubObstacles();
+			scriptAnimations = scriptReader.getScriptAnimations();
+			scriptSounds = scriptReader.getScriptSounds();
+			scriptSubGoals = scriptReader.getScriptSubGoals();
+			scriptItemGoals = scriptReader.getScriptItemGoals();
+			
+			if (!scriptSprites.isEmpty()) {
+				for (ScriptSprite spr: scriptSprites) {
+					BufferedImage buf = ctrl.getSpriteFromBackBuffer
+						(spr.getTag()).getSprite();
+					Sprite sprite = new Sprite(spr.getX(), spr.getY(), buf, 
+							spr.getTag());
+					spriteList.add(sprite);
+				}
+			}
+			if (!scriptObstacles.isEmpty()) {
+				for (ScriptObstacle obs: scriptObstacles) {
+					BufferedImage buf = ctrl.getSpriteFromBackBuffer
+					(obs.getSTag()).getSprite();
+					Sprite sprite = new Sprite(obs.getX(), obs.getY(), buf,
+							obs.getSTag());
+					spriteList.add(sprite);
+					RECT rect = new RECT(obs.getX(), obs.getY(), obs.getX() + 
+							obs.getObSize(), obs.getY() + obs.getObSize(), 
+							obs.getRTag());
+					rectList.add(rect);
+				}
+			}
+				
+			//map
+			BufferedImage sheet = ctrl.getSpriteFromBackBuffer("sheet")
+				.getSprite();		
+			if (!scriptSubImages.isEmpty()) {
+			ScriptSubImage mapImage = new ScriptSubImage();
+			mapImage = scriptSubImages.get(0);
+			BufferedImage map = sheet.getSubimage(mapImage.getX(), 
+				mapImage.getY(), mapImage.getWidth(), mapImage.getHeight());
+			TileMap tileMap = new TileMap(map);
+			Sprite sprMap = new Sprite();
+			sprMap = tileMap.getSprite();
+			spriteList.add(sprMap);
+			}
+				
+			//obstacles
+			if (!scriptSubObstacles.isEmpty()) {
+			ScriptSubObstacle obImage = new ScriptSubObstacle();
+			for (ScriptSubObstacle ob: scriptSubObstacles) {
+				obImage = ob;
+				BufferedImage buf = sheet.getSubimage(obImage.getBufX(), 
+					obImage.getBufY(), obImage.getWidth(), 
+					obImage.getHeight());
+				Sprite sprite = new Sprite(obImage.getX(), obImage.getY(), 
+					buf, obImage.getSTag());
+				RECT rect = new RECT(obImage.getX(), obImage.getY(), 
+					obImage.getX() + obImage.getObSize(), obImage.getY() + 
+					obImage.getObSize(), obImage.getRTag());
+				rectList.add(rect);
+				spriteList.add(sprite);
+			}
+			}
+				
+			//itemGoal
+			if (!scriptItemGoals.isEmpty()) {
+			ScriptItemGoal keyImage = new ScriptItemGoal();
+			keyImage = scriptItemGoals.get(0);
+			BufferedImage key = sheet.getSubimage(keyImage.getBufX(), 
+				keyImage.getBufY(), keyImage.getWidth(), keyImage.getHeight());
+			Sprite sprKey = new Sprite(keyImage.getX(), keyImage.getY(), key, 
+				keyImage.getSTag());
+			RECT rectKey = new RECT(keyImage.getX(), keyImage.getY(), 
+				keyImage.getX() + keyImage.getObSize(), keyImage.getY() + 
+				keyImage.getObSize(), keyImage.getRTag());
+			spriteItemList.add(sprKey);
+			itemGoalRectList.add(rectKey);
+			}
+				
+			//goal
+			if (!scriptSubGoals.isEmpty()) {
+			ScriptSubGoal goalImage = new ScriptSubGoal();
+			goalImage = scriptSubGoals.get(0);
+			BufferedImage goal = sheet.getSubimage(goalImage.getBufX(), 
+				goalImage.getBufY(), goalImage.getWidth(), 
+				goalImage.getHeight());
+			Sprite goalSprite = new Sprite(goalImage.getX(), goalImage.getY(), 
+				goal, goalImage.getSTag());
+			RECT goalRect = new RECT(goalImage.getX(), goalImage.getY(), 
+				goalImage.getX() + goalImage.getObSize(), goalImage.getY() + 
+				goalImage.getObSize(), goalImage.getRTag());
+			spriteList.add(goalSprite);
+			goalRectList.add(goalRect);
+			goalX = goalImage.getX();
+			goalY = goalImage.getY();
+			}
+				
+			//start
+			if (!scriptStartPositions.isEmpty()) {
+			ScriptStartPosition start = new ScriptStartPosition();
+			start = scriptStartPositions.get(0);
+			startX = start.getStartX();
+			startY = start.getStartY();
+			}
+		
+			//shiny objects
+			shiny = new Shiny(startX - 16, startY - 16, 64, 64, 8, 64, 8);
+			shinyGoal = new Shiny(goalX - 28, goalY - 28, 200, 200, 8, 64, 16);
+
+			//music
+			if (!scriptSounds.isEmpty()) {
+			song = new Sound(scriptSounds.get(0).getFileName());
+			song.setLoop();
+			backToStart = new Sound(scriptSounds.get(1).getFileName());
+			finish = new Sound(scriptSounds.get(2).getFileName());
+			gotIt = new Sound(scriptSounds.get(3).getFileName());
+			}
+						
+			//add cursor sprite to ArrayList
+			if (!scriptSubImages.isEmpty()) {
+			ScriptSubImage cursorImage = new ScriptSubImage();
+			cursorImage = scriptSubImages.get(1);
+			BufferedImage cursor = sheet.getSubimage(cursorImage.getX(), 
+				cursorImage.getY(), cursorImage.getWidth(), 
+				cursorImage.getHeight());
+			sprCursor = new Sprite(0, 0, cursor, cursorImage.getSTag());
+			}
+			
+			newLevel = false;
+		}
 		
 		//coordinate tool & mouse cursor
 		Point p = Mouse.getMouseCoords();
@@ -464,8 +502,13 @@ public class Main{
 				if (rect.isCollision(rect, mybot)) {
 					if (hasItem) {
 						finish.playWAV();
-						level += level;
+						level += 1;
 						startOver = true;
+						newLevel = true;
+						song.pauseWAV();
+						song.resetWAV();
+						inventoryList.clear();
+						showItem = true;
 					}
 					else {
 						ctrl.drawString(rect.getX1() - 30, rect.getY2() + 20,
