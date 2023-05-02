@@ -27,6 +27,7 @@ import particles.Rain;
 import particles.Shiny;
 import script.ScriptAnimation;
 import script.Command;
+import script.ScriptItemGoal;
 import script.ScriptObstacle;
 import script.ScriptReader;
 import script.ScriptSound;
@@ -48,7 +49,9 @@ public class Main{
 	private static ScriptReader scriptReader;              
 	private static ArrayList<RECT> rectList = new ArrayList<>();
 	private static ArrayList<RECT> goalRectList = new ArrayList<>();
+	private static ArrayList<RECT> itemGoalRectList = new ArrayList<>();
 	private static ArrayList<Sprite> spriteList = new ArrayList<>();
+	private static ArrayList<Sprite> spriteItemList = new ArrayList<>();
 	private static ArrayList<ScriptText> scriptTexts = new ArrayList<>();
 	private static ArrayList<ScriptAnimation> scriptAnimations = 
 		new ArrayList<>();
@@ -59,7 +62,7 @@ public class Main{
 	private static int startX, startY, curX, curY, newX, newY, level = 1,
 		goalX, goalY;
 	private static boolean startOver = true, startHud = false, hasItem = false,
-		activeHud = false, loaded = false, saved = false;
+		activeHud = false, loaded = false, saved = false, showItem = true;
 	private static Sound song;
 	private static Sound backToStart;
 	private static Sprite sprCursor;
@@ -83,6 +86,7 @@ public class Main{
 		ArrayList<ScriptStartPosition> scriptStartPositions = new ArrayList<>();
 		ArrayList<ScriptSubObstacle> scriptSubObstacles = new ArrayList<>();
 		ArrayList<ScriptSubGoal> scriptSubGoals = new ArrayList<>();
+		ArrayList<ScriptItemGoal> scriptItemGoals = new ArrayList<>();
 
 		//hide mouse cursor
 		ctrl.hideDefaultCursor();
@@ -97,6 +101,7 @@ public class Main{
 		scriptAnimations = scriptReader.getScriptAnimations();
 		scriptSounds = scriptReader.getScriptSounds();
 		scriptSubGoals = scriptReader.getScriptSubGoals();
+		scriptItemGoals = scriptReader.getScriptItemGoals();
 		
 		if (!scriptSprites.isEmpty()) {
 			for (ScriptSprite spr: scriptSprites) {
@@ -147,6 +152,19 @@ public class Main{
 			rectList.add(rectBush);
 			spriteList.add(sprBush);
 		}
+		
+		//itemGoal
+		ScriptItemGoal keyImage = new ScriptItemGoal();
+		keyImage = scriptItemGoals.get(0);
+		BufferedImage key = sheet.getSubimage(keyImage.getBufX(), 
+			keyImage.getBufY(), keyImage.getWidth(), keyImage.getHeight());
+		Sprite sprKey = new Sprite(keyImage.getX(), keyImage.getY(), key, 
+			keyImage.getSTag());
+		RECT rectKey = new RECT(keyImage.getX(), keyImage.getY(), 
+			keyImage.getX() + keyImage.getObSize(), keyImage.getY() + 
+			keyImage.getObSize(), keyImage.getRTag());
+		spriteItemList.add(sprKey);
+		itemGoalRectList.add(rectKey);
 		
 		//goal
 		ScriptSubGoal treeImage = new ScriptSubGoal();
@@ -269,8 +287,10 @@ public class Main{
 		while (it.hasNext()) {
 			Frame par = it.next();
 			Sprite spr = ctrl.getSpriteFromBackBuffer(par.getSpriteTag());
-			BufferedImage buf = ctrl.getSpriteFromBackBuffer(spr.getTag()).getSprite();
-			Sprite sprite = new Sprite(par.getX(), par.getY(), buf, par.getSpriteTag());
+			BufferedImage buf = ctrl.getSpriteFromBackBuffer(spr.getTag())
+				.getSprite();
+			Sprite sprite = new Sprite(par.getX(), par.getY(), buf, 
+				par.getSpriteTag());
 			ctrl.addSpriteToFrontBuffer(sprite);
 		}
 		
@@ -280,10 +300,22 @@ public class Main{
 		while (goalIT.hasNext()) {
 			Frame par = goalIT.next();
 			Sprite spr = ctrl.getSpriteFromBackBuffer(par.getSpriteTag());
-			BufferedImage buf = ctrl.getSpriteFromBackBuffer(spr.getTag()).getSprite();
-			Sprite sprite = new Sprite(par.getX(), par.getY(), buf, par.getSpriteTag());
+			BufferedImage buf = ctrl.getSpriteFromBackBuffer(spr.getTag())
+				.getSprite();
+			Sprite sprite = new Sprite(par.getX(), par.getY(), buf, 
+				par.getSpriteTag());
 			ctrl.addSpriteToFrontBuffer(sprite);
 		}
+		
+		//draw itemGoal
+		if (!spriteItemList.isEmpty()) {
+			if (showItem) {
+				for (Sprite spr: spriteItemList) {
+					ctrl.addSpriteToFrontBuffer(spr);
+				}
+			}
+		}
+		
 		//draw texts
 		if (!scriptTexts.isEmpty()) {
 			scriptTexts = scriptReader.getScriptTexts();
@@ -352,6 +384,7 @@ public class Main{
 				if (hudRedButton != null) {
 					if (hudRedButton.isCollision(hudX, hudY)) {
 						activeHud = true;
+						buffer = new ArrayList<>();
 						buffer.add(level);
 						int item = hasItem ? 1 : 0;
 						buffer.add(item);
@@ -362,7 +395,6 @@ public class Main{
 				}
 				if (hudBlackButton != null) {
 					if (hudBlackButton.isCollision(hudX, hudY)) {
-						//buffer = new ArrayList<>();
 						buffer = loadData(buffer);
 						level = buffer.get(0);
 						int item = buffer.get(1);
@@ -374,6 +406,12 @@ public class Main{
 						}
 						loaded = true;
 						saved = false;
+						if (hasItem) {
+							showItem = false;
+						}
+						else {
+							showItem = true;
+						}
 					}
 				}
 			}
@@ -410,6 +448,16 @@ public class Main{
 					startOver = true;
 				}
 			}
+			
+			//check for itemGoal collision
+			for (RECT rect: itemGoalRectList) {
+				if (rect.isCollision(rect, mybot)) {
+					showItem = false;
+					inventoryList.add(rect.getTag());
+					hasItem = true;
+				}
+			}
+			
 			//check for goal collision
 			for (RECT rect: goalRectList) {
 				if (rect.isCollision(rect, mybot)) {
@@ -425,11 +473,11 @@ public class Main{
 	
 	// Additional Static methods below...(if needed)
 	//create a routine to save the game data
-	public static void saveData(ArrayList<Integer> buffer) {
+	public static void saveData(ArrayList<Integer> buf) {
 		//save data to a String to output...
 		String out = "";
-		for (int i = 0; i < buffer.size(); i++)
-			out += buffer.get(i) + "*";
+		for (int i = 0; i < buf.size(); i++)
+			out += buf.get(i) + "*";
 		out = out.substring(0, out.length() - 1);  //remove trailing delimiter
 		//save output String to file
 		EZFileWrite ezw = new EZFileWrite("save.txt");
