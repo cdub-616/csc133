@@ -32,6 +32,8 @@ import script.ScriptObstacle;
 import script.ScriptReader;
 import script.ScriptSound;
 import script.ScriptSprite;
+import script.ScriptHudSubImage;
+import script.ScriptHudSubObstacle;
 import script.ScriptStartPosition;
 import script.ScriptSubGoal;
 import script.ScriptSubImage;
@@ -47,9 +49,11 @@ public class Main{
 	private static ArrayList<Integer> buffer = new ArrayList<>();
 	private static ArrayList<String> inventoryList = new ArrayList<>();          
 	private static ArrayList<RECT> rectList = new ArrayList<>();
+	private static ArrayList<RECT> hudRectList = new ArrayList<>();
 	private static ArrayList<RECT> goalRectList = new ArrayList<>();
 	private static ArrayList<RECT> itemGoalRectList = new ArrayList<>();
 	private static ArrayList<Sprite> spriteList = new ArrayList<>();
+	private static ArrayList<Sprite> hudSpriteList = new ArrayList<>();
 	private static ArrayList<Sprite> spriteItemList = new ArrayList<>();
 	private static ArrayList<ScriptText> scriptTexts = new ArrayList<>();
 	private static ArrayList<ScriptAnimation> scriptAnimations = 
@@ -161,6 +165,9 @@ public class Main{
 			ArrayList<ScriptSubObstacle> scriptSubObstacles = new ArrayList<>();
 			ArrayList<ScriptSubGoal> scriptSubGoals = new ArrayList<>();
 			ArrayList<ScriptItemGoal> scriptItemGoals = new ArrayList<>();
+			ArrayList<ScriptHudSubObstacle> scriptHudSubObstacles = 
+				new ArrayList<>();
+			ArrayList<ScriptHudSubImage> scriptHudSubImages = new ArrayList<>();
 			
 			String levelNumber = "script.txt";
 			//level = 2;
@@ -185,6 +192,8 @@ public class Main{
 			scriptSounds = scriptReader.getScriptSounds();
 			scriptSubGoals = scriptReader.getScriptSubGoals();
 			scriptItemGoals = scriptReader.getScriptItemGoals();
+			scriptHudSubImages = scriptReader.getHudSubImages();
+			scriptHudSubObstacles = scriptReader.getHudSubObstacles();
 			
 			if (!scriptSprites.isEmpty()) {
 				for (ScriptSprite spr: scriptSprites) {
@@ -223,23 +232,56 @@ public class Main{
 			spriteList.add(sprMap);
 			}
 				
-			//obstacles
+			//subObstacles
 			if (!scriptSubObstacles.isEmpty()) {
 			ScriptSubObstacle obImage = new ScriptSubObstacle();
-			for (ScriptSubObstacle ob: scriptSubObstacles) {
-				obImage = ob;
-				BufferedImage buf = sheet.getSubimage(obImage.getBufX(), 
-					obImage.getBufY(), obImage.getWidth(), 
-					obImage.getHeight());
-				Sprite sprite = new Sprite(obImage.getX(), obImage.getY(), 
-					buf, obImage.getSTag());
-				RECT rect = new RECT(obImage.getX(), obImage.getY(), 
-					obImage.getX() + obImage.getObSize(), obImage.getY() + 
-					obImage.getObSize(), obImage.getRTag());
-				rectList.add(rect);
-				spriteList.add(sprite);
+				for (ScriptSubObstacle ob: scriptSubObstacles) {
+					obImage = ob;
+					BufferedImage buf = sheet.getSubimage(obImage.getBufX(), 
+						obImage.getBufY(), obImage.getWidth(), 
+						obImage.getHeight());
+					Sprite sprite = new Sprite(obImage.getX(), obImage.getY(), 
+						buf, obImage.getSTag());
+					RECT rect = new RECT(obImage.getX(), obImage.getY(), 
+						obImage.getX() + obImage.getObSize(), obImage.getY() + 
+						obImage.getObSize(), obImage.getRTag());
+					rectList.add(rect);
+					spriteList.add(sprite);
+				}
 			}
+			
+			//HUD images
+			if (!scriptHudSubImages.isEmpty()) {
+				ScriptHudSubImage hudSubImage = new ScriptHudSubImage();
+				for (ScriptHudSubImage hudImOb: scriptHudSubImages) {
+					hudSubImage = hudImOb;
+					BufferedImage buf = sheet.getSubimage(hudSubImage.getBufX(), 
+						hudSubImage.getBufY(), hudSubImage.getWidth(), 
+						hudSubImage.getHeight());
+					Sprite sprite = new Sprite(hudSubImage.getBufX(), 
+						hudSubImage.getBufY(), buf, hudSubImage.getSTag());
+					hudSpriteList.add(sprite);
+				}
 			}
+			//HUD obstacles
+			if (!scriptHudSubObstacles.isEmpty()) {
+				ScriptHudSubObstacle hudImage = new ScriptHudSubObstacle();
+				for (ScriptHudSubObstacle hudOb: scriptHudSubObstacles) {
+					hudImage = hudOb;
+					BufferedImage buf = sheet.getSubimage(hudImage.getBufX(), 
+						hudImage.getBufY(), hudImage.getWidth(), 
+						hudImage.getHeight());
+					Sprite sprite = new Sprite(hudImage.getX(), hudImage.getY(), 
+						buf, hudImage.getSTag());
+					RECT rect = new RECT(hudImage.getX(), hudImage.getY(), 
+						hudImage.getX() + hudImage.getObSize(), hudImage.getY() + 
+						hudImage.getObSize(), hudImage.getRTag());
+					hudRectList.add(rect);
+					hudSpriteList.add(sprite);
+				}
+			}
+			//add HUD sprites to back buffer
+			ctrl.addBufImageToBackBuffer(hudSpriteList);
 				
 			//itemGoal
 			if (!scriptItemGoals.isEmpty()) {
@@ -368,32 +410,38 @@ public class Main{
 		//draw hud
 		if (startHud) {
 			int blackX = 180, blackY = 175, redX = 315, redY = 175;
-			ctrl.addSpriteToHudBuffer(100, 100, "game_hud3");
-			ctrl.drawHudString(116, 125, "Inventory: ", Color.white);
-			String inventoryItem = "empty";
-			if (!inventoryList.isEmpty()) {
-				inventoryItem = inventoryList.get(0);
+			if (!hudSpriteList.isEmpty()) {
+				ctrl.addSpriteToHudBuffer(100, 100, hudSpriteList.get(0).getTag());
+				ctrl.drawHudString(116, 125, "Inventory: ", Color.white);
+				String inventoryItem = "empty";
+				if (!inventoryList.isEmpty()) {
+					inventoryItem = inventoryList.get(0);
+				}
+				ctrl.drawHudString(230, 125, inventoryItem, Color.white);
+				ctrl.drawHudString(116, 155, "Level: ", Color.white);
+				ctrl.drawHudString(190, 155, Integer.toString(level), Color.white);
+				ctrl.drawHudString(116, 190, "Load", Color.white);
+				ctrl.drawHudString(250, 190, "Save", Color.white);
+				ctrl.addSpriteToHudBuffer(blackX, blackY, 
+					hudSpriteList.get(1).getTag());
+				ctrl.addSpriteToHudBuffer(redX, redY, 
+					hudSpriteList.get(2).getTag());
 			}
-			ctrl.drawHudString(230, 125, inventoryItem, Color.white);
-			ctrl.drawHudString(116, 155, "Level: ", Color.white);
-			ctrl.drawHudString(190, 155, Integer.toString(level), Color.white);
-			ctrl.drawHudString(116, 190, "Load", Color.white);
-			ctrl.drawHudString(250, 190, "Save", Color.white);
-			ctrl.addSpriteToHudBuffer(blackX, blackY, "black_button");
-			ctrl.addSpriteToHudBuffer(redX, redY, "red_button");
 			
 			//HUD rects
 			int buttonSize = 16;
-			hudRedButton = new RECT(redX, redY, redX + buttonSize, 
-				redY + buttonSize, "redButtonRECT");
-			hudBlackButton = new RECT(blackX, blackY, blackX + buttonSize, 
-				blackY + buttonSize, "blackButtonRECT");
-			String load = "Loaded...", save = "Saved...";
-			if (loaded) {
-				ctrl.drawHudString(180, 215, load, Color.white);
-			}
-			if (saved) {
-				ctrl.drawHudString(180, 215, save, Color.white);
+			if (!hudRectList.isEmpty()) {
+				hudRedButton = new RECT(redX, redY, redX + buttonSize, 
+					redY + buttonSize, hudRectList.get(1).getTag());
+				hudBlackButton = new RECT(blackX, blackY, blackX + buttonSize, 
+					blackY + buttonSize, hudRectList.get(0).getTag());
+				String load = "Loaded...", save = "Saved...";
+				if (loaded) {
+					ctrl.drawHudString(180, 215, load, Color.white);
+				}
+				if (saved) {
+					ctrl.drawHudString(180, 215, save, Color.white);
+				}
 			}
 		}
 		
