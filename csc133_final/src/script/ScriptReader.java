@@ -20,6 +20,8 @@ public class ScriptReader {
 	private ArrayList<ScriptSound> sounds = new ArrayList<>();
 	private ArrayList<ScriptSubGoal> subGoals = new ArrayList<>();
 	private ArrayList<ScriptItemGoal> itemGoals = new ArrayList<>();
+	private ArrayList<ScriptHudSubObstacle> hudSubObstacles = new ArrayList<>();
+	private ArrayList<ScriptHudSubImage> hudSubImages = new ArrayList<>();
 		
 	//constructor
 	public ScriptReader(String filename) {
@@ -73,6 +75,15 @@ public class ScriptReader {
 				ScriptSubImage subImage = new ScriptSubImage(x, y, width, 
 					height, sTag);
 				subImages.add(subImage);
+			}else if (c.isCommand("hudSubImage") && c.getNumParms() == 5) {
+				int x = Integer.parseInt(c.getParmByIndex(0));
+				int y = Integer.parseInt(c.getParmByIndex(1));
+				int width = Integer.parseInt(c.getParmByIndex(2));
+				int height = Integer.parseInt(c.getParmByIndex(3));
+				String sTag = c.getParmByIndex(4);
+				ScriptHudSubImage hudSubImage = new ScriptHudSubImage(x, y, 
+					width, height, sTag);
+				hudSubImages.add(hudSubImage);
 			} else if (c.isCommand("obstacle") & c.getNumParms() == 5) {
 				int x = Integer.parseInt(c.getParmByIndex(0));
 				int y = Integer.parseInt(c.getParmByIndex(1));
@@ -107,6 +118,19 @@ public class ScriptReader {
 				ScriptItemGoal itemGoal = new ScriptItemGoal(bufX, bufY, 
 					width, height, x, y, sTag, objectSize, rTag);
 				itemGoals.add(itemGoal);
+			}else if (c.isCommand("hudSubObstacle") && c.getNumParms() == 9) {
+				int bufX = Integer.parseInt(c.getParmByIndex(0));
+				int bufY = Integer.parseInt(c.getParmByIndex(1));
+				int width = Integer.parseInt(c.getParmByIndex(2));
+				int height = Integer.parseInt(c.getParmByIndex(3));
+				int x = Integer.parseInt(c.getParmByIndex(4));
+				int y = Integer.parseInt(c.getParmByIndex(5));
+				String sTag = c.getParmByIndex(6);
+				int objectSize = Integer.parseInt(c.getParmByIndex(7));
+				String rTag = c.getParmByIndex(8);
+				ScriptHudSubObstacle hudSubObstacle = new ScriptHudSubObstacle
+					(bufX, bufY, width, height, x, y, sTag, objectSize, rTag);
+				hudSubObstacles.add(hudSubObstacle);
 			} else if (c.isCommand("subObstacle") & c.getNumParms() == 9){
 				int bufX = Integer.parseInt(c.getParmByIndex(0));
 				int bufY = Integer.parseInt(c.getParmByIndex(1));
@@ -212,5 +236,11 @@ public class ScriptReader {
 	}
 	public ArrayList<ScriptItemGoal> getScriptItemGoals(){
 		return itemGoals;
+	}
+	public ArrayList<ScriptHudSubObstacle> getHudSubObstacles (){
+		return hudSubObstacles;
+	}
+	public ArrayList<ScriptHudSubImage> getHudSubImages (){
+		return hudSubImages;
 	}
 }

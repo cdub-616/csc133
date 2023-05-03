@@ -50,6 +50,11 @@ subObstacle: 16, 224, 16, 16, 1215, 435, "blueKey", 16, "blueKey"
 subObstacle: 48, 224, 16, 16, 200, 200, "greenKey", 16, "greenKey"
 subObstacle: 48, 224, 16, 16, 680, 400, "greenKey", 16, "greenKey"
 
+#hudSubObstacle: bufX, bufY, width, height, x, y, spriteTag, spriteSize, RECTTag
+#black button
+hudSubObstacle: 64, 224, 16, 16, 0, 0, "black_button", 16, "black_button"
+#red button
+hudSubObstacle: 80, 224, 16, 16, 0, 0, "red_button", 16, "red_button"
 
 #subGoal: bufX, bufY, width, height, x, y, spriteTag, spriteSize, RECTTag
 subGoal: 384, 64, 128, 128, 1100, 65, "tree", 128, "tree"
@@ -59,11 +64,14 @@ itemGoal: 48, 224, 16, 16, 610, 610, "greenKey", 16, "greenKey"
 
 #obstacle: x, y, spriteTag, spriteSize, RECTTag
 
-#subImage: x, y, width, height
+#subImage: bufX, bufY, width, height, spriteTag
 # grass tile
 subImage: 0, 64, 128, 128, grass_tile
 # mouse cursor
 subImage: 0, 224, 16, 16, mouse_cursor
+
+#hudSubImage: bufX, bufY, width, height, spriteTag
+hudSubImage: 0, 240, 256, 256, game_hud3
 
 #start: x, y
 start: 50, 650
