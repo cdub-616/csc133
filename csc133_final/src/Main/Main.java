@@ -108,9 +108,6 @@ public class Main{
 			spriteItemList.clear();
 			itemGoalRectList.clear();
 			goalRectList.clear();
-			
-			ArrayList<ScriptSprite> scriptSprites = new ArrayList<>();  
-			ArrayList<ScriptObstacle> scriptObstacles = new ArrayList<>();
 			ArrayList<ScriptSubImage> scriptSubImages = new ArrayList<>();
 			ArrayList<ScriptStartPosition> scriptStartPositions = 
 				new ArrayList<>();
@@ -124,7 +121,7 @@ public class Main{
 				new ArrayList<>();
 			ArrayList<Sprite> backSpriteList = new ArrayList<>(); 
 			
-			
+			level = 1;
 			String levelNumber = "script.txt";
 			if (level == 2) {
 				levelNumber = "script2.txt";
@@ -137,8 +134,6 @@ public class Main{
 			}
 			//scripting
 			scriptReader = new ScriptReader(levelNumber);
-			scriptSprites = scriptReader.getScriptSprites();
-			scriptObstacles = scriptReader.getScriptObstacles();
 			scriptSubImages = scriptReader.getScriptSubImage();
 			scriptStartPositions = scriptReader.getScriptStartPosition();
 			scriptSubObstacles = scriptReader.getScriptSubObstacles();
@@ -285,14 +280,15 @@ public class Main{
 						
 			//add cursor sprite to ArrayList
 			if (!scriptSubImages.isEmpty()) {
-			ScriptSubImage cursorImage = new ScriptSubImage();
-			cursorImage = scriptSubImages.get(1);
-			BufferedImage cursor = sheet.getSubimage(cursorImage.getX(), 
-				cursorImage.getY(), cursorImage.getWidth(), 
-				cursorImage.getHeight());
+				ScriptSubImage cursorImage = new ScriptSubImage();
+				cursorImage = scriptSubImages.get(1);
+				BufferedImage cursor = sheet.getSubimage(cursorImage.getX(), 
+					cursorImage.getY(), cursorImage.getWidth(), 
+					cursorImage.getHeight());
 			sprCursor = new Sprite(0, 0, cursor, cursorImage.getSTag());
 			}
 			
+			//stay on same level until load a new level or complete current one
 			newLevel = false;
 		}
 		
@@ -301,6 +297,7 @@ public class Main{
 		//coord = p.toString();                           //coordinate tool
 		//ctrl.drawString(500, 360, coord, Color.WHITE);  //coordinate tool
 		ctrl.addSpriteToOverlayBuffer(p.x, p.y, sprCursor.getTag());
+		
 		
 		//draw sprites ***make sure map sprite is in 0***
 		if (!spriteList.isEmpty()) {
