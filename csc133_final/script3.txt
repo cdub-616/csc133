@@ -1,27 +1,61 @@
 #show_sprite: x, y, tag
 
 #subObstacle: bufX, bufY, width, height, x, y, spriteTag, spriteSize, RECTTag
-#subObstacle: 0, 0, 64, 64, 600, 300, "bush", 64, "bush"
-#subObstacle: 0, 0, 64, 64, 600, 364, "bush", 64, "bush"
-#subObstacle: 0, 0, 64, 64, 600, 428, "bush", 64, "bush"
-#subObstacle: 0, 0, 64, 64, 664, 428, "bush", 64, "bush"
-#subObstacle: 0, 0, 64, 64, 1000, 50, "bush", 64, "bush"
-#subObstacle: 0, 0, 64, 64, 1000, 180, "bush", 64, "bush"
-#subObstacle: 0, 0, 64, 64, 1130, 250, "bush", 64, "bush"
-#subObstacle: 0, 0, 64, 64, 728, 428, "bush", 64, "bush"
-#subObstacle: 0, 0, 64, 64, 728, 492, "bush", 64, "bush"
-#subObstacle: 0, 0, 64, 64, 728, 556, "bush", 64, "bush"
-#subObstacle: 0, 0, 64, 64, 728, 620, "bush", 64, "bush"
-#subObstacle: 0, 0, 64, 64, 728, 684, "bush", 64, "bush"
-#subObstacle: 0, 0, 64, 64, 475, 0, "bush", 64, "bush"
-#subObstacle: 0, 0, 64, 64, 475, 64, "bush", 64, "bush"
-#subObstacle: 0, 0, 64, 64, 475, 128, "bush", 64, "bush"
-#subObstacle: 0, 0, 64, 64, 539, 128, "bush", 64, "bush"
-#subObstacle: 0, 0, 64, 64, 603, 128, "bush", 64, "bush"
-#subObstacle: 0, 0, 64, 64, 200, 415, "bush", 64, "bush"
-#subObstacle: 0, 0, 64, 64, 360, 600, "bush", 64, "bush"
-subObstacle: 32, 224, 16, 16, 900, 600, "redKey", 16, "redKey"
-subObstacle: 16, 224, 16, 16, 610, 70, "blueKey", 16, "blueKey"
+subObstacle: 128, 0, 64, 64, 0, 200, "xRoad", 64, "xRoad"
+subObstacle: 128, 0, 64, 64, 64, 200, "xRoad", 64, "xRoad"
+subObstacle: 128, 0, 64, 64, 128, 200, "xRoad", 64, "xRoad"
+subObstacle: 128, 0, 64, 64, 192, 200, "xRoad", 64, "xRoad"
+subObstacle: 128, 0, 64, 64, 256, 200, "xRoad", 64, "xRoad"
+subObstacle: 128, 0, 64, 64, 320, 200, "xRoad", 64, "xRoad"
+subObstacle: 128, 0, 64, 64, 736, 200, "xRoad", 64, "xRoad"
+subObstacle: 128, 0, 64, 64, 736, 264, "xRoad", 64, "xRoad"
+subObstacle: 128, 0, 64, 64, 736, 328, "xRoad", 64, "xRoad"
+subObstacle: 128, 0, 64, 64, 736, 392, "xRoad", 64, "xRoad"
+subObstacle: 128, 0, 64, 64, 736, 456, "xRoad", 64, "xRoad"
+subObstacle: 128, 0, 64, 64, 736, 520, "xRoad", 64, "xRoad"
+subObstacle: 128, 0, 64, 64, 736, 584, "xRoad", 64, "xRoad"
+subObstacle: 128, 0, 64, 64, 736, 648, "xRoad", 64, "xRoad"
+subObstacle: 128, 0, 64, 64, 736, 712, "xRoad", 64, "xRoad"
+subObstacle: 128, 0, 64, 64, 800, 200, "xRoad", 64, "xRoad"
+subObstacle: 128, 0, 64, 64, 864, 200, "xRoad", 64, "xRoad"
+subObstacle: 128, 0, 64, 64, 928, 200, "xRoad", 64, "xRoad"
+subObstacle: 128, 0, 64, 64, 1056, 200, "xRoad", 64, "xRoad"
+subObstacle: 128, 0, 64, 64, 1120, 200, "xRoad", 64, "xRoad"
+subObstacle: 128, 0, 64, 64, 1184, 200, "xRoad", 64, "xRoad"
+subObstacle: 128, 0, 64, 64, 1248, 200, "xRoad", 64, "xRoad"
+subObstacle: 768, 192, 128, 128, 336, 400, "xPond", 128, "xPond"
+subObstacle: 768, 192, 128, 128, 275, 355, "xPond", 128, "xPond"
+subObstacle: 768, 192, 128, 128, 225, 455, "xPond", 128, "xPond"
+subObstacle: 768, 192, 128, 128, 505, 650, "xPond", 128, "xPond"
+subObstacle: 768, 192, 128, 128, 535, 555, "xPond", 128, "xPond"
+subObstacle: 768, 192, 128, 128, -20, 305, "xPond", 128, "xPond"
+subObstacle: 768, 192, 128, 128, 35, 410, "xPond", 128, "xPond"
+subObstacle: 768, 192, 128, 128, 300, 497, "xPond", 128, "xPond"
+subObstacle: 768, 192, 128, 128, 560, 450, "xPond", 128, "xPond"
+subObstacle: 768, 192, 128, 128, 505, 650, "xPond", 128, "xPond"
+subObstacle: 768, 192, 128, 128, 535, 555, "xPond", 128, "xPond"
+subObstacle: 768, 192, 128, 128, -20, 305, "xPond", 128, "xPond"
+subObstacle: 896, 64, 128, 128, 400, 168, "robotSentry", 128, "robotSentry"
+subObstacle: 896, 64, 128, 128, 592, 168, "robotSentry", 128, "robotSentry"
+subObstacle: 896, 64, 128, 128, 864, 64, "robotSentry", 128, "robotSentry"
+subObstacle: 896, 64, 128, 128, 1056, 64, "robotSentry", 128, "robotSentry"
+subObstacle: 896, 64, 128, 128, 250, 64, "robotSentry", 128, "robotSentry"
+subObstacle: 896, 64, 128, 128, 864, 275, "robotSentry", 128, "robotSentry"
+subObstacle: 896, 64, 128, 128, 1056, 275, "robotSentry", 128, "robotSentry"
+subObstacle: 96, 224, 16, 16, 0, 445, "lightGreyKey", 16, "lightGreyKey"
+subObstacle: 96, 224, 16, 16, 400, 140, "lightGreyKey", 16, "lightGreyKey"
+subObstacle: 96, 224, 16, 16, 1240, 155, "lightGreyKey", 16, "lightGreyKey"
+subObstacle: 96, 224, 16, 16, 820, 495, "lightGreyKey", 16, "lightGreyKey"
+subObstacle: 96, 224, 16, 16, 365, 315, "lightGreyKey", 16, "lightGreyKey"
+subObstacle: 112, 224, 16, 16, 825, 165, "darkGreyKey", 16, "darkGreyKey"
+subObstacle: 112, 224, 16, 16, 650, 695, "darkGreyKey", 16, "darkGreyKey"
+subObstacle: 112, 224, 16, 16, 415, 370, "darkGreyKey", 16, "darkGreyKey"
+subObstacle: 112, 224, 16, 16, 875, 675, "darkGreyKey", 16, "darkGreyKey"
+subObstacle: 112, 224, 16, 16, 1230, 665, "darkGreyKey", 16, "darkGreyKey"
+subObstacle: 128, 224, 16, 16, 1125, 475, "silverKey", 16, "silverKey"
+subObstacle: 128, 224, 16, 16, 125, 380, "silverKey", 16, "silverKey"
+subObstacle: 128, 224, 16, 16, 1250, 280, "silverKey", 16, "silverKey"
+subObstacle: 128, 224, 16, 16, 610, 425, "silverKey", 16, "silverKey"
 
 #hudSubObstacle: bufX, bufY, width, height, x, y, spriteTag, spriteSize, RECTTag
 #black button
@@ -30,10 +64,10 @@ hudSubObstacle: 64, 224, 16, 16, 0, 0, "black_button", 16, "black_button"
 hudSubObstacle: 80, 224, 16, 16, 0, 0, "red_button", 16, "red_button"
 
 #subGoal: bufX, bufY, width, height, x, y, spriteTag, spriteSize, RECTTag
-subGoal: 384, 64, 128, 128, 1100, 65, "tree", 128, "tree"
+subGoal: 896, 192, 128, 128, 30, 40, "hero", 128, "hero"
 
 #itemGoal: bufX, bufY, width, height, x, y, spriteTag, spriteSize, RECTtag
-itemGoal: 48, 224, 16, 16, 200, 200, "greenKey", 16, "greenKey"
+itemGoal: 128, 224, 16, 16, 1180, 605, "silverKey", 16, "silverKey"
 
 #obstacle: x, y, spriteTag, spriteSize, RECTTag
 
@@ -55,10 +89,11 @@ start: 50, 650
 
 #rect_texthover: x1, y1, x2, y2, tag, label, labelRed, labelGreen, labelBlue, shadowOffset, shadowRed, shadowGreen, shadowBlue
 
-#animation: delay, isLooping, startX, startY, bitSize, numImages
+#animation: delay, isLooping
+animation: 100, false
 
 #sound: fileName
-sound: Sound/game_music.wav
+sound: Sound/game_music_lv3.wav
 sound: Sound/back_to_start_fx.wav
 sound: Sound/finish_fx.wav
 sound: Sound/gotIt_fx.wav

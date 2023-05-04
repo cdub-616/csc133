@@ -73,10 +73,11 @@ start: 50, 650
 
 #rect_texthover: x1, y1, x2, y2, tag, label, labelRed, labelGreen, labelBlue, shadowOffset, shadowRed, shadowGreen, shadowBlue
 
-#animation: delay, isLooping, startX, startY, bitSize, numImages
+#animation: delay, isLooping
+animation: 100, false
 
 #sound: fileName
-sound: Sound/game_music.wav
+sound: Sound/game_music_lv2.wav
 sound: Sound/back_to_start_fx.wav
 sound: Sound/finish_fx.wav
 sound: Sound/gotIt_fx.wav

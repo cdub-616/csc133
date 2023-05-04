@@ -27,6 +27,7 @@ import particles.Rain;
 import particles.Shiny;
 import script.ScriptAnimation;
 import script.Command;
+import script.ScriptBackBufferSprite;
 import script.ScriptItemGoal;
 import script.ScriptObstacle;
 import script.ScriptReader;
@@ -72,7 +73,7 @@ public class Main{
 	private static Sound backToStart, finish, gotIt;
 	private static Sprite sprCursor;
 	private static Shiny shiny, shinyGoal;
-	private static RECT hudRedButton, hudBlackButton;
+	private static RECT hudRedButton, hudBlackButton, hudYellowButton;
 	// End Static fields...
 	
 	public static void main(String[] args) {
@@ -92,54 +93,6 @@ public class Main{
 		buffer.add(level);
 		int item = hasItem ? 1 : 0;
 		buffer.add(item);
-		
-		//robot animation
-		/*if (!scriptAnimations.isEmpty()) {
-			ScriptAnimation sAnima = scriptAnimations.get(0);
-			int delay = sAnima.getDelay();
-			boolean isLooping = sAnima.getIsLooping();
-			int sX = sAnima.getStartX();
-			int sY = sAnima.getStartY();
-			int bitSize = sAnima.getBitSize();
-			botStep = sAnima.getStep();
-			botAnim = new Animation(delay, isLooping);
-			BufferedImage buf = sheet.getSubimage(sX, sY, bitSize, bitSize);
-			Sprite downLeft = new Sprite(0, 0, buf, "down1");
-			robotSpriteList.add(downLeft);
-			buf = sheet.getSubimage(sX + bitSize, sY, bitSize, bitSize);
-			Sprite downRight = new Sprite(0, 0, buf, "down3");
-			robotSpriteList.add(downRight);
-			buf = sheet.getSubimage(sX + bitSize * 2, sY, bitSize, bitSize);
-			Sprite down = new Sprite(0, 0, buf, "down0");
-			Sprite downAgain = new Sprite(0, 0, buf, "down2");
-			robotSpriteList.add(down);
-			robotSpriteList.add(downAgain);
-			buf = sheet.getSubimage(sX + bitSize * 3, sY, bitSize, bitSize);
-			Sprite leftForward = new Sprite(0, 0, buf, "left1");
-			robotSpriteList.add(leftForward);
-			buf = sheet.getSubimage(sX + bitSize * 4,  sY, bitSize, bitSize);
-			Sprite left = new Sprite(0, 0, buf, "left0");
-			robotSpriteList.add(left);
-			buf = sheet.getSubimage(sX + bitSize * 5, sY, bitSize, bitSize);
-			Sprite rightForward = new Sprite(0, 0, buf, "right1");
-			robotSpriteList.add(rightForward);
-			buf = sheet.getSubimage(sX + bitSize * 6, sY, bitSize, bitSize);
-			Sprite right = new Sprite(0, 0, buf, "right0");
-			robotSpriteList.add(right);
-			buf = sheet.getSubimage(sX + bitSize * 7, sY, bitSize, bitSize);
-			Sprite upLeft = new Sprite(0, 0, buf, "up1");
-			robotSpriteList.add(upLeft);
-			buf = sheet.getSubimage(sX + bitSize * 8, sY, bitSize, bitSize);
-			Sprite upRight = new Sprite(0, 0, buf, "up3");
-			robotSpriteList.add(upRight);
-			buf = sheet.getSubimage(sX + bitSize * 9, sY, bitSize, bitSize);
-			Sprite up = new Sprite(0, 0, buf, "up0");
-			Sprite upAgain = new Sprite(0, 0, buf, "up2");
-			robotSpriteList.add(up);
-			robotSpriteList.add(upAgain);
-		}
-		//send robot animation sprites to backbuffer
-		ctrl.addBufImageToBackBuffer(robotSpriteList);*/
 	}
 	
 	/* This is your access to the "game loop" (It is a "callback" method from 
@@ -150,7 +103,6 @@ public class Main{
 		
 		//determine level
 		if (newLevel) {	
-			
 			spriteList.clear();
 			rectList.clear();
 			spriteItemList.clear();
@@ -168,10 +120,12 @@ public class Main{
 			ArrayList<ScriptHudSubObstacle> scriptHudSubObstacles = 
 				new ArrayList<>();
 			ArrayList<ScriptHudSubImage> scriptHudSubImages = new ArrayList<>();
+			ArrayList<ScriptBackBufferSprite> scriptBackBufferSprites = 
+				new ArrayList<>();
+			ArrayList<Sprite> backSpriteList = new ArrayList<>(); 
+			
 			
 			String levelNumber = "script.txt";
-			//level = 2;
-			//level = 3;
 			if (level == 2) {
 				levelNumber = "script2.txt";
 			}
@@ -194,31 +148,9 @@ public class Main{
 			scriptItemGoals = scriptReader.getScriptItemGoals();
 			scriptHudSubImages = scriptReader.getHudSubImages();
 			scriptHudSubObstacles = scriptReader.getHudSubObstacles();
+			scriptBackBufferSprites = scriptReader.getScriptBackBufferSprites();
 			
-			if (!scriptSprites.isEmpty()) {
-				for (ScriptSprite spr: scriptSprites) {
-					BufferedImage buf = ctrl.getSpriteFromBackBuffer
-						(spr.getTag()).getSprite();
-					Sprite sprite = new Sprite(spr.getX(), spr.getY(), buf, 
-							spr.getTag());
-					spriteList.add(sprite);
-				}
-			}
-			if (!scriptObstacles.isEmpty()) {
-				for (ScriptObstacle obs: scriptObstacles) {
-					BufferedImage buf = ctrl.getSpriteFromBackBuffer
-					(obs.getSTag()).getSprite();
-					Sprite sprite = new Sprite(obs.getX(), obs.getY(), buf,
-							obs.getSTag());
-					spriteList.add(sprite);
-					RECT rect = new RECT(obs.getX(), obs.getY(), obs.getX() + 
-							obs.getObSize(), obs.getY() + obs.getObSize(), 
-							obs.getRTag());
-					rectList.add(rect);
-				}
-			}
-				
-			//map
+			//get scriptSubImage for map
 			BufferedImage sheet = ctrl.getSpriteFromBackBuffer("sheet")
 				.getSprite();		
 			if (!scriptSubImages.isEmpty()) {
@@ -231,8 +163,20 @@ public class Main{
 			sprMap = tileMap.getSprite();
 			spriteList.add(sprMap);
 			}
+			
+			//get scriptBackBufferSprites
+			if (!scriptBackBufferSprites.isEmpty()) {
+				for (ScriptBackBufferSprite bufSpr: scriptBackBufferSprites) {
+					BufferedImage buf = sheet.getSubimage(bufSpr.getBufX(),
+						bufSpr.getBufY(), bufSpr.getWidth(), 
+						bufSpr.getHeight());
+					Sprite sprite = new Sprite(0, 0, buf, bufSpr.getSTag());
+					backSpriteList.add(sprite);
+				}
+				ctrl.addBufImageToBackBuffer(backSpriteList);
+			}
 				
-			//subObstacles
+			//get scriptSubObstacles
 			if (!scriptSubObstacles.isEmpty()) {
 			ScriptSubObstacle obImage = new ScriptSubObstacle();
 				for (ScriptSubObstacle ob: scriptSubObstacles) {
@@ -250,7 +194,7 @@ public class Main{
 				}
 			}
 			
-			//HUD images
+			//get scriptHudSubImages
 			if (!scriptHudSubImages.isEmpty()) {
 				ScriptHudSubImage hudSubImage = new ScriptHudSubImage();
 				for (ScriptHudSubImage hudImOb: scriptHudSubImages) {
@@ -263,7 +207,8 @@ public class Main{
 					hudSpriteList.add(sprite);
 				}
 			}
-			//HUD obstacles
+			
+			//get scriptHudSubObstacles
 			if (!scriptHudSubObstacles.isEmpty()) {
 				ScriptHudSubObstacle hudImage = new ScriptHudSubObstacle();
 				for (ScriptHudSubObstacle hudOb: scriptHudSubObstacles) {
@@ -280,6 +225,7 @@ public class Main{
 					hudSpriteList.add(sprite);
 				}
 			}
+			
 			//add HUD sprites to back buffer
 			ctrl.addBufImageToBackBuffer(hudSpriteList);
 				
@@ -352,9 +298,9 @@ public class Main{
 		
 		//coordinate tool & mouse cursor
 		Point p = Mouse.getMouseCoords();
-		coord = p.toString();                           //coordinate tool
-		ctrl.drawString(500, 360, coord, Color.WHITE);  //coordinate tool
-		  ctrl.addSpriteToOverlayBuffer(p.x, p.y, sprCursor.getTag());
+		//coord = p.toString();                           //coordinate tool
+		//ctrl.drawString(500, 360, coord, Color.WHITE);  //coordinate tool
+		ctrl.addSpriteToOverlayBuffer(p.x, p.y, sprCursor.getTag());
 		
 		//draw sprites ***make sure map sprite is in 0***
 		if (!spriteList.isEmpty()) {
@@ -409,7 +355,8 @@ public class Main{
 		
 		//draw hud
 		if (startHud) {
-			int blackX = 180, blackY = 175, redX = 315, redY = 175;
+			int blackX = 180, blackY = 170, redX = 315, redY = 170;
+			int exitX = 170, exitY = 200;
 			if (!hudSpriteList.isEmpty()) {
 				ctrl.addSpriteToHudBuffer(100, 100, hudSpriteList.get(0).getTag());
 				ctrl.drawHudString(116, 125, "Inventory: ", Color.white);
@@ -420,12 +367,15 @@ public class Main{
 				ctrl.drawHudString(230, 125, inventoryItem, Color.white);
 				ctrl.drawHudString(116, 155, "Level: ", Color.white);
 				ctrl.drawHudString(190, 155, Integer.toString(level), Color.white);
-				ctrl.drawHudString(116, 190, "Load", Color.white);
-				ctrl.drawHudString(250, 190, "Save", Color.white);
+				ctrl.drawHudString(116, 185, "Load", Color.white);
+				ctrl.drawHudString(250, 185, "Save", Color.white);
+				ctrl.drawHudString(116, 215, "Exit", Color.white);
 				ctrl.addSpriteToHudBuffer(blackX, blackY, 
 					hudSpriteList.get(1).getTag());
 				ctrl.addSpriteToHudBuffer(redX, redY, 
 					hudSpriteList.get(2).getTag());
+				ctrl.addSpriteToHudBuffer(exitX, exitY, 
+					hudSpriteList.get(3).getTag());
 			}
 			
 			//HUD rects
@@ -435,18 +385,26 @@ public class Main{
 					redY + buttonSize, hudRectList.get(1).getTag());
 				hudBlackButton = new RECT(blackX, blackY, blackX + buttonSize, 
 					blackY + buttonSize, hudRectList.get(0).getTag());
+				hudYellowButton = new RECT(exitX, exitY, exitX + buttonSize, 
+					exitY + buttonSize, hudRectList.get(2).getTag());
 				String load = "Loaded...", save = "Saved...";
 				if (loaded) {
-					ctrl.drawHudString(180, 215, load, Color.white);
+					ctrl.drawHudString(230, 215, load, Color.white);
 				}
 				if (saved) {
-					ctrl.drawHudString(180, 215, save, Color.white);
+					ctrl.drawHudString(230, 215, save, Color.white);
 				}
 			}
 		}
 		
 		//robot animation
-		Animation botAnim = new Animation(100, false);
+		int delay = 0;
+		boolean isLooping = false;
+		if (!scriptAnimations.isEmpty()) {
+			delay = scriptAnimations.get(0).getDelay();
+			isLooping = scriptAnimations.get(0).getIsLooping();
+		}
+		Animation botAnim = new Animation(delay, isLooping);
 		int botStep = 10;
 		String[] myRobotTags = new String[]{"robDown", "robUp", "robRight", 
 			"robLeft"};
@@ -469,6 +427,11 @@ public class Main{
 				newY = (int)p.getY();
 				}
 				//check for collision with HUD RECTS
+				if (hudYellowButton != null) {
+					if (hudYellowButton.isCollision(hudX, hudY)){
+						System.exit(0);
+					}
+				}
 				if (hudRedButton != null) {
 					if (hudRedButton.isCollision(hudX, hudY)) {
 						activeHud = true;
@@ -483,7 +446,15 @@ public class Main{
 				}
 				if (hudBlackButton != null) {
 					if (hudBlackButton.isCollision(hudX, hudY)) {
+						int oldLevel = level;
 						buffer = loadData(buffer);
+						level = buffer.get(0);
+						if (level != oldLevel) {
+							startOver = true;
+							newLevel = true;
+							song.pauseWAV();
+							song.resetWAV();
+						}
 						level = buffer.get(0);
 						int item = buffer.get(1);
 						if (item == 1) {

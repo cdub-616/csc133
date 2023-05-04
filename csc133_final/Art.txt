@@ -1,5 +1,5 @@
-Art/grass_tile.png*grass
 Art/spriteSheet.png*sheet
+Art/grass_tile.png*grass
 Art/robot/robot_down.png*robDown0
 Art/robot/robot_down_left.png*robDown1
 Art/robot/robot_down.png*robDown2
@@ -33,3 +33,9 @@ Art/pond1.png*pond1
 Art/rocket.png*rocket
 Art/lavaFlow.png*lavaFlow
 Art/lavaPond.png*lavaPond
+Art/lightGreyKey.png*lightGreyKey
+Art/darkGreyKey.png*darkGreyKey
+Art/silverKey.png*silverKey
+Art/xPond.png*xPond
+Art/xRoad.png*xRoad
+Art/yellow_button.png*yellow_button
