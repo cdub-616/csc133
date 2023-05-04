@@ -22,6 +22,8 @@ public class ScriptReader {
 	private ArrayList<ScriptItemGoal> itemGoals = new ArrayList<>();
 	private ArrayList<ScriptHudSubObstacle> hudSubObstacles = new ArrayList<>();
 	private ArrayList<ScriptHudSubImage> hudSubImages = new ArrayList<>();
+	private ArrayList<ScriptBackBufferSprite> backBufferSprites = 
+		new ArrayList<>();
 		
 	//constructor
 	public ScriptReader(String filename) {
@@ -49,16 +51,11 @@ public class ScriptReader {
 				String fileName = c.getParmByIndex(0);
 				ScriptSound sound = new ScriptSound(fileName);
 				sounds.add(sound);
-			}else if (c.isCommand("animation") && c.getNumParms() == 7) {
+			}else if (c.isCommand("animation") && c.getNumParms() == 2) {
 				int delay = Integer.parseInt(c.getParmByIndex(0));
 				boolean isLooping = Boolean.parseBoolean(c.getParmByIndex(1));
-				int startX = Integer.parseInt(c.getParmByIndex(2));
-				int startY = Integer.parseInt(c.getParmByIndex(3));
-				int bitSize = Integer.parseInt(c.getParmByIndex(4));
-				int numImages = Integer.parseInt(c.getParmByIndex(5));
-				int step = Integer.parseInt(c.getParmByIndex(6));
 				ScriptAnimation animation = new ScriptAnimation(delay, 
-					isLooping, startX, startY, bitSize, numImages, step);
+					isLooping);
 				animations.add(animation);
 			}else if (c.isCommand("start") & c.getNumParms() == 2) {
 				int x = Integer.parseInt(c.getParmByIndex(0));
@@ -75,6 +72,15 @@ public class ScriptReader {
 				ScriptSubImage subImage = new ScriptSubImage(x, y, width, 
 					height, sTag);
 				subImages.add(subImage);
+			}else if (c.isCommand("backBufferSprite") && c.getNumParms() == 5){
+				int x = Integer.parseInt(c.getParmByIndex(0));
+				int y = Integer.parseInt(c.getParmByIndex(1));
+				int width = Integer.parseInt(c.getParmByIndex(2));
+				int height = Integer.parseInt(c.getParmByIndex(3));
+				String sTag = c.getParmByIndex(4);
+				ScriptBackBufferSprite backBufferSprite = 
+					new ScriptBackBufferSprite(x, y, width, height, sTag);
+				backBufferSprites.add(backBufferSprite);
 			}else if (c.isCommand("hudSubImage") && c.getNumParms() == 5) {
 				int x = Integer.parseInt(c.getParmByIndex(0));
 				int y = Integer.parseInt(c.getParmByIndex(1));
@@ -242,5 +248,8 @@ public class ScriptReader {
 	}
 	public ArrayList<ScriptHudSubImage> getHudSubImages (){
 		return hudSubImages;
+	}
+	public ArrayList<ScriptBackBufferSprite> getScriptBackBufferSprites(){
+		return backBufferSprites;
 	}
 }

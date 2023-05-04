@@ -55,6 +55,8 @@ subObstacle: 48, 224, 16, 16, 680, 400, "greenKey", 16, "greenKey"
 hudSubObstacle: 64, 224, 16, 16, 0, 0, "black_button", 16, "black_button"
 #red button
 hudSubObstacle: 80, 224, 16, 16, 0, 0, "red_button", 16, "red_button"
+#yellow button
+hudSubObstacle: 144, 224, 16, 16, 0, 0, "yellow_button", 16, "yellow_button"
 
 #subGoal: bufX, bufY, width, height, x, y, spriteTag, spriteSize, RECTTag
 subGoal: 384, 64, 128, 128, 1100, 65, "tree", 128, "tree"
@@ -82,7 +84,8 @@ start: 50, 650
 
 #rect_texthover: x1, y1, x2, y2, tag, label, labelRed, labelGreen, labelBlue, shadowOffset, shadowRed, shadowGreen, shadowBlue
 
-#animation: delay, isLooping, startX, startY, bitSize, numImages
+#animation: delay, isLooping
+animation: 100, false
 
 #sound: fileName
 sound: Sound/game_music.wav
