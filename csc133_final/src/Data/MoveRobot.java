@@ -16,7 +16,8 @@ public class MoveRobot {
 		this.step = step;
 		this.endX = endX;
 		this.endY = endY;
-		String down = "down", up = "up", right = "right", left = "left";
+		String down = "robDown", up = "robUp", right = "robRight", 
+			left = "robLeft";
 		int frameCounter = 0;
 		double changeX = getChange(curX, endX);
 		double changeY = getChange(curY, endY);

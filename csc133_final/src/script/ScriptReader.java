@@ -24,6 +24,7 @@ public class ScriptReader {
 	private ArrayList<ScriptHudSubImage> hudSubImages = new ArrayList<>();
 	private ArrayList<ScriptBackBufferSprite> backBufferSprites = 
 		new ArrayList<>();
+	private ArrayList<ScriptDrawAnimation> drawAnimations = new ArrayList<>();
 		
 	//constructor
 	public ScriptReader(String filename) {
@@ -42,20 +43,31 @@ public class ScriptReader {
 		
 		//fill ArrayLists
 		for (Command c: commands) {
-			if (c.isCommand("show_sprite") && c.getNumParms() == 3) {  
+			if (c.isCommand("show_sprite") && c.getNumParms() == 4) {  
 				int x = Integer.parseInt(c.getParmByIndex(0));
 				int y = Integer.parseInt(c.getParmByIndex(1));
 				String tag = c.getParmByIndex(2);
 				sprites.add(new ScriptSprite(x, y, tag));
+			}else if (c.isCommand("drawAnimation") && c.getNumParms() == 6) {
+				int delay = Integer.parseInt(c.getParmByIndex(0));
+				boolean isLooping = Boolean.parseBoolean(c.getParmByIndex(1));
+				int drawX = Integer.parseInt(c.getParmByIndex(2));
+				int drawY = Integer.parseInt(c.getParmByIndex(3));
+				String tagName = c.getParmByIndex(4);
+				int numSprites = Integer.parseInt(c.getParmByIndex(5));
+				ScriptDrawAnimation draw = new ScriptDrawAnimation(delay, 
+					isLooping, drawX, drawY, tagName, numSprites);
+				drawAnimations.add(draw);
 			}else if (c.isCommand("sound") && c.getNumParms() == 1) {
 				String fileName = c.getParmByIndex(0);
 				ScriptSound sound = new ScriptSound(fileName);
 				sounds.add(sound);
-			}else if (c.isCommand("animation") && c.getNumParms() == 2) {
+			}else if (c.isCommand("animation") && c.getNumParms() == 3) {
 				int delay = Integer.parseInt(c.getParmByIndex(0));
 				boolean isLooping = Boolean.parseBoolean(c.getParmByIndex(1));
+				int step = Integer.parseInt(c.getParmByIndex(2));
 				ScriptAnimation animation = new ScriptAnimation(delay, 
-					isLooping);
+					isLooping, step);
 				animations.add(animation);
 			}else if (c.isCommand("start") & c.getNumParms() == 2) {
 				int x = Integer.parseInt(c.getParmByIndex(0));
@@ -251,5 +263,8 @@ public class ScriptReader {
 	}
 	public ArrayList<ScriptBackBufferSprite> getScriptBackBufferSprites(){
 		return backBufferSprites;
+	}
+	public ArrayList<ScriptDrawAnimation> getScriptDrawAnimations(){
+		return drawAnimations;
 	}
 }

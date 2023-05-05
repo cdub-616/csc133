@@ -50,6 +50,9 @@ subObstacle: 16, 224, 16, 16, 1215, 435, blueKey, 16, blueKey
 subObstacle: 48, 224, 16, 16, 200, 200, greenKey, 16, greenKey
 subObstacle: 48, 224, 16, 16, 680, 400, greenKey, 16, greenKey
 
+#drawAnimation: delay, isLooping, drawX, drawY, tagName, numSprites
+drawAnimation: 120, true, 1175, 145, jumpBot, 19
+
 #hudSubObstacle: bufX, bufY, width, height, x, y, spriteTag, spriteSize, RECTTag
 #black button
 hudSubObstacle: 64, 224, 16, 16, 0, 0, black_button, 16, black_button
@@ -59,7 +62,7 @@ hudSubObstacle: 80, 224, 16, 16, 0, 0, red_button, 16, red_button
 hudSubObstacle: 144, 224, 16, 16, 0, 0, yellow_button, 16, yellow_button
 
 #subGoal: bufX, bufY, width, height, x, y, spriteTag, spriteSize, RECTTag
-subGoal: 384, 64, 128, 128, 1100, 65, tree, 128, tree
+subGoal: 384, 64, 128, 128, 1100, 65, Ancient Tree, 128, Ancient Tree
 
 #itemGoal: bufX, bufY, width, height, x, y, spriteTag, spriteSize, RECTtag
 itemGoal: 48, 224, 16, 16, 610, 610, greenKey, 16, greenKey
@@ -70,25 +73,27 @@ itemGoal: 48, 224, 16, 16, 610, 610, greenKey, 16, greenKey
 # grass tile
 subImage: 0, 64, 128, 128, grass_tile
 # mouse cursor
-subImage: 0, 224, 16, 16, robot_cursor
+#subImage: 0, 224, 16, 16, robot_cursor
 
 #hudSubImage: bufX, bufY, width, height, spriteTag
 hudSubImage: 0, 240, 256, 256, game_hud3
 
 #backBufferSprite: bufX, bufY, width, height, spriteTag
+# mouse cursor
+backBufferSprite: 0, 224, 16, 16, robot_cursor
 #for robot animation
-backBufferSprite: 0, 192, 32, 32, down0
-backBufferSprite: 32, 192, 32, 32, down1
-backBufferSprite: 64, 192, 32, 32, down2
-backBufferSprite: 96, 192, 32, 32, down3
-backBufferSprite: 128, 192, 32, 32, up0
-backBufferSprite: 160, 192, 32, 32, up1
-backBufferSprite: 192, 192, 32, 32, up2
-backBufferSprite: 224, 192, 32, 32, up3
-backBufferSprite: 256, 192, 32, 32, right0
-backBufferSprite: 288, 192, 32, 32, right1
-backBufferSprite: 320, 192, 32, 32, left0
-backBufferSprite: 352, 192, 32, 32, left1
+backBufferSprite: 0, 192, 32, 32, robDown0
+backBufferSprite: 32, 192, 32, 32, robDown1
+backBufferSprite: 64, 192, 32, 32, robDown2
+backBufferSprite: 96, 192, 32, 32, robDown3
+backBufferSprite: 128, 192, 32, 32, robUp0
+backBufferSprite: 160, 192, 32, 32, robUp1
+backBufferSprite: 192, 192, 32, 32, robUp2
+backBufferSprite: 224, 192, 32, 32, robUp3
+backBufferSprite: 256, 192, 32, 32, robRight0
+backBufferSprite: 288, 192, 32, 32, robRight1
+backBufferSprite: 320, 192, 32, 32, robLeft0
+backBufferSprite: 352, 192, 32, 32, robLeft1
 #for particle animation
 backBufferSprite: 160, 224, 16, 16, shiny1
 backBufferSprite: 176, 224, 16, 16, shiny2
@@ -97,8 +102,28 @@ backBufferSprite: 208, 224, 16, 16, shiny4
 backBufferSprite: 224, 224, 16, 16, shiny5
 backBufferSprite: 240, 224, 16, 16, shiny6
 backBufferSprite: 256, 224, 16, 16, shiny7
-# mouse cursor
-#backBufferSprite: 0, 224, 16, 16, robot_cursor
+#for graphical hover
+backBufferSprite: 272, 224, 16, 16, gHover_button
+#for jumpBot animation
+backBufferSprite: 0, 496, 64, 64, jumpBot0
+backBufferSprite: 64, 496, 64, 64, jumpBot1
+backBufferSprite: 128, 496, 64, 64, jumpBot2
+backBufferSprite: 192, 496, 64, 64, jumpBot3
+backBufferSprite: 256, 496, 64, 64, jumpBot4
+backBufferSprite: 320, 496, 64, 64, jumpBot5
+backBufferSprite: 384, 496, 64, 64, jumpBot6
+backBufferSprite: 448, 496, 64, 64, jumpBot7
+backBufferSprite: 512, 496, 64, 64, jumpBot8
+backBufferSprite: 576, 496, 64, 64, jumpBot9
+backBufferSprite: 0, 560, 64, 64, jumpBot10
+backBufferSprite: 64, 560, 64, 64, jumpBot11
+backBufferSprite: 128, 560, 64, 64, jumpBot12
+backBufferSprite: 192, 560, 64, 64, jumpBot13
+backBufferSprite: 256, 560, 64, 64, jumpBot14
+backBufferSprite: 320, 560, 64, 64, jumpBot15
+backBufferSprite: 384, 560, 64, 64, jumpBot16
+backBufferSprite: 448, 560, 64, 64, jumpBot17
+backBufferSprite: 512, 560, 64, 64, jumpBot18
 
 #start: x, y
 start: 50, 650
@@ -109,8 +134,8 @@ start: 50, 650
 
 #rect_texthover: x1, y1, x2, y2, tag, label, labelRed, labelGreen, labelBlue, shadowOffset, shadowRed, shadowGreen, shadowBlue
 
-#animation: delay, isLooping
-animation: 100, false
+#animation: delay, isLooping, step
+animation: 100, false, 10
 
 #sound: fileName
 sound: Sound/game_music.wav

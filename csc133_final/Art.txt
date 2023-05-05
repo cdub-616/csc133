@@ -1,14 +1,1 @@
 Art/spriteSheet.png*sheet
-Art/robot/robot_down.png*robDown0
-Art/robot/robot_down_left.png*robDown1
-Art/robot/robot_down.png*robDown2
-Art/robot/robot_down_right.png*robDown3
-Art/robot/robot_up.png*robUp0
-Art/robot/robot_up_left.png*robUp1
-Art/robot/robot_up.png*robUp2
-Art/robot/robot_up_right.png*robUp3
-Art/robot/robot_right.png*robRight0
-Art/robot/robot_right_forward.png*robRight1
-Art/robot/robot_left.png*robLeft0
-Art/robot/robot_left_forward.png*robLeft1
-Art/robot_cursor.png*robot_cursor

@@ -23,11 +23,11 @@ import FileIO.EZFileRead;
 import Input.Mouse;
 import logic.Control;
 import particles.ParticleSystem;
-import particles.Rain;
 import particles.Shiny;
 import script.ScriptAnimation;
 import script.Command;
 import script.ScriptBackBufferSprite;
+import script.ScriptDrawAnimation;
 import script.ScriptItemGoal;
 import script.ScriptObstacle;
 import script.ScriptReader;
@@ -47,6 +47,7 @@ public class Main{
 	// Fields (Static) below...
 	public static String coord = "";             //coordinate tool
 	//game variables for save/load
+	private static ArrayList<Animation> animations = new ArrayList<>();
 	private static ArrayList<Integer> buffer = new ArrayList<>();
 	private static ArrayList<String> inventoryList = new ArrayList<>();          
 	private static ArrayList<RECT> rectList = new ArrayList<>();
@@ -54,6 +55,7 @@ public class Main{
 	private static ArrayList<RECT> goalRectList = new ArrayList<>();
 	private static ArrayList<RECT> itemGoalRectList = new ArrayList<>();
 	private static ArrayList<Sprite> spriteList = new ArrayList<>();
+	private static ArrayList<Sprite> goalSpriteList = new ArrayList<>();
 	private static ArrayList<Sprite> hudSpriteList = new ArrayList<>();
 	private static ArrayList<Sprite> spriteItemList = new ArrayList<>();
 	private static ArrayList<ScriptText> scriptTexts = new ArrayList<>();
@@ -63,17 +65,18 @@ public class Main{
 	private static ScriptReader scriptReader;    
 	private static Frame robotFrame;
 	private static MoveRobot moveRobot;
-	private static Animation robotAnim;
+	private static Animation robotAnim, botJumpAnim;
+	private static Atext atext = new Atext("What's over there...    ", 75);
 	private static int startX, startY, curX, curY, newX, newY, level = 1,
 		goalX, goalY;
 	private static boolean startOver = true, startHud = false, hasItem = false,
 		activeHud = false, loaded = false, saved = false, showItem = true,
-		newLevel = true;
+		newLevel = true, showAText = false, showGoal = true, dontGo = false;
 	private static Sound song;
 	private static Sound backToStart, finish, gotIt;
-	private static Sprite sprCursor;
 	private static Shiny shiny, shinyGoal;
 	private static RECT hudRedButton, hudBlackButton, hudYellowButton;
+	private static String mouseTag;
 	// End Static fields...
 	
 	public static void main(String[] args) {
@@ -108,6 +111,7 @@ public class Main{
 			spriteItemList.clear();
 			itemGoalRectList.clear();
 			goalRectList.clear();
+			goalSpriteList.clear();
 			ArrayList<ScriptSubImage> scriptSubImages = new ArrayList<>();
 			ArrayList<ScriptStartPosition> scriptStartPositions = 
 				new ArrayList<>();
@@ -120,8 +124,12 @@ public class Main{
 			ArrayList<ScriptBackBufferSprite> scriptBackBufferSprites = 
 				new ArrayList<>();
 			ArrayList<Sprite> backSpriteList = new ArrayList<>(); 
+			ArrayList<ScriptDrawAnimation> scriptDrawAnimations = 
+				new ArrayList<>();
 			
-			level = 1;
+			//for level editing
+			//level = 2;  
+			
 			String levelNumber = "script.txt";
 			if (level == 2) {
 				levelNumber = "script2.txt";
@@ -132,6 +140,7 @@ public class Main{
 			if (level == 4) {
 				System.exit(0);
 			}
+			
 			//scripting
 			scriptReader = new ScriptReader(levelNumber);
 			scriptSubImages = scriptReader.getScriptSubImage();
@@ -144,6 +153,7 @@ public class Main{
 			scriptHudSubImages = scriptReader.getHudSubImages();
 			scriptHudSubObstacles = scriptReader.getHudSubObstacles();
 			scriptBackBufferSprites = scriptReader.getScriptBackBufferSprites();
+			scriptDrawAnimations = scriptReader.getScriptDrawAnimations();
 			
 			//get scriptSubImage for map
 			BufferedImage sheet = ctrl.getSpriteFromBackBuffer("sheet")
@@ -169,6 +179,7 @@ public class Main{
 					backSpriteList.add(sprite);
 				}
 				ctrl.addBufImageToBackBuffer(backSpriteList);
+				mouseTag = backSpriteList.get(0).getTag();
 			}
 				
 			//get scriptSubObstacles
@@ -251,7 +262,7 @@ public class Main{
 			RECT goalRect = new RECT(goalImage.getX(), goalImage.getY(), 
 				goalImage.getX() + goalImage.getObSize(), goalImage.getY() + 
 				goalImage.getObSize(), goalImage.getRTag());
-			spriteList.add(goalSprite);
+			goalSpriteList.add(goalSprite);
 			goalRectList.add(goalRect);
 			goalX = goalImage.getX();
 			goalY = goalImage.getY();
@@ -278,31 +289,53 @@ public class Main{
 			gotIt = new Sound(scriptSounds.get(3).getFileName());
 			}
 						
-			//add cursor sprite to ArrayList
-			if (!scriptSubImages.isEmpty()) {
-				ScriptSubImage cursorImage = new ScriptSubImage();
-				cursorImage = scriptSubImages.get(1);
-				BufferedImage cursor = sheet.getSubimage(cursorImage.getX(), 
-					cursorImage.getY(), cursorImage.getWidth(), 
-					cursorImage.getHeight());
-			sprCursor = new Sprite(0, 0, cursor, cursorImage.getSTag());
-			}
-			
 			//stay on same level until load a new level or complete current one
 			newLevel = false;
+			
+			//get animations
+			if (!scriptDrawAnimations.isEmpty()) {
+				for (ScriptDrawAnimation draw: scriptDrawAnimations) {
+					botJumpAnim = new Animation(draw.getDelay(), 
+						draw.getIsLooping());
+					for (int i = 0; i < draw.getNumSprites(); i++) {
+						botJumpAnim.addFrame(new Frame(draw.getDrawX(), 
+						draw.getDrawY(), draw.getTagName() + i));
+					}
+					animations.add(botJumpAnim);
+				}
+			}
 		}
 		
 		//coordinate tool & mouse cursor
 		Point p = Mouse.getMouseCoords();
-		//coord = p.toString();                           //coordinate tool
-		//ctrl.drawString(500, 360, coord, Color.WHITE);  //coordinate tool
-		ctrl.addSpriteToOverlayBuffer(p.x, p.y, sprCursor.getTag());
+		ctrl.addSpriteToOverlayBuffer(p.x, p.y, mouseTag);
 		
+		//coordinate tool
+		/*coord = p.toString();                           
+		ctrl.drawString(500, 360, coord, Color.WHITE);*/
 		
 		//draw sprites ***make sure map sprite is in 0***
 		if (!spriteList.isEmpty()) {
 			for (Sprite spr: spriteList) {
 				ctrl.addSpriteToFrontBuffer(spr);
+			}
+		}
+		
+		//draw animations
+		if (!animations.isEmpty()) {
+			for (Animation animate: animations) {
+				Frame curFrame = animate.getCurrentFrame();
+				//Frame curFrame = botJumpAnim.getCurrentFrame();
+				if (curFrame != null) {
+					ctrl.addSpriteToFrontBuffer(curFrame.getX(), curFrame.getY(), curFrame.getSpriteTag());
+				}
+			}
+		}
+		
+		//draw goal sprite
+		if (!goalSpriteList.isEmpty()) {
+			for (Sprite sprite: goalSpriteList) {
+				ctrl.addSpriteToFrontBuffer(sprite);
 			}
 		}
 		
@@ -351,9 +384,9 @@ public class Main{
 		}
 		
 		//draw hud
+		int blackX = 180, blackY = 170, redX = 315, redY = 170;
+		int exitX = 170, exitY = 200;
 		if (startHud) {
-			int blackX = 180, blackY = 170, redX = 315, redY = 170;
-			int exitX = 170, exitY = 200;
 			if (!hudSpriteList.isEmpty()) {
 				ctrl.addSpriteToHudBuffer(100, 100, hudSpriteList.get(0).getTag());
 				ctrl.drawHudString(116, 125, "Inventory: ", Color.white);
@@ -395,35 +428,65 @@ public class Main{
 		}
 		
 		//robot animation
-		int delay = 0;
+		int delay = 0, botStep = 0;
 		boolean isLooping = false;
 		if (!scriptAnimations.isEmpty()) {
 			delay = scriptAnimations.get(0).getDelay();
 			isLooping = scriptAnimations.get(0).getIsLooping();
+			botStep = scriptAnimations.get(0).getStep();
 		}
 		Animation botAnim = new Animation(delay, isLooping);
-		int botStep = 10;
-		String[] myRobotTags = new String[]{"robDown", "robUp", "robRight", 
-			"robLeft"};
 		if (startOver) {
 			curX = startX;
 			curY = startY;
 			newX = startX;
 			newY = startY;
 			startOver = false;
-			moveRobot = new MoveRobot(myRobotTags, botAnim, botStep, curX, 
-				curY, startX, startY);
+			moveRobot = new MoveRobot(botAnim, botStep, curX, curY, startX, 
+				startY);
 		}
+		
+		//graphical button hovers
+		if (hudBlackButton != null) {
+			if (hudBlackButton.isCollision(p.x, p.y)) {
+				ctrl.addSpriteToHudBuffer(blackX, blackY, "gHover_button");
+			}
+		}
+		if (hudRedButton != null) {
+			if (hudRedButton.isCollision(p.x, p.y)) {
+				ctrl.addSpriteToHudBuffer(redX, redY, "gHover_button");
+			}
+		}
+		if (hudYellowButton != null) {
+			if (hudYellowButton.isCollision(p.x, p.y)) {
+				ctrl.addSpriteToHudBuffer(exitX, exitY, "gHover_button");
+			}
+		}
+		
+		//click = left mouse button
 		if (Control.getMouseInput() != null) {
 			Click click = Control.getMouseInput();
+			
+			//check for click with goal RECT
+			if (!goalRectList.isEmpty()) {
+				for (RECT rect: goalRectList) {
+					if (rect.isClicked(click, Click.LEFT_BUTTON)) {
+						dontGo = true;
+						showAText = true;
+					}
+				}
+			}
+			
+			//check for mouse left click
 			if (click.getButton() == 1)	{
 				int hudX = (int)p.getX();
 				int hudY = (int)p.getY();
-				if (!activeHud) {
+				if (!activeHud && !dontGo) {
 				newX = (int)p.getX();
 				newY = (int)p.getY();
 				}
-				//check for collision with HUD RECTS
+				
+				//check for click with HUD RECTS
 				if (hudYellowButton != null) {
 					if (hudYellowButton.isCollision(hudX, hudY)){
 						System.exit(0);
@@ -471,6 +534,8 @@ public class Main{
 					}
 				}
 			}
+			
+			//click = right mouse button
 			if (click.getButton() == 3) {
 				startHud = !startHud;
 				activeHud = !activeHud;
@@ -478,12 +543,23 @@ public class Main{
 				saved = false;
 			}
 		}
+		
+		if (showAText) {
+			ctrl.drawString(curX - 25, curY - 15, atext.getCurrentStr(), 
+				Color.white);
+			if (atext.isAnimationDone()) {
+				showAText = false;
+				atext.resetAnimation();
+				dontGo = false;
+			}
+		}
+		
 		if (!activeHud) {
 			if (!moveRobot.compareCoords(newX, newY)) {
 				curX = robotFrame.getX();
 				curY = robotFrame.getY();
-				moveRobot = new MoveRobot(myRobotTags, botAnim, botStep, curX, 
-						curY, newX, newY);
+				moveRobot = new MoveRobot(botAnim, botStep, curX, curY, newX, 
+					newY);
 			}
 			robotAnim = moveRobot.getAnimation();
 			robotFrame = robotAnim.getCurrentFrame();
@@ -517,6 +593,19 @@ public class Main{
 			
 			//check for goal collision
 			for (RECT rect: goalRectList) {
+				
+				//check for mouse collision with goal
+				String goalName;
+				if (rect.isCollision(p.x, p.y)) {
+					goalName = rect.getTag();
+					showGoal = true;
+				}
+				else {
+					goalName = "";
+				}
+				ctrl.drawString(p.x, p.y, goalName, Color.white);
+				
+				//check for bot collision
 				if (rect.isCollision(rect, mybot)) {
 					if (hasItem) {
 						finish.playWAV();
@@ -529,6 +618,7 @@ public class Main{
 						showItem = true;
 					}
 					else {
+						showGoal = false;
 						ctrl.drawString(rect.getX1() - 30, rect.getY2() + 20,
 							"Missing something...", Color.white);
 					}
