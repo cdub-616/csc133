@@ -1,4 +1,5 @@
-/* This is my attempt to update my Graphics Engine to be more readable. Might be used for educational purposes as well.
+/* This is my attempt to update my Graphics Engine to be more readable. Might be 
+* used for educational purposes as well.
  * 2018 Matthew W. Phillips
  */
 
@@ -48,19 +49,21 @@ public class Graphic extends JFrame{
 		return this.getBufferStrategy().getDrawGraphics();
 	}
 	
-	public void setMouseListener(MouseListener m){
-		if(m == null)	errorClose("Null pointer in Mouse Listener...exiting"); //$NON-NLS-1$
+	public void setMouseListener(MouseListener m){                 //$NON-NLS-1$
+		if(m == null)	errorClose("Null pointer in Mouse Listener...exiting"); 
 		addMouseListener(m);
 	}
 	
-	public void setKeyListener(KeyListener k){
-		if(k == null)	errorClose("Null pointer in Key Listener...exiting"); //$NON-NLS-1$
+	public void setKeyListener(KeyListener k){                     //$NON-NLS-1$
+		if(k == null)	errorClose("Null pointer in Key Listener...exiting"); 
 		addKeyListener(k);
 	}
 	
 	public void hideCursor(){
-		BufferedImage cursorImage = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
-		Cursor blankCursor = Toolkit.getDefaultToolkit().createCustomCursor(cursorImage, 
+		BufferedImage cursorImage = new BufferedImage(16, 16, 
+			BufferedImage.TYPE_INT_ARGB);
+		Cursor blankCursor = 
+			Toolkit.getDefaultToolkit().createCustomCursor(cursorImage, 
 				new Point(0,0), "blank cursor"); //$NON-NLS-1$
 		getContentPane().setCursor(blankCursor);
 	}
@@ -78,7 +81,8 @@ public class Graphic extends JFrame{
 	
 	private int isSupported(int x, int y, int bits, DisplayMode[] dms){
 		for(int i = 0; i < dms.length; i++){
-			if(dms[i].getHeight() == y && dms[i].getWidth() == x && dms[i].getBitDepth() == bits){
+			if(dms[i].getHeight() == y && dms[i].getWidth() == 
+				x && dms[i].getBitDepth() == bits){
 				if(gd.isDisplayChangeSupported() == true)
 					return i;
 			}
@@ -91,7 +95,8 @@ public class Graphic extends JFrame{
 	}
 	
 	private void init(){
-		gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+		gd = GraphicsEnvironment.getLocalGraphicsEnvironment()
+			.getDefaultScreenDevice();
 		if(gd.isFullScreenSupported() == false)
 			errorClose("Full Screen is not supported...exiting."); //$NON-NLS-1$
 		setUndecorated(true);
@@ -107,10 +112,11 @@ public class Graphic extends JFrame{
 		}
 		
 		if(isSupported == false)
-			errorClose("Display mode not supported. Must have support for 1280 x 720 resolution monitor mode."); //$NON-NLS-1$
+			errorClose("Display mode not supported. Must have support for 1280 "
+				+ "x 720 resolution monitor mode."); //$NON-NLS-1$
 		
 		gd.setDisplayMode(_dm);
-		createBufferStrategy(2);						// Create double buffering
+		createBufferStrategy(2);					  // Create double buffering
 		_x = _dm.getWidth();
 		_y = _dm.getHeight();
 		BufferCapabilities bc = this.getBufferStrategy().getCapabilities();
@@ -129,7 +135,8 @@ public class Graphic extends JFrame{
 	public static BufferedImage scale(BufferedImage sbi, double scale) {
 	    BufferedImage dbi = null;
 	    if(sbi != null) {
-	        dbi = new BufferedImage(sbi.getWidth(), sbi.getHeight(), sbi.getType());
+	        dbi = new BufferedImage(sbi.getWidth(), sbi.getHeight(), 
+	        	sbi.getType());
 	        Graphics2D g = dbi.createGraphics();
 	        AffineTransform at = AffineTransform.getScaleInstance(scale, scale);
 	        g.drawRenderedImage(sbi, at);
@@ -138,7 +145,8 @@ public class Graphic extends JFrame{
 	}
 	
 	/* A method to return a rotated BufferedImage */
-	public static BufferedImage rotateImageByDegrees(BufferedImage img, double angle) {
+	public static BufferedImage rotateImageByDegrees(BufferedImage img, 
+		double angle) {
 
         double rads = Math.toRadians(angle);
         double sin = Math.abs(Math.sin(rads)), cos = Math.abs(Math.cos(rads));
@@ -147,10 +155,11 @@ public class Graphic extends JFrame{
         int newWidth = (int) Math.floor(w * cos + h * sin);
         int newHeight = (int) Math.floor(h * cos + w * sin);
 
-        BufferedImage rotated = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_ARGB);
+        BufferedImage rotated = new BufferedImage(newWidth, newHeight, 
+        	BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2d = rotated.createGraphics();
         AffineTransform at = new AffineTransform();
-        //at.translate((newWidth - w) / 2, (newHeight - h) / 2); // Expand canvas
+        //at.translate((newWidth - w) / 2, (newHeight - h) / 2); //Expand canvas
 
         int x = w / 2;
         int y = h / 2;
@@ -163,7 +172,8 @@ public class Graphic extends JFrame{
     }
 	
 	/* Get a piece of another image */
-	public static BufferedImage getCroppedImage(BufferedImage image, int x, int y, int width, int height){
+	public static BufferedImage getCroppedImage(BufferedImage image, int x, 
+		int y, int width, int height){
 		BufferedImage ret = image.getSubimage(x, y, width, height);
 		return ret;
 	}

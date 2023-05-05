@@ -6,7 +6,8 @@ public class Shiny {
 	private String[] spriteTags;
 	
 	//constructor
-	public Shiny(int xpos, int ypos, int xrange, int yrange, int minlife, int maxlife, int numparticles) {
+	public Shiny(int xpos, int ypos, int xrange, int yrange, int minlife, 
+		int maxlife, int numparticles) {
 		spriteTags = new String[4];
 		spriteTags[0] = "shiny4";
 		spriteTags[1] = "shiny5";
@@ -14,7 +15,8 @@ public class Shiny {
 		spriteTags[3] = "shiny7";
 		int xspeed = 0;
 		int yspeed = 0;
-		parts = new ParticleSystem(numparticles, xpos, ypos, xrange, yrange, minlife, maxlife, xspeed, yspeed, 0, 10, spriteTags);
+		parts = new ParticleSystem(numparticles, xpos, ypos, xrange, yrange, 
+			minlife, maxlife, xspeed, yspeed, 0, 10, spriteTags);
 	}
 	
 	//methods

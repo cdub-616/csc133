@@ -18,7 +18,8 @@ public class gameLoop{
 	float _alpha;
 	boolean _isFade;
 	
-	public gameLoop(Graphic gph, List<gameString> gs, Sprites sps, List<gameString> hudtext, Sprites hud, Sprites overlays){
+	public gameLoop(Graphic gph, List<gameString> gs, Sprites sps, 
+		List<gameString> hudtext, Sprites hud, Sprites overlays){
 		if(gph == null)		throw new NullPointerException();
 		_gph = gph;
 		_gs = gs;

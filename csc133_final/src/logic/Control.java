@@ -1,4 +1,4 @@
-/* This holds the boilerplate stuff that students shouldn't have to worry about . 
+/* This holds the boilerplate stuff that students shouldn't have to worry about. 
  * Copyright 2020 Matthew W. Phillips */
 package logic;
 

@@ -18,10 +18,12 @@ import Data.gameString;
 
 public class Renderer{
 	
-	public static void render(Graphics g, List<gameString> gs, Sprites sps, List<gameString> hudtext, Sprites hud, Sprites overlays, float alpha, boolean isFade){
-		/* This is a generic function that can start fresh for any new gaming project.
-		 * All one has to do is wipe the contents and start new and it should work fine
-		 * with the rest of the game engine. */
+	public static void render(Graphics g, List<gameString> gs, Sprites sps, 
+		List<gameString> hudtext, Sprites hud, Sprites overlays, float alpha, 
+		boolean isFade){
+		/* This is a generic function that can start fresh for any new gaming 
+		 * project. All one has to do is wipe the contents and start new and it 
+		 * should work fine with the rest of the game engine. */
 		
 		// First sprites...
 		Iterator<Sprite> it = sps.getIterator();
@@ -62,14 +64,17 @@ public class Renderer{
 		
 		// This is for the alpha?
 		if(isFade){
-			BufferedImage bi = new BufferedImage(1280, 720, BufferedImage.TYPE_INT_ARGB);
-			Graphics g2d = (Graphics2D) g;														// Access graphics handle
-			AlphaComposite ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha);		// Create the alpha composite
-			Graphics2D gbi = bi.createGraphics();												// Prepare image for java2d drawing/modifying
-			gbi.setComposite(ac); 																// Set the alpha composite
-			gbi.setColor(Color.BLACK);															// Set fade overlay to black
+			BufferedImage bi = new BufferedImage(1280, 720, 
+				BufferedImage.TYPE_INT_ARGB);
+			Graphics g2d = (Graphics2D) g;		   // Access graphics handle
+			AlphaComposite ac =                    // Create the alpha composite
+				AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha);	
+			// Prepare image for java2d drawing/modifying
+			Graphics2D gbi = bi.createGraphics();
+			gbi.setComposite(ac); 	    		   // Set the alpha composite
+			gbi.setColor(Color.BLACK);			   // Set fade overlay to black
 			gbi.fillRect(0, 0, 1280, 720);
-			g2d.drawImage(bi, 0, 0, null);														// Draw the image
+			g2d.drawImage(bi, 0, 0, null);		   // Draw the image
 		}
 	}
 	

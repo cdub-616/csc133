@@ -5,9 +5,9 @@ import java.util.Iterator;
 import java.util.List;
 import Data.Sprite;
 
-/* This class will handle the details concerning image files. It won't render them as that is the job of the
- * renderer. But it will handle the linked list, setting up, etc. Hopefully, this can become a robust sprite
- * engine! */
+/* This class will handle the details concerning image files. It won't render 
+ * them as that is the job of the renderer. But it will handle the linked list, 
+ * setting up, etc. Hopefully, this can become a robust sprite engine! */
 
 public class Sprites{
 	private List<Sprite> sprites;

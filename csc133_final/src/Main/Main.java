@@ -225,8 +225,8 @@ public class Main{
 					Sprite sprite = new Sprite(hudImage.getX(), hudImage.getY(), 
 						buf, hudImage.getSTag());
 					RECT rect = new RECT(hudImage.getX(), hudImage.getY(), 
-						hudImage.getX() + hudImage.getObSize(), hudImage.getY() + 
-						hudImage.getObSize(), hudImage.getRTag());
+						hudImage.getX() + hudImage.getObSize(), hudImage.getY() 
+						+ hudImage.getObSize(), hudImage.getRTag());
 					hudRectList.add(rect);
 					hudSpriteList.add(sprite);
 				}
@@ -327,7 +327,8 @@ public class Main{
 				Frame curFrame = animate.getCurrentFrame();
 				//Frame curFrame = botJumpAnim.getCurrentFrame();
 				if (curFrame != null) {
-					ctrl.addSpriteToFrontBuffer(curFrame.getX(), curFrame.getY(), curFrame.getSpriteTag());
+					ctrl.addSpriteToFrontBuffer(curFrame.getX(), 
+						curFrame.getY(), curFrame.getSpriteTag());
 				}
 			}
 		}
@@ -388,7 +389,8 @@ public class Main{
 		int exitX = 170, exitY = 200;
 		if (startHud) {
 			if (!hudSpriteList.isEmpty()) {
-				ctrl.addSpriteToHudBuffer(100, 100, hudSpriteList.get(0).getTag());
+				ctrl.addSpriteToHudBuffer(100, 100, 
+					hudSpriteList.get(0).getTag());
 				ctrl.drawHudString(116, 125, "Inventory: ", Color.white);
 				String inventoryItem = "empty";
 				if (!inventoryList.isEmpty()) {
@@ -396,7 +398,8 @@ public class Main{
 				}
 				ctrl.drawHudString(230, 125, inventoryItem, Color.white);
 				ctrl.drawHudString(116, 155, "Level: ", Color.white);
-				ctrl.drawHudString(190, 155, Integer.toString(level), Color.white);
+				ctrl.drawHudString(190, 155, Integer.toString(level), 
+					Color.white);
 				ctrl.drawHudString(116, 185, "Load", Color.white);
 				ctrl.drawHudString(250, 185, "Save", Color.white);
 				ctrl.drawHudString(116, 215, "Exit", Color.white);

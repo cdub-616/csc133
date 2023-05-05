@@ -5,11 +5,11 @@ import timer.stopWatchX;
 
 public class Particle {
 	//fields
-	private int x, y;                  //current positions of a given particle
-	private String particleSpriteTag;  //replace with sprite tag instead
-	private int lifecycle;             //how many "steps" does the particle take before it dies
-	private int age;                   //how "old" the particle is... a counter of sorts
-	private int xMove, yMove;          //how much each moves every iteration
+	private int x, y;                    //current positions of a given particle
+	private String particleSpriteTag;          //replace with sprite tag instead
+	private int lifecycle;  //how many "steps" does particle take before it dies
+	private int age;           //how "old" the particle is... a counter of sorts
+	private int xMove, yMove;              //how much each moves every iteration
 	private stopWatchX timer;
 	//to preserve for resetting...
 	private int rootX, rootY;
@@ -17,7 +17,9 @@ public class Particle {
 	private boolean isReset;
 	
 	//constructor
-	public Particle(int minX, int maxX, int minY, int maxY, String particleSpriteTag, int minLife, int maxLife, int xMove, int yMove, int mindelay, int maxdelay) {
+	public Particle(int minX, int maxX, int minY, int maxY, 
+		String particleSpriteTag, int minLife, int maxLife, int xMove, 
+		int yMove, int mindelay, int maxdelay) {
 		//initialize all of the needed data for a single particle
 		this.particleSpriteTag = particleSpriteTag;
 		this.x = getRandomInt(minX, maxX);
@@ -92,7 +94,8 @@ public class Particle {
 		return false;
 	}
 	
-	//this helps solve the problem of particle "plume" in the beginning by artificially aging them off screen
+	//this helps solve the problem of particle "plume" in the beginning by 
+	//artificially aging them off screen
 	public void simulateAge() {
 		age++;
 		x += xMove;
@@ -125,7 +128,7 @@ public class Particle {
 	}
 	
 	//static dependencies
-	//return a random number between number first and number last, excluding last
+	//return random number between number first and number last, excluding last
 	public static int getRandomInt(int first, int last) {
 		int diff = last - first;
 		double num = Math.random() * diff;
@@ -138,7 +141,7 @@ public class Particle {
 	public static int rollDie(int dieSides) {
 		double result = Math.random() * dieSides;
 		int res = (int)result;
-		res++;  //eliminate chance of rolling "0" which is impossible in real die
+		res++;  //eliminate chance of rolling "0", impossible in real die
 		return res;	
 	}
 }

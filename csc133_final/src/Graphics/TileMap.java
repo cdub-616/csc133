@@ -11,7 +11,8 @@ public class TileMap {
 	
 	//constructor
 	public TileMap(BufferedImage buf) {
-		BufferedImage map = new BufferedImage(1280, 720, BufferedImage.TYPE_INT_RGB);
+		BufferedImage map = new BufferedImage(1280, 720, 
+			BufferedImage.TYPE_INT_RGB);
 		for (int i = 0; i < 10; i++) 
 			for (int j = 0; j < 6; j++) {
 				int x = i << 7;

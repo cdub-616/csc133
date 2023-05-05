@@ -69,13 +69,13 @@ public class ScriptReader {
 				ScriptAnimation animation = new ScriptAnimation(delay, 
 					isLooping, step);
 				animations.add(animation);
-			}else if (c.isCommand("start") & c.getNumParms() == 2) {
+			}else if (c.isCommand("start") && c.getNumParms() == 2) {
 				int x = Integer.parseInt(c.getParmByIndex(0));
 				int y = Integer.parseInt(c.getParmByIndex(1));
 				ScriptStartPosition startPosition = 
 					new ScriptStartPosition(x, y);
 				startPositions.add(startPosition);
-			}else if (c.isCommand("subImage") & c.getNumParms() == 5) {
+			}else if (c.isCommand("subImage") && c.getNumParms() == 5) {
 				int x = Integer.parseInt(c.getParmByIndex(0));
 				int y = Integer.parseInt(c.getParmByIndex(1));
 				int width = Integer.parseInt(c.getParmByIndex(2));
@@ -102,7 +102,7 @@ public class ScriptReader {
 				ScriptHudSubImage hudSubImage = new ScriptHudSubImage(x, y, 
 					width, height, sTag);
 				hudSubImages.add(hudSubImage);
-			} else if (c.isCommand("obstacle") & c.getNumParms() == 5) {
+			} else if (c.isCommand("obstacle") && c.getNumParms() == 5) {
 				int x = Integer.parseInt(c.getParmByIndex(0));
 				int y = Integer.parseInt(c.getParmByIndex(1));
 				String sTag = c.getParmByIndex(2);
@@ -149,7 +149,7 @@ public class ScriptReader {
 				ScriptHudSubObstacle hudSubObstacle = new ScriptHudSubObstacle
 					(bufX, bufY, width, height, x, y, sTag, objectSize, rTag);
 				hudSubObstacles.add(hudSubObstacle);
-			} else if (c.isCommand("subObstacle") & c.getNumParms() == 9){
+			} else if (c.isCommand("subObstacle") && c.getNumParms() == 9){
 				int bufX = Integer.parseInt(c.getParmByIndex(0));
 				int bufY = Integer.parseInt(c.getParmByIndex(1));
 				int width = Integer.parseInt(c.getParmByIndex(2));

@@ -56,7 +56,8 @@ public class gameString{
 	public static int getCenteredXPosition(Graphics g, Font f, 
 			String s, int x1, int x2, float scaleFactor){
 		int textWidth = getStringWidth(g, f, s);
-		//textWidth += s.length() * 2;	// Account for spacing! (This is a 2020 improvement over the original!)
+		//textWidth += s.length() * 2;	// Account for spacing! 
+		//(This is a 2020 improvement over the original!)
 		int normalizedWidth = (int) (textWidth / scaleFactor);
 		normalizedWidth /= 2;
 		int rectWidth = x2 - x1;
@@ -66,7 +67,8 @@ public class gameString{
 	}
 	
 	/* Find out which token to stop at...*/
-	public static String[] wordWrapX(String[] tokens, int max, Graphics g, Font f){
+	public static String[] wordWrapX(String[] tokens, int max, Graphics g, 
+			Font f){
 		ArrayList<String> lines = new ArrayList<String>();
 		String test = "";
 		String line = "";
