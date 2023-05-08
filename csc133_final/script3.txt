@@ -1,77 +1,77 @@
 #show_sprite: x, y, tag
 
 #subObstacle: bufX, bufY, width, height, x, y, spriteTag, spriteSize, RECTTag
-subObstacle: 128, 0, 64, 64, 0, 200, xRoad, 64, xRoad
-subObstacle: 128, 0, 64, 64, 64, 200, xRoad, 64, xRoad
-subObstacle: 128, 0, 64, 64, 128, 200, xRoad, 64, xRoad
-subObstacle: 128, 0, 64, 64, 192, 200, xRoad, 64, xRoad
-subObstacle: 128, 0, 64, 64, 256, 200, xRoad, 64, xRoad
-subObstacle: 128, 0, 64, 64, 320, 200, xRoad, 64, xRoad
-subObstacle: 128, 0, 64, 64, 736, 200, xRoad, 64, xRoad
-subObstacle: 128, 0, 64, 64, 736, 264, xRoad, 64, xRoad
-subObstacle: 128, 0, 64, 64, 736, 328, xRoad, 64, xRoad
-subObstacle: 128, 0, 64, 64, 736, 392, xRoad, 64, xRoad
-subObstacle: 128, 0, 64, 64, 736, 456, xRoad, 64, xRoad
-subObstacle: 128, 0, 64, 64, 736, 520, xRoad, 64, xRoad
-subObstacle: 128, 0, 64, 64, 736, 584, xRoad, 64, xRoad
-subObstacle: 128, 0, 64, 64, 736, 648, xRoad, 64, xRoad
-subObstacle: 128, 0, 64, 64, 736, 712, xRoad, 64, xRoad
-subObstacle: 128, 0, 64, 64, 800, 200, xRoad, 64, xRoad
-subObstacle: 128, 0, 64, 64, 864, 200, xRoad, 64, xRoad
-subObstacle: 128, 0, 64, 64, 928, 200, xRoad, 64, xRoad
-subObstacle: 128, 0, 64, 64, 1056, 200, xRoad, 64, xRoad
-subObstacle: 128, 0, 64, 64, 1120, 200, xRoad, 64, xRoad
-subObstacle: 128, 0, 64, 64, 1184, 200, xRoad, 64, xRoad
-subObstacle: 128, 0, 64, 64, 1248, 200, xRoad, 64, xRoad
-subObstacle: 768, 192, 128, 128, 336, 400, xPond, 128, xPond
-subObstacle: 768, 192, 128, 128, 275, 355, xPond, 128, xPond
-subObstacle: 768, 192, 128, 128, 225, 455, xPond, 128, xPond
-subObstacle: 768, 192, 128, 128, 505, 650, xPond, 128, xPond
-subObstacle: 768, 192, 128, 128, 535, 555, xPond, 128, xPond
-subObstacle: 768, 192, 128, 128, -20, 305, xPond, 128, xPond
-subObstacle: 768, 192, 128, 128, 35, 410, xPond, 128, xPond
-subObstacle: 768, 192, 128, 128, 300, 497, xPond, 128, xPond
-subObstacle: 768, 192, 128, 128, 560, 450, xPond, 128, xPond
-subObstacle: 768, 192, 128, 128, 505, 650, xPond, 128, xPond
-subObstacle: 768, 192, 128, 128, 535, 555, xPond, 128, xPond
-subObstacle: 768, 192, 128, 128, -20, 305, xPond, 128, xPond
-subObstacle: 896, 64, 128, 128, 400, 168, robotSentry, 128, robotSentry
-subObstacle: 896, 64, 128, 128, 592, 168, robotSentry, 128, robotSentry
-subObstacle: 896, 64, 128, 128, 864, 64, robotSentry, 128, robotSentry
-subObstacle: 896, 64, 128, 128, 1056, 64, robotSentry, 128, robotSentry
-subObstacle: 896, 64, 128, 128, 250, 64, robotSentry, 128, robotSentry
-subObstacle: 896, 64, 128, 128, 864, 275, robotSentry, 128, robotSentry
-subObstacle: 896, 64, 128, 128, 1056, 275, robotSentry, 128, robotSentry
-subObstacle: 96, 224, 16, 16, 0, 445, lightGreyKey, 16, lightGreyKey
-subObstacle: 96, 224, 16, 16, 400, 140, lightGreyKey, 16, lightGreyKey
-subObstacle: 96, 224, 16, 16, 1240, 155, lightGreyKey, 16, lightGreyKey
-subObstacle: 96, 224, 16, 16, 820, 495, lightGreyKey, 16, lightGreyKey
-subObstacle: 96, 224, 16, 16, 365, 315, lightGreyKey, 16, lightGreyKey
-subObstacle: 112, 224, 16, 16, 825, 165, darkGreyKey, 16, darkGreyKey
-subObstacle: 112, 224, 16, 16, 650, 695, darkGreyKey, 16, darkGreyKey
-subObstacle: 112, 224, 16, 16, 415, 370, darkGreyKey, 16, darkGreyKey
-subObstacle: 112, 224, 16, 16, 875, 675, darkGreyKey, 16, darkGreyKey
-subObstacle: 112, 224, 16, 16, 1230, 665, darkGreyKey, 16, darkGreyKey
-subObstacle: 128, 224, 16, 16, 1125, 475, silverKey, 16, silverKey
-subObstacle: 128, 224, 16, 16, 125, 380, silverKey, 16, silverKey
-subObstacle: 128, 224, 16, 16, 1250, 280, silverKey, 16, silverKey
-subObstacle: 128, 224, 16, 16, 610, 425, silverKey, 16, silverKey
+subObstacle: 128, 0, 64, 64, 0, 200, xRoad, 64, xRoadR
+subObstacle: 128, 0, 64, 64, 64, 200, xRoad, 64, xRoadR
+subObstacle: 128, 0, 64, 64, 128, 200, xRoad, 64, xRoadR
+subObstacle: 128, 0, 64, 64, 192, 200, xRoad, 64, xRoadR
+subObstacle: 128, 0, 64, 64, 256, 200, xRoad, 64, xRoadR
+subObstacle: 128, 0, 64, 64, 320, 200, xRoad, 64, xRoadR
+subObstacle: 128, 0, 64, 64, 736, 200, xRoad, 64, xRoadR
+subObstacle: 128, 0, 64, 64, 736, 264, xRoad, 64, xRoadR
+subObstacle: 128, 0, 64, 64, 736, 328, xRoad, 64, xRoadR
+subObstacle: 128, 0, 64, 64, 736, 392, xRoad, 64, xRoadR
+subObstacle: 128, 0, 64, 64, 736, 456, xRoad, 64, xRoadR
+subObstacle: 128, 0, 64, 64, 736, 520, xRoad, 64, xRoadR
+subObstacle: 128, 0, 64, 64, 736, 584, xRoad, 64, xRoadR
+subObstacle: 128, 0, 64, 64, 736, 648, xRoad, 64, xRoadR
+subObstacle: 128, 0, 64, 64, 736, 712, xRoad, 64, xRoadR
+subObstacle: 128, 0, 64, 64, 800, 200, xRoad, 64, xRoadR
+subObstacle: 128, 0, 64, 64, 864, 200, xRoad, 64, xRoadR
+subObstacle: 128, 0, 64, 64, 928, 200, xRoad, 64, xRoadR
+subObstacle: 128, 0, 64, 64, 1056, 200, xRoad, 64, xRoadR
+subObstacle: 128, 0, 64, 64, 1120, 200, xRoad, 64, xRoadR
+subObstacle: 128, 0, 64, 64, 1184, 200, xRoad, 64, xRoadR
+subObstacle: 128, 0, 64, 64, 1248, 200, xRoad, 64, xRoadR
+subObstacle: 768, 192, 128, 128, 336, 400, xPond, 128, xPondR
+subObstacle: 768, 192, 128, 128, 275, 355, xPond, 128, xPondR
+subObstacle: 768, 192, 128, 128, 225, 455, xPond, 128, xPondR
+subObstacle: 768, 192, 128, 128, 505, 650, xPond, 128, xPondR
+subObstacle: 768, 192, 128, 128, 535, 555, xPond, 128, xPondR
+subObstacle: 768, 192, 128, 128, -20, 305, xPond, 128, xPondR
+subObstacle: 768, 192, 128, 128, 35, 410, xPond, 128, xPondR
+subObstacle: 768, 192, 128, 128, 300, 497, xPond, 128, xPondR
+subObstacle: 768, 192, 128, 128, 560, 450, xPond, 128, xPondR
+subObstacle: 768, 192, 128, 128, 505, 650, xPond, 128, xPondR
+subObstacle: 768, 192, 128, 128, 535, 555, xPond, 128, xPondR
+subObstacle: 768, 192, 128, 128, -20, 305, xPond, 128, xPondR
+subObstacle: 896, 64, 128, 128, 400, 168, robotSentry, 128, robotSentryR
+subObstacle: 896, 64, 128, 128, 592, 168, robotSentry, 128, robotSentryR
+subObstacle: 896, 64, 128, 128, 864, 64, robotSentry, 128, robotSentryR
+subObstacle: 896, 64, 128, 128, 1056, 64, robotSentry, 128, robotSentryR
+subObstacle: 896, 64, 128, 128, 250, 64, robotSentry, 128, robotSentryR
+subObstacle: 896, 64, 128, 128, 864, 275, robotSentry, 128, robotSentryR
+subObstacle: 896, 64, 128, 128, 1056, 275, robotSentry, 128, robotSentryR
+subObstacle: 96, 224, 16, 16, 0, 445, lightGreyKey, 16, lightGreyKeyR
+subObstacle: 96, 224, 16, 16, 400, 140, lightGreyKey, 16, lightGreyKeyR
+subObstacle: 96, 224, 16, 16, 1240, 155, lightGreyKey, 16, lightGreyKeyR
+subObstacle: 96, 224, 16, 16, 820, 495, lightGreyKey, 16, lightGreyKeyR
+subObstacle: 96, 224, 16, 16, 365, 315, lightGreyKey, 16, lightGreyKeyR
+subObstacle: 112, 224, 16, 16, 825, 165, darkGreyKey, 16, darkGreyKeyR
+subObstacle: 112, 224, 16, 16, 650, 695, darkGreyKey, 16, darkGreyKeyR
+subObstacle: 112, 224, 16, 16, 415, 370, darkGreyKey, 16, darkGreyKeyR
+subObstacle: 112, 224, 16, 16, 875, 675, darkGreyKey, 16, darkGreyKeyR
+subObstacle: 112, 224, 16, 16, 1230, 665, darkGreyKey, 16, darkGreyKeyR
+subObstacle: 128, 224, 16, 16, 1125, 475, silverKey, 16, silverKeyR
+subObstacle: 128, 224, 16, 16, 125, 380, silverKey, 16, silverKeyR
+subObstacle: 128, 224, 16, 16, 1250, 280, silverKey, 16, silverKeyR
+subObstacle: 128, 224, 16, 16, 610, 425, silverKey, 16, silverKeyR
 
 #drawAnimation: delay, isLooping, drawX, drawY, tagName, numSprites
 drawAnimation: 120, true, 25, 120, jumpBot, 19
 
 #black button
-hudSubObstacle: 64, 224, 16, 16, 0, 0, black_button, 16, black_button
+hudSubObstacle: 64, 224, 16, 16, 0, 0, black_button, 16, black_buttonR
 #red button
-hudSubObstacle: 80, 224, 16, 16, 0, 0, red_button, 16, red_button
+hudSubObstacle: 80, 224, 16, 16, 0, 0, red_button, 16, red_buttonR
 #yellow button
-hudSubObstacle: 144, 224, 16, 16, 0, 0, yellow_button, 16, yellow_button
+hudSubObstacle: 144, 224, 16, 16, 0, 0, yellow_button, 16, yellow_buttonR
 
 #subGoal: bufX, bufY, width, height, x, y, spriteTag, spriteSize, RECTTag
 subGoal: 896, 192, 128, 128, 30, 40, Hero?, 128, Hero?
 
 #itemGoal: bufX, bufY, width, height, x, y, spriteTag, spriteSize, RECTtag
-itemGoal: 128, 224, 16, 16, 1180, 605, silverKey, 16, silverKey
+itemGoal: 128, 224, 16, 16, 1180, 605, silverKey, 16, silver key
 
 #obstacle: x, y, spriteTag, spriteSize, RECTTag
 
@@ -80,7 +80,7 @@ itemGoal: 128, 224, 16, 16, 1180, 605, silverKey, 16, silverKey
 subImage: 256, 64, 128, 128, planetX_tile
 
 #hudSubImage: bufX, bufY, width, height, spriteTag
-hudSubImage: 0, 240, 256, 256, game_hud3
+hudSubImage: 0, 240, 256, 256, game_hud
 
 #backBufferSprite: bufX, bufY, width, height, spriteTag
 # mouse cursor

@@ -1,82 +1,80 @@
 #show_sprite: x, y, tag
 
 #subObstacle: bufX, bufY, width, height, x, y, spriteTag, spriteSize, RECTTag
-subObstacle: 0, 0, 64, 64, 600, 300, bush, 64, bush
-subObstacle: 0, 0, 64, 64, 600, 364, bush, 64, bush
-subObstacle: 0, 0, 64, 64, 600, 428, bush, 64, bush
-subObstacle: 0, 0, 64, 64, 664, 428, bush, 64, bush
-subObstacle: 0, 0, 64, 64, 1000, -14, bush, 64, bush
-subObstacle: 0, 0, 64, 64, 1000, 50, bush, 64, bush
-subObstacle: 0, 0, 64, 64, 1000, 114, bush, 64, bush
-subObstacle: 0, 0, 64, 64, 1000, 178, bush, 64, bush
-subObstacle: 0, 0, 64, 64, 1130, 250, bush, 64, bush
-subObstacle: 0, 0, 64, 64, 1194, 250, bush, 64, bush
-subObstacle: 0, 0, 64, 64, 1258, 250, bush, 64, bush
-subObstacle: 0, 0, 64, 64, 728, 428, bush, 64, bush
-subObstacle: 0, 0, 64, 64, 728, 492, bush, 64, bush
-subObstacle: 0, 0, 64, 64, 728, 556, bush, 64, bush
-subObstacle: 0, 0, 64, 64, 728, 620, bush, 64, bush
-subObstacle: 0, 0, 64, 64, 728, 684, bush, 64, bush
-subObstacle: 0, 0, 64, 64, 475, 0, bush, 64, bush
-subObstacle: 0, 0, 64, 64, 475, 64, bush, 64, bush
-subObstacle: 0, 0, 64, 64, 475, 128, bush, 64, bush
-subObstacle: 0, 0, 64, 64, 539, 128, bush, 64, bush
-subObstacle: 0, 0, 64, 64, 603, 128, bush, 64, bush
-subObstacle: 0, 0, 64, 64, 200, 415, bush, 64, bush
-subObstacle: 0, 0, 64, 64, 200, 479, bush, 64, bush
-subObstacle: 0, 0, 64, 64, 200, 543, bush, 64, bush
-subObstacle: 0, 0, 64, 64, 200, 607, bush, 64, bush
-subObstacle: 0, 0, 64, 64, 264, 607, bush, 64, bush
-subObstacle: 0, 0, 64, 64, 328, 607, bush, 64, bush
-subObstacle: 0, 0, 64, 64, 392, 607, bush, 64, bush
-subObstacle: 512, 64, 128, 128, 360, 275, pond1, 128, pond1
-subObstacle: 512, 64, 128, 128, 385, 375, pond1, 128, pond1
-subObstacle: 512, 64, 128, 128, 305, 220, pond1, 128, pond1
-subObstacle: 512, 64, 128, 128, 985, 435, pond1, 128, pond1
-subObstacle: 512, 64, 128, 128, 920, 465, pond1, 128, pond1
-subObstacle: 512, 64, 128, 128, 1015, 535, pond1, 128, pond1
-subObstacle: 512, 64, 128, 128, 1090, 470, pond1, 128, pond1
+subObstacle: 0, 0, 64, 64, 600, 300, bush, 64, bushR
+subObstacle: 0, 0, 64, 64, 600, 364, bush, 64, bushR
+subObstacle: 0, 0, 64, 64, 600, 428, bush, 64, bushR
+subObstacle: 0, 0, 64, 64, 664, 428, bush, 64, bushR
+subObstacle: 0, 0, 64, 64, 1000, -14, bush, 64, bushR
+subObstacle: 0, 0, 64, 64, 1000, 50, bush, 64, bushR
+subObstacle: 0, 0, 64, 64, 1000, 114, bush, 64, bushR
+subObstacle: 0, 0, 64, 64, 1000, 178, bush, 64, bushR
+subObstacle: 0, 0, 64, 64, 1130, 250, bush, 64, bushR
+subObstacle: 0, 0, 64, 64, 1194, 250, bush, 64, bushR
+subObstacle: 0, 0, 64, 64, 1258, 250, bush, 64, bushR
+subObstacle: 0, 0, 64, 64, 728, 428, bush, 64, bushR
+subObstacle: 0, 0, 64, 64, 728, 492, bush, 64, bushR
+subObstacle: 0, 0, 64, 64, 728, 556, bush, 64, bushR
+subObstacle: 0, 0, 64, 64, 728, 620, bush, 64, bushR
+subObstacle: 0, 0, 64, 64, 728, 684, bush, 64, bushR
+subObstacle: 0, 0, 64, 64, 475, 0, bush, 64, bushR
+subObstacle: 0, 0, 64, 64, 475, 64, bush, 64, bushR
+subObstacle: 0, 0, 64, 64, 475, 128, bush, 64, bushR
+subObstacle: 0, 0, 64, 64, 539, 128, bush, 64, bushR
+subObstacle: 0, 0, 64, 64, 603, 128, bush, 64, bushR
+subObstacle: 0, 0, 64, 64, 200, 415, bush, 64, bushR
+subObstacle: 0, 0, 64, 64, 200, 479, bush, 64, bushR
+subObstacle: 0, 0, 64, 64, 200, 543, bush, 64, bushR
+subObstacle: 0, 0, 64, 64, 200, 607, bush, 64, bushR
+subObstacle: 0, 0, 64, 64, 264, 607, bush, 64, bushR
+subObstacle: 0, 0, 64, 64, 328, 607, bush, 64, bushR
+subObstacle: 0, 0, 64, 64, 392, 607, bush, 64, bushR
+subObstacle: 512, 64, 128, 128, 360, 275, pond, 128, pondR
+subObstacle: 512, 64, 128, 128, 385, 375, pond, 128, pondR
+subObstacle: 512, 64, 128, 128, 305, 220, pond, 128, pondR
+subObstacle: 512, 64, 128, 128, 985, 435, pond, 128, pondR
+subObstacle: 512, 64, 128, 128, 920, 465, pond, 128, pondR
+subObstacle: 512, 64, 128, 128, 1015, 535, pond, 128, pondR
+subObstacle: 512, 64, 128, 128, 1090, 470, pond, 128, pondR
 subObstacle: 384, 64, 128, 128, -20, -20, tree, 128, tree
 subObstacle: 384, 64, 128, 128, 100, 30, tree, 128, tree
 subObstacle: 384, 64, 128, 128, 40, 85, tree, 128, tree
 subObstacle: 384, 64, 128, 128, 780, 160, tree, 128, tree
 subObstacle: 384, 64, 128, 128, 1115, 520, tree, 128, tree
-subObstacle: 32, 224, 16, 16, 900, 600, redKey, 16, redKey
-subObstacle: 32, 224, 16, 16, 60, 375, redKey, 16, redKey
-subObstacle: 32, 224, 16, 16, 845, 15, redKey, 16, redKey
-subObstacle: 16, 224, 16, 16, 610, 70, blueKey, 16, blueKey
-subObstacle: 16, 224, 16, 16, 270, 30, blueKey, 16, blueKey
-subObstacle: 16, 224, 16, 16, 1215, 435, blueKey, 16, blueKey
-subObstacle: 48, 224, 16, 16, 200, 200, greenKey, 16, greenKey
-subObstacle: 48, 224, 16, 16, 680, 400, greenKey, 16, greenKey
+subObstacle: 32, 224, 16, 16, 900, 600, redKey, 16, redKeyR
+subObstacle: 32, 224, 16, 16, 60, 375, redKey, 16, redKeyR
+subObstacle: 32, 224, 16, 16, 845, 15, redKey, 16, redKeyR
+subObstacle: 16, 224, 16, 16, 610, 70, blueKey, 16, blueKeyR
+subObstacle: 16, 224, 16, 16, 270, 30, blueKey, 16, blueKeyR
+subObstacle: 16, 224, 16, 16, 1215, 435, blueKey, 16, blueKeyR
+subObstacle: 48, 224, 16, 16, 200, 200, greenKey, 16, greenKeyR
+subObstacle: 48, 224, 16, 16, 680, 400, greenKey, 16, greenKeyR
 
 #drawAnimation: delay, isLooping, drawX, drawY, tagName, numSprites
 drawAnimation: 120, true, 1175, 145, jumpBot, 19
 
 #hudSubObstacle: bufX, bufY, width, height, x, y, spriteTag, spriteSize, RECTTag
 #black button
-hudSubObstacle: 64, 224, 16, 16, 0, 0, black_button, 16, black_button
+hudSubObstacle: 64, 224, 16, 16, 0, 0, black_button, 16, black_buttonR
 #red button
-hudSubObstacle: 80, 224, 16, 16, 0, 0, red_button, 16, red_button
+hudSubObstacle: 80, 224, 16, 16, 0, 0, red_button, 16, red_buttonR
 #yellow button
-hudSubObstacle: 144, 224, 16, 16, 0, 0, yellow_button, 16, yellow_button
+hudSubObstacle: 144, 224, 16, 16, 0, 0, yellow_button, 16, yellow_buttonR
 
 #subGoal: bufX, bufY, width, height, x, y, spriteTag, spriteSize, RECTTag
 subGoal: 384, 64, 128, 128, 1100, 65, Ancient Tree, 128, Ancient Tree
 
 #itemGoal: bufX, bufY, width, height, x, y, spriteTag, spriteSize, RECTtag
-itemGoal: 48, 224, 16, 16, 610, 610, greenKey, 16, greenKey
+itemGoal: 48, 224, 16, 16, 610, 610, greenKey, 16, green key
 
 #obstacle: x, y, spriteTag, spriteSize, RECTTag
 
 #subImage: bufX, bufY, width, height, spriteTag
 # grass tile
 subImage: 0, 64, 128, 128, grass_tile
-# mouse cursor
-#subImage: 0, 224, 16, 16, robot_cursor
 
 #hudSubImage: bufX, bufY, width, height, spriteTag
-hudSubImage: 0, 240, 256, 256, game_hud3
+hudSubImage: 0, 240, 256, 256, game_hud
 
 #backBufferSprite: bufX, bufY, width, height, spriteTag
 # mouse cursor

@@ -1,1 +1,3 @@
 Art/spriteSheet.png*sheet
+Art/start_screen.png*start
+Art/end_screen.png*end
