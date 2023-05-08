@@ -46,7 +46,6 @@ import timer.stopWatchX;
 public class Main{
 	// Fields (Static) below...
 	public static String coord = "";             //coordinate tool
-	//game variables for save/load
 	private static ArrayList<Animation> animations = new ArrayList<>();
 	private static ArrayList<Integer> buffer = new ArrayList<>();
 	private static ArrayList<String> inventoryList = new ArrayList<>();
@@ -665,8 +664,9 @@ public class Main{
 					saved = false;
 				}
 			}
-		
-			if (showAText) {  //draw animated text
+			
+			//draw animated text
+			if (showAText) {  
 				ctrl.drawString(curX - 25, curY - 15, atext.getCurrentStr(), 
 					Color.white);
 				if (atext.isAnimationDone()) {
