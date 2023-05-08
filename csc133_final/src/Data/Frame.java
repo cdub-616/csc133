@@ -7,6 +7,11 @@ public class Frame {
 	private String spriteTag;
 	
 	//Constructor
+	public Frame() {
+		x = 0;
+		y = 0;
+		spriteTag = "vanilla";
+	}
 	public Frame(int x, int y, String spriteTag) {
 		this.x = x;
 		this.y = y;

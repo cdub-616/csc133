@@ -15,7 +15,9 @@ public class ParticleSystem {
 	private String spriteTags[];
 	
 	//constructor
-	public ParticleSystem(int numParticles, int x, int y, int xrange, int yrange, int minlife, int maxlife, int xmove, int ymove, int mindelay, int maxdelay, String[] spriteTags) {
+	public ParticleSystem(int numParticles, int x, int y, int xrange, 
+		int yrange, int minlife, int maxlife, int xmove, int ymove, 
+		int mindelay, int maxdelay, String[] spriteTags) {
 		this.xrange = xrange;
 		this.yrange = yrange;
 		this.x = x;
@@ -29,11 +31,14 @@ public class ParticleSystem {
 	//methods
 	//init particles
 	//this sets up all of the particles individually in the system
-	private void initParticles(int xmove, int ymove, int mindelay, int maxdelay, int _minlife) {
+	private void initParticles(int xmove, int ymove, int mindelay, int maxdelay,
+		int _minlife) {
 		for (int i = 0; i < particles.length; i++) {
 			int n = spriteTags.length;
 			int index = Particle.getRandomInt(0, n - 1);
-			particles[i] = new Particle(x, x + xrange, y, y + yrange, spriteTags[index], _minlife, maxlife, xmove, ymove, mindelay, maxdelay);
+			particles[i] = new Particle(x, x + xrange, y, y + yrange, 
+				spriteTags[index], _minlife, maxlife, xmove, ymove, mindelay, 
+				maxdelay);
 		}
 		//age them until all are through at least one life cycle...
 		boolean isDone = false;

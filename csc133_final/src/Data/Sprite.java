@@ -10,8 +10,9 @@ import javax.imageio.ImageIO;
 
 import gameloop.Renderer;
 
-/* This will work in tandem with the Sprites.java file in the graphics package. This is a single object of
- * type Sprite. That class will handle the grouping of the type for purposes of game development. */
+/* This will work in tandem with the Sprites.java file in the graphics package. 
+ * This is a single object of type Sprite. That class will handle the grouping 
+ * of the type for purposes of game development. */
 
 public class Sprite implements Runnable{
 	private BufferedImage _image;
@@ -39,7 +40,12 @@ public class Sprite implements Runnable{
 		Thread t = new Thread(this);
 		t.start();
 	}*/
-	
+	public Sprite() {
+		_x = 0;
+		_y = 0;
+		_image = null;
+		_tag = "vanilla";
+	}
 	public Sprite(int x, int y, BufferedImage image, String tag){
 		_image = image;
 		_x = x;

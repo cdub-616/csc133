@@ -1,8 +1,10 @@
 package timer;
 
-/* This is a "hopefully" new and improved stopWatch over the old one based on milliseconds. This one should be a much tighter resolution
- * since it seems to be accurate to no worse than 1.5 uSecs off. It should have the same API calls but have an X at the end of the class name.
- * This method is only needed for animation....NOT for timing game time or longer things like that. */
+/* This is a "hopefully" new and improved stopWatch over the old one based on 
+ * milliseconds. This one should be a much tighter resolution since it seems to 
+ * be accurate to no worse than 1.5 uSecs off. It should have the same API calls
+ * but have an X at the end of the class name. This method is only needed for 
+ * animation....NOT for timing game time or longer things like that. */
  
 public class stopWatchX{
 	// Fields

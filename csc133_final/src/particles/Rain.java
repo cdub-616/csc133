@@ -6,7 +6,8 @@ public class Rain {
 	private String[] spriteTags;
 	
 	//constructor
-	public Rain(int xpos, int ypos, int xrange, int yrange, int minlife, int maxlife, int numparticles) {
+	public Rain(int xpos, int ypos, int xrange, int yrange, int minlife, 
+		int maxlife, int numparticles) {
 		spriteTags = new String[5];
 		spriteTags[0] = "raindrop1";
 		spriteTags[1] = "raindrop2";
@@ -15,7 +16,8 @@ public class Rain {
 		spriteTags[4] = "raindrop5";
 		int xspeed = 6;
 		int yspeed = 16;
-		parts = new ParticleSystem(numparticles, xpos, ypos, xrange, yrange, minlife, maxlife, xspeed, yspeed, 16, 18, spriteTags);
+		parts = new ParticleSystem(numparticles, xpos, ypos, xrange, yrange, 
+			minlife, maxlife, xspeed, yspeed, 16, 18, spriteTags);
 	}
 	
 	//methods

@@ -30,7 +30,8 @@ public class Sound {
 			_clip.stop();
 		} catch (Exception e){
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Audio not detected or audio problem... Exiting.");  //$NON-NLS-1$
+			JOptionPane.showMessageDialog(null, "Audio not detected or audio "
+				+ "problem... Exiting.");  //$NON-NLS-1$
 			System.exit(0);
 		}
 	}
