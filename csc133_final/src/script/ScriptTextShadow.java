@@ -24,5 +24,4 @@ public class ScriptTextShadow {
 	public ScriptText getShadow() {
 		return shadow;
 	}
-
 }

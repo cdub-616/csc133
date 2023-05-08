@@ -4,10 +4,10 @@ import Data.RECT;
 
 public class ScriptRectTextHover {
 	//fields
-	RECT rect;
-	ScriptTextShadow shadText;
-	ScriptText sText;
-	int shadow;
+	private RECT rect;
+	private ScriptTextShadow shadText;
+	private ScriptText sText;
+	private int shadow;
 	
 	//constructors
 	public ScriptRectTextHover() {
@@ -17,13 +17,14 @@ public class ScriptRectTextHover {
 		shadow = 0;
 	}
 	
-	public ScriptRectTextHover(RECT rect, int shadow, ScriptTextShadow shadText) { //with shadow
+	public ScriptRectTextHover(RECT rect, int shadow, ScriptTextShadow shadText)
+		{ //with shadow
 		this.rect = rect;
 		this.shadText = shadText;
 		this.shadow = shadow;
 	}
 	
-	public ScriptRectTextHover(RECT rect, ScriptText sText) {      //without shadow
+	public ScriptRectTextHover(RECT rect, ScriptText sText) {   //without shadow
 		this.rect = rect;
 		this.sText = sText;
 	}

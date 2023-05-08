@@ -1,0 +1,142 @@
+#show_sprite: x, y, tag
+
+#subObstacle: bufX, bufY, width, height, x, y, spriteTag, spriteSize, RECTTag
+subObstacle: 0, 0, 64, 64, 600, 300, bush, 64, bushR
+subObstacle: 0, 0, 64, 64, 600, 364, bush, 64, bushR
+subObstacle: 0, 0, 64, 64, 600, 428, bush, 64, bushR
+subObstacle: 0, 0, 64, 64, 664, 428, bush, 64, bushR
+subObstacle: 0, 0, 64, 64, 1000, -14, bush, 64, bushR
+subObstacle: 0, 0, 64, 64, 1000, 50, bush, 64, bushR
+subObstacle: 0, 0, 64, 64, 1000, 114, bush, 64, bushR
+subObstacle: 0, 0, 64, 64, 1000, 178, bush, 64, bushR
+subObstacle: 0, 0, 64, 64, 1130, 250, bush, 64, bushR
+subObstacle: 0, 0, 64, 64, 1194, 250, bush, 64, bushR
+subObstacle: 0, 0, 64, 64, 1258, 250, bush, 64, bushR
+subObstacle: 0, 0, 64, 64, 728, 428, bush, 64, bushR
+subObstacle: 0, 0, 64, 64, 728, 492, bush, 64, bushR
+subObstacle: 0, 0, 64, 64, 728, 556, bush, 64, bushR
+subObstacle: 0, 0, 64, 64, 728, 620, bush, 64, bushR
+subObstacle: 0, 0, 64, 64, 728, 684, bush, 64, bushR
+subObstacle: 0, 0, 64, 64, 475, 0, bush, 64, bushR
+subObstacle: 0, 0, 64, 64, 475, 64, bush, 64, bushR
+subObstacle: 0, 0, 64, 64, 475, 128, bush, 64, bushR
+subObstacle: 0, 0, 64, 64, 539, 128, bush, 64, bushR
+subObstacle: 0, 0, 64, 64, 603, 128, bush, 64, bushR
+subObstacle: 0, 0, 64, 64, 200, 415, bush, 64, bushR
+subObstacle: 0, 0, 64, 64, 200, 479, bush, 64, bushR
+subObstacle: 0, 0, 64, 64, 200, 543, bush, 64, bushR
+subObstacle: 0, 0, 64, 64, 200, 607, bush, 64, bushR
+subObstacle: 0, 0, 64, 64, 264, 607, bush, 64, bushR
+subObstacle: 0, 0, 64, 64, 328, 607, bush, 64, bushR
+subObstacle: 0, 0, 64, 64, 392, 607, bush, 64, bushR
+subObstacle: 512, 64, 128, 128, 360, 275, pond, 128, pondR
+subObstacle: 512, 64, 128, 128, 385, 375, pond, 128, pondR
+subObstacle: 512, 64, 128, 128, 305, 220, pond, 128, pondR
+subObstacle: 512, 64, 128, 128, 985, 435, pond, 128, pondR
+subObstacle: 512, 64, 128, 128, 920, 465, pond, 128, pondR
+subObstacle: 512, 64, 128, 128, 1015, 535, pond, 128, pondR
+subObstacle: 512, 64, 128, 128, 1090, 470, pond, 128, pondR
+subObstacle: 384, 64, 128, 128, -20, -20, tree, 128, tree
+subObstacle: 384, 64, 128, 128, 100, 30, tree, 128, tree
+subObstacle: 384, 64, 128, 128, 40, 85, tree, 128, tree
+subObstacle: 384, 64, 128, 128, 780, 160, tree, 128, tree
+subObstacle: 384, 64, 128, 128, 1115, 520, tree, 128, tree
+subObstacle: 32, 224, 16, 16, 900, 600, redKey, 16, redKeyR
+subObstacle: 32, 224, 16, 16, 60, 375, redKey, 16, redKeyR
+subObstacle: 32, 224, 16, 16, 845, 15, redKey, 16, redKeyR
+subObstacle: 16, 224, 16, 16, 610, 70, blueKey, 16, blueKeyR
+subObstacle: 16, 224, 16, 16, 270, 30, blueKey, 16, blueKeyR
+subObstacle: 16, 224, 16, 16, 1215, 435, blueKey, 16, blueKeyR
+subObstacle: 48, 224, 16, 16, 200, 200, greenKey, 16, greenKeyR
+subObstacle: 48, 224, 16, 16, 680, 400, greenKey, 16, greenKeyR
+
+#drawAnimation: delay, isLooping, drawX, drawY, tagName, numSprites
+drawAnimation: 120, true, 1175, 145, jumpBot, 19
+
+#hudSubObstacle: bufX, bufY, width, height, x, y, spriteTag, spriteSize, RECTTag
+#black button
+hudSubObstacle: 64, 224, 16, 16, 0, 0, black_button, 16, black_buttonR
+#red button
+hudSubObstacle: 80, 224, 16, 16, 0, 0, red_button, 16, red_buttonR
+#yellow button
+hudSubObstacle: 144, 224, 16, 16, 0, 0, yellow_button, 16, yellow_buttonR
+
+#subGoal: bufX, bufY, width, height, x, y, spriteTag, spriteSize, RECTTag
+subGoal: 384, 64, 128, 128, 1100, 65, Ancient Tree, 128, Ancient Tree
+
+#itemGoal: bufX, bufY, width, height, x, y, spriteTag, spriteSize, RECTtag
+itemGoal: 48, 224, 16, 16, 610, 610, greenKey, 16, green key
+
+#obstacle: x, y, spriteTag, spriteSize, RECTTag
+
+#subImage: bufX, bufY, width, height, spriteTag
+# grass tile
+subImage: 0, 64, 128, 128, grass_tile
+
+#hudSubImage: bufX, bufY, width, height, spriteTag
+hudSubImage: 0, 240, 256, 256, game_hud
+
+#backBufferSprite: bufX, bufY, width, height, spriteTag
+# mouse cursor
+backBufferSprite: 0, 224, 16, 16, robot_cursor
+#for robot animation
+backBufferSprite: 0, 192, 32, 32, robDown0
+backBufferSprite: 32, 192, 32, 32, robDown1
+backBufferSprite: 64, 192, 32, 32, robDown2
+backBufferSprite: 96, 192, 32, 32, robDown3
+backBufferSprite: 128, 192, 32, 32, robUp0
+backBufferSprite: 160, 192, 32, 32, robUp1
+backBufferSprite: 192, 192, 32, 32, robUp2
+backBufferSprite: 224, 192, 32, 32, robUp3
+backBufferSprite: 256, 192, 32, 32, robRight0
+backBufferSprite: 288, 192, 32, 32, robRight1
+backBufferSprite: 320, 192, 32, 32, robLeft0
+backBufferSprite: 352, 192, 32, 32, robLeft1
+#for particle animation
+backBufferSprite: 160, 224, 16, 16, shiny1
+backBufferSprite: 176, 224, 16, 16, shiny2
+backBufferSprite: 192, 224, 16, 16, shiny3
+backBufferSprite: 208, 224, 16, 16, shiny4
+backBufferSprite: 224, 224, 16, 16, shiny5
+backBufferSprite: 240, 224, 16, 16, shiny6
+backBufferSprite: 256, 224, 16, 16, shiny7
+#for graphical hover
+backBufferSprite: 272, 224, 16, 16, gHover_button
+#for jumpBot animation
+backBufferSprite: 0, 496, 64, 64, jumpBot0
+backBufferSprite: 64, 496, 64, 64, jumpBot1
+backBufferSprite: 128, 496, 64, 64, jumpBot2
+backBufferSprite: 192, 496, 64, 64, jumpBot3
+backBufferSprite: 256, 496, 64, 64, jumpBot4
+backBufferSprite: 320, 496, 64, 64, jumpBot5
+backBufferSprite: 384, 496, 64, 64, jumpBot6
+backBufferSprite: 448, 496, 64, 64, jumpBot7
+backBufferSprite: 512, 496, 64, 64, jumpBot8
+backBufferSprite: 576, 496, 64, 64, jumpBot9
+backBufferSprite: 0, 560, 64, 64, jumpBot10
+backBufferSprite: 64, 560, 64, 64, jumpBot11
+backBufferSprite: 128, 560, 64, 64, jumpBot12
+backBufferSprite: 192, 560, 64, 64, jumpBot13
+backBufferSprite: 256, 560, 64, 64, jumpBot14
+backBufferSprite: 320, 560, 64, 64, jumpBot15
+backBufferSprite: 384, 560, 64, 64, jumpBot16
+backBufferSprite: 448, 560, 64, 64, jumpBot17
+backBufferSprite: 512, 560, 64, 64, jumpBot18
+
+#start: x, y
+start: 50, 650
+
+#text: display, x, y, red, green, blue
+
+#shadowtext: display, x, y, red, green, blue, shadowOffset, shadowRed, shadowGreen, shadowBlue
+
+#rect_texthover: x1, y1, x2, y2, tag, label, labelRed, labelGreen, labelBlue, shadowOffset, shadowRed, shadowGreen, shadowBlue
+
+#animation: delay, isLooping, step
+animation: 100, false, 10
+
+#sound: fileName
+sound: Sound/game_music.wav
+sound: Sound/back_to_start_fx.wav
+sound: Sound/finish_fx.wav
+sound: Sound/gotIt_fx.wav
