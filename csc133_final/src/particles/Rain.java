@@ -29,6 +29,16 @@ public class Rain {
 			int life = pa[i].getLifeCycle();
 			int range = life / stages;
 			int age = pa[i].getAge();
+			int minX = pa[i].getMinX();
+			int minY = pa[i].getMinY();
+			int maxX = pa[i].getMaxX();
+			int maxY = pa[i].getMaxY();
+			if (age == 0) {
+				int newX = Particle.getRandomInt(minX, maxX);
+				int newY = Particle.getRandomInt(minY, maxY);
+				pa[i].changeX(newX);
+				pa[i].changeY(newY);
+			}
 			for (int j = 0; j < stages; j++) {
 				if (age >= (range * j) && age < (range * (j + 1))) {
 					pa[i].changeSprite(spriteTags[j]);
